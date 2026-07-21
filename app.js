@@ -211,12 +211,14 @@ function listenToCloud() {
       saveLocal(LS_KEY_TOPICS, topicStatus);
     }
     if (data.examDate !== undefined) {
-      examDate = data.examDate || null;
-      saveLocal(LS_KEY_EXAMDATE, examDate);
-      const examInput = document.getElementById('examDateInput');
-      if (examInput) examInput.value = examDate || '';
-      updateCountdown();
+      examDate = data.examDate ? data.examDate : null;
+    } else {
+      examDate = null;
     }
+    saveLocal(LS_KEY_EXAMDATE, examDate);
+    const examInput = document.getElementById('examDateInput');
+    if (examInput) examInput.value = examDate || '';
+    updateCountdown();
     if (data.scoreLog !== undefined) {
       scoreLog = Array.isArray(data.scoreLog) ? data.scoreLog : (data.scoreLog ? Object.values(data.scoreLog) : []);
       saveLocal(LS_KEY_SCORES, scoreLog);
@@ -402,10 +404,11 @@ function updateCountdown() {
 function resetExamDate() {
   if (!confirm('ต้องการรีเซ็ตวันสอบใช่ไหม?')) return;
   examDate = null;
-  saveAll(LS_KEY_EXAMDATE, null);
-  document.getElementById('examDateInput').value = '';
+  saveAll(LS_KEY_EXAMDATE, '');
+  const examInput = document.getElementById('examDateInput');
+  if (examInput) examInput.value = '';
   updateCountdown();
-  showToast('🗑 รีเซ็ตวันสอบแล้ว');
+  showToast('🗑 รีเซ็ตวันสอบเรียบร้อย');
 }
 
 // ======================================================
