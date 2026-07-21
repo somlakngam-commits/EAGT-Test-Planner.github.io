@@ -206,28 +206,27 @@ function listenToCloud() {
 
     isSyncing = true;
 
-    if (data.topicStatus) {
-      topicStatus = data.topicStatus;
+    if (data.topicStatus !== undefined) {
+      topicStatus = data.topicStatus || {};
       saveLocal(LS_KEY_TOPICS, topicStatus);
     }
     if (data.examDate !== undefined) {
-      examDate = data.examDate;
+      examDate = data.examDate || null;
       saveLocal(LS_KEY_EXAMDATE, examDate);
-      if (examDate) {
-        document.getElementById('examDateInput').value = examDate;
-        updateCountdown();
-      }
+      const examInput = document.getElementById('examDateInput');
+      if (examInput) examInput.value = examDate || '';
+      updateCountdown();
     }
-    if (data.scoreLog) {
-      scoreLog = Array.isArray(data.scoreLog) ? data.scoreLog : Object.values(data.scoreLog);
+    if (data.scoreLog !== undefined) {
+      scoreLog = Array.isArray(data.scoreLog) ? data.scoreLog : (data.scoreLog ? Object.values(data.scoreLog) : []);
       saveLocal(LS_KEY_SCORES, scoreLog);
     }
-    if (data.dayDone) {
-      dayDone = data.dayDone;
+    if (data.dayDone !== undefined) {
+      dayDone = data.dayDone || {};
       saveLocal(LS_KEY_DAY_DONE, dayDone);
     }
-    if (data.watchedVideos) {
-      watchedVideos = data.watchedVideos;
+    if (data.watchedVideos !== undefined) {
+      watchedVideos = data.watchedVideos || {};
       saveLocal(LS_KEY_WATCHED_VIDEOS, watchedVideos);
     }
 
@@ -744,8 +743,21 @@ function activateSyncCode(code) {
   bar.style.display = 'flex';
   setSyncStatus('offline');
   listenToCloud();
+
+  if (dbRef) {
+    dbRef.once('value').then(snapshot => {
+      if (!snapshot.exists()) {
+        saveAll(LS_KEY_TOPICS, topicStatus);
+        saveAll(LS_KEY_EXAMDATE, examDate);
+        saveAll(LS_KEY_SCORES, scoreLog);
+        saveAll(LS_KEY_DAY_DONE, dayDone);
+        saveAll(LS_KEY_WATCHED_VIDEOS, watchedVideos);
+      }
+    }).catch(e => console.warn('Cloud check error:', e));
+  }
+
   hideSyncModal();
-  showToast(`🔗 Sync Code: ${syncCode} — เชื่อมต่อแล้ว!`);
+  showToast(`🔗 Sync Code: ${syncCode} — เชื่อมต่อสำเร็จ!`);
 }
 
 function skipSync() {
@@ -831,15 +843,21 @@ function init() {
 
   // ---- Exam date ----
   const examInput = document.getElementById('examDateInput');
-  if (examDate) examInput.value = examDate;
-  document.getElementById('setExamDateBtn').addEventListener('click', () => {
-    if (examInput.value) {
+  if (examDate && examInput) examInput.value = examDate;
+
+  const saveAndSyncExamDate = () => {
+    if (examInput && examInput.value) {
       examDate = examInput.value;
       saveAll(LS_KEY_EXAMDATE, examDate);
       updateCountdown();
-      showToast('📅 บันทึกวันสอบแล้ว!');
+      showToast('📅 บันทึกและซิงค์วันสอบแล้ว!');
     }
-  });
+  };
+
+  const setBtn = document.getElementById('setExamDateBtn');
+  if (setBtn) setBtn.addEventListener('click', saveAndSyncExamDate);
+  if (examInput) examInput.addEventListener('change', saveAndSyncExamDate);
+
   document.getElementById('resetExamDateBtn').addEventListener('click', resetExamDate);
   updateCountdown();
 
