@@ -1635,70 +1635,69 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
    RESPONSIVE — Mobile (≤ 600px)
    ============================================= */
 @media (max-width: 600px) {
-  /* Mobile App Bottom Tab Bar */
+  /* Mobile Sticky Top Header Nav */
   .sticky-nav {
-    position: fixed;
-    top: auto;
-    bottom: 0;
-    left: 0;
-    right: 0;
+    position: sticky;
+    top: 0;
     z-index: 999;
-    background: rgba(8, 14, 28, 0.94);
-    backdrop-filter: blur(24px);
-    -webkit-backdrop-filter: blur(24px);
-    border-top: 1px solid rgba(255, 255, 255, 0.12);
-    border-bottom: none;
-    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.5);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
+    background: rgba(6, 11, 24, 0.94);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
   }
 
   .nav-inner {
-    padding: 6px 8px;
-    justify-content: center;
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-items: stretch;
   }
 
   .nav-logo {
-    display: none;
+    display: block;
+    font-size: 0.92rem;
+    font-weight: 700;
+    text-align: center;
+    color: var(--blue-2);
   }
 
   .nav-links {
     display: flex !important;
-    width: 100%;
-    justify-content: space-around;
-    background: transparent;
-    border: none;
-    padding: 0;
-    box-shadow: none;
-    gap: 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 6px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 999px;
+    border: 1px solid rgba(99, 160, 255, 0.18);
+    scrollbar-width: none;
+    justify-content: flex-start;
   }
+  .nav-links::-webkit-scrollbar { display: none; }
 
   .nav-link {
-    display: flex;
-    flex-direction: column;
+    display: inline-flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
-    padding: 6px 4px;
-    font-size: 0.7rem;
-    gap: 3px;
-    flex: 1;
-    border-radius: 12px;
-    color: var(--text-muted);
-    transition: all 0.2s ease;
+    gap: 5px;
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 999px;
+    color: var(--text-secondary);
   }
 
   .nav-icon {
-    font-size: 1.15rem;
-    transition: transform 0.2s ease;
+    font-size: 0.9rem;
   }
 
   .nav-link.active {
-    color: var(--blue-2);
-    background: rgba(59, 130, 246, 0.14) !important;
-    font-weight: 600;
-  }
-
-  .nav-link.active .nav-icon {
-    transform: translateY(-2px) scale(1.1);
+    background: rgba(59, 130, 246, 0.22) !important;
+    color: #ffffff;
+    font-weight: 700;
   }
 
   /* Hero & Countdown */
@@ -1772,9 +1771,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
     box-sizing: border-box;
   }
 
-  /* Main content padding for bottom nav */
   .main-content {
-    padding-bottom: 96px !important;
+    padding-bottom: 48px !important;
   }
 
   .section {
