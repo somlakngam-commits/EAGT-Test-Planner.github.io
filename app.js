@@ -201,32 +201,33 @@ function listenToCloud() {
 
   dbRef.on('value', snapshot => {
     if (isSyncing) return;
-    const data = snapshot.val();
-    if (!data) return;
+    const data = snapshot.val() || {};
 
     isSyncing = true;
 
-    if (data.topicStatus !== undefined) {
-      topicStatus = data.topicStatus || {};
-      saveLocal(LS_KEY_TOPICS, topicStatus);
-    }
-    if (data.examDate !== undefined) {
-      examDate = data.examDate ? data.examDate : null;
-    } else {
-      examDate = null;
-    }
+    // 1. Exam Date
+    examDate = data.examDate ? data.examDate : null;
     saveLocal(LS_KEY_EXAMDATE, examDate);
     const examInput = document.getElementById('examDateInput');
     if (examInput) examInput.value = examDate || '';
     updateCountdown();
+
+    // 2. Topic Status
+    if (data.topicStatus !== undefined) {
+      topicStatus = data.topicStatus || {};
+      saveLocal(LS_KEY_TOPICS, topicStatus);
+    }
+    // 3. Score Log
     if (data.scoreLog !== undefined) {
       scoreLog = Array.isArray(data.scoreLog) ? data.scoreLog : (data.scoreLog ? Object.values(data.scoreLog) : []);
       saveLocal(LS_KEY_SCORES, scoreLog);
     }
+    // 4. Day Done
     if (data.dayDone !== undefined) {
       dayDone = data.dayDone || {};
       saveLocal(LS_KEY_DAY_DONE, dayDone);
     }
+    // 5. Watched Videos
     if (data.watchedVideos !== undefined) {
       watchedVideos = data.watchedVideos || {};
       saveLocal(LS_KEY_WATCHED_VIDEOS, watchedVideos);
