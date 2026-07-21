@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EGAT 60-Day Study Planner | แผนเตรียมสอบ กฟผ. 60 วัน</title>
+  <meta name="description" content="วางแผนเตรียมสอบการไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.) ระดับปริญญาตรี ติดตามความก้าวหน้าครบทุกวิชา Aptitude Test ใน 60 วัน" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Firebase SDK v9 (compat mode — ใช้งานกับ CDN ได้ทันที) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <!-- Firebase Config (แก้ไขได้ในไฟล์ firebase-config.js) -->
+  <script src="firebase-config.js"></script>
+</head>
+<body>
+  <!-- Background animated particles -->
+  <div class="bg-particles" id="bgParticles"></div>
+
+  <!-- ======= SYNC MODAL ======= -->
+  <div class="sync-overlay" id="syncOverlay">
+    <div class="sync-modal">
+      <div class="sync-modal-icon">☁️</div>
+      <h2 class="sync-modal-title">ตั้งค่า Sync Code</h2>
+      <p class="sync-modal-desc">
+        Sync Code คือรหัสส่วนตัวของคุณ ใช้เพื่อ sync ความก้าวหน้าระหว่างอุปกรณ์
+        <br/>ตั้งรหัสอะไรก็ได้ที่จำได้ง่าย (ภาษาอังกฤษ/ตัวเลข)
+      </p>
+      <input
+        type="text"
+        id="syncCodeInput"
+        class="sync-code-input"
+        placeholder="เช่น MYNAME2025"
+        maxlength="30"
+        autocomplete="off"
+        spellcheck="false"
+      />
+      <p class="sync-modal-warn">⚠️ ต้องตรงกันทุกอุปกรณ์ที่ต้องการ sync</p>
+      <button id="syncCodeConfirmBtn" class="btn-sync-confirm">เริ่มใช้งาน →</button>
+      <p class="sync-modal-skip"><a href="#" id="syncSkipBtn">ข้าม (ใช้เฉพาะเครื่องนี้)</a></p>
+    </div>
+  </div>
+
+  <!-- Sync Status Bar (ด้านบน) -->
+  <div class="sync-bar" id="syncBar" style="display:none;">
+    <span class="sync-bar-dot" id="syncBarDot"></span>
+    <span id="syncBarText">กำลังเชื่อมต่อ...</span>
+    <button class="sync-bar-change" id="syncBarChange">เปลี่ยน Code</button>
+  </div>
+
+  <!-- Header / Hero -->
+  <header class="hero" id="home">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.)</span>
+      </div>
+      <h1 class="hero-title">แผนเตรียมสอบ<br/><span class="gradient-text">60 วัน</span></h1>
+      <p class="hero-subtitle">วางแผนอย่างเป็นระบบ · ติดตามความก้าวหน้า · สอบผ่านอย่างมั่นใจ</p>
+
+      <!-- Countdown -->
+      <div class="countdown-wrapper" id="countdownWrapper">
+        <div class="countdown-label">เหลือเวลาอีก</div>
+        <div class="countdown-boxes">
+          <div class="countdown-box">
+            <span class="countdown-num" id="cdDays">--</span>
+            <span class="countdown-unit">วัน</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-box">
+            <span class="countdown-num" id="cdHours">--</span>
+            <span class="countdown-unit">ชั่วโมง</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-box">
+            <span class="countdown-num" id="cdMins">--</span>
+            <span class="countdown-unit">นาที</span>
+          </div>
+          <div class="countdown-sep">:</div>
+          <div class="countdown-box">
+            <span class="countdown-num" id="cdSecs" style="color:var(--cyan);">--</span>
+            <span class="countdown-unit">วินาที</span>
+          </div>
+        </div>
+        <div class="countdown-setup" id="examSetupArea">
+          <label for="examDateInput">ตั้งวันสอบ:</label>
+          <input type="date" id="examDateInput" />
+          <button id="setExamDateBtn" class="btn-set">บันทึก</button>
+          <button id="resetExamDateBtn" class="btn-reset" title="รีเซ็ตวันสอบ">รีเซ็ต</button>
+        </div>
+      </div>
+
+      <!-- Overall Progress -->
+      <div class="overall-progress-card">
+        <div class="opc-header">
+          <span>ความก้าวหน้าโดยรวม</span>
+          <span class="opc-pct" id="overallPctLabel">0%</span>
+        </div>
+        <div class="opc-bar-track">
+          <div class="opc-bar-fill" id="overallBarFill"></div>
+        </div>
+        <div class="opc-meta">
+          <span id="completedTopics">0 หัวข้อเสร็จแล้ว</span>
+          <span id="totalTopics">จากทั้งหมด 0 หัวข้อ</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Nav -->
+  <nav class="sticky-nav" id="stickyNav">
+    <div class="nav-inner">
+      <span class="nav-logo">📚 EGAT Planner</span>
+      <div class="nav-links">
+        <a href="#subjects" class="nav-link active">วิชาที่สอบ</a>
+        <a href="#planner" class="nav-link">ตารางเรียน</a>
+        <a href="#videos" class="nav-link">วิดีโอเรียน</a>
+        <a href="#progress" class="nav-link">ความก้าวหน้า</a>
+        <a href="#tips" class="nav-link">เคล็ดลับ</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <!-- ===== SUBJECTS SECTION ===== -->
+    <section class="section" id="subjects">
+      <div class="section-header">
+        <div class="section-tag">วิชาที่ต้องสอบ</div>
+        <h2 class="section-title">Aptitude Test กฟผ. ระดับปริญญาตรี</h2>
+        <p class="section-desc">โครงสร้างข้อสอบจากแนวสอบจริง ปี&nbsp;65,&nbsp;68,&nbsp;69 · คะแนนรวม&nbsp;100&nbsp;คะแนน · เวลา&nbsp;2.30&nbsp;ชั่วโมง</p>
+      </div>
+      <div class="subject-grid" id="subjectGrid"></div>
+    </section>
+
+    <!-- ===== PLANNER SECTION ===== -->
+    <section class="section" id="planner">
+      <div class="section-header">
+        <div class="section-tag">ตารางเรียน 60 วัน</div>
+        <h2 class="section-title">แผนการเรียนรายสัปดาห์</h2>
+        <p class="section-desc">แบ่งเนื้อหาเป็น 4 ช่วง · ทบทวนสะสม · ทำข้อสอบเก่า · Mock Test</p>
+      </div>
+      <div class="phase-tabs" id="phaseTabs">
+        <button class="phase-tab active" data-phase="0">Phase 1<br/><small>วันที่ 1-15</small></button>
+        <button class="phase-tab" data-phase="1">Phase 2<br/><small>วันที่ 16-30</small></button>
+        <button class="phase-tab" data-phase="2">Phase 3<br/><small>วันที่ 31-45</small></button>
+        <button class="phase-tab" data-phase="3">Phase 4<br/><small>วันที่ 46-60</small></button>
+      </div>
+      <div class="phase-content" id="phaseContent"></div>
+      <div class="weekly-wrapper">
+        <div class="weekly-header-row">
+          <h3 class="weekly-title">ตารางรายสัปดาห์</h3>
+          <div class="week-nav">
+            <button id="prevWeek" class="week-btn">‹</button>
+            <span id="weekLabel">สัปดาห์ที่ 1</span>
+            <button id="nextWeek" class="week-btn">›</button>
+          </div>
+        </div>
+        <div class="weekly-grid" id="weeklyGrid"></div>
+      </div>
+    </section>
+
+    <!-- ===== VIDEOS SECTION ===== -->
+    <section class="section" id="videos">
+      <div class="section-header">
+        <div class="section-tag">คลังวิดีโอเรียน</div>
+        <h2 class="section-title">วิดีโอติวสอบ Aptitude Test</h2>
+        <p class="section-desc">รวบรวมคลิปติวสอบ กฟผ. จากช่อง YouTube ติวเตอร์ชั้นนำ · คลิกเพื่อรับชมและบันทึกการเรียน</p>
+      </div>
+
+      <!-- Controls -->
+      <div class="video-controls">
+        <div class="video-category-tabs" id="videoCategoryTabs">
+          <button class="video-tab active" data-cat="all">ทั้งหมด</button>
+          <button class="video-tab" data-cat="math">🔢 คณิตศาสตร์</button>
+          <button class="video-tab" data-cat="verbal">💬 ภาษา</button>
+          <button class="video-tab" data-cat="logic">🧠 ตรรกะ</button>
+          <button class="video-tab" data-cat="spatial">🎲 มิติสัมพันธ์</button>
+          <button class="video-tab" data-cat="digital">💻 Digital Literacy</button>
+          <button class="video-tab" data-cat="mock">🎓 ข้อสอบเก่า/ติวรวม</button>
+        </div>
+      </div>
+
+      <!-- Video Grid -->
+      <div class="video-grid" id="videoGrid">
+        <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- ===== PROGRESS SECTION ===== -->
+    <section class="section" id="progress">
+      <div class="section-header">
+        <div class="section-tag">ติดตามความก้าวหน้า</div>
+        <h2 class="section-title">สถานะการเรียน</h2>
+        <p class="section-desc">คลิกที่แต่ละหัวข้อเพื่ออัปเดตสถานะ</p>
+      </div>
+      <div class="stats-row" id="statsRow">
+        <div class="stat-card">
+          <div class="stat-icon">✅</div>
+          <div class="stat-num" id="statDone">0</div>
+          <div class="stat-label">เสร็จแล้ว</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">📖</div>
+          <div class="stat-num" id="statInProgress">0</div>
+          <div class="stat-label">กำลังเรียน</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">⏳</div>
+          <div class="stat-num" id="statPending">0</div>
+          <div class="stat-label">ยังไม่เริ่ม</div>
+        </div>
+        <div class="stat-card accent">
+          <div class="stat-icon">🎯</div>
+          <div class="stat-num" id="statScore">0</div>
+          <div class="stat-label">คะแนนเฉลี่ย Mock</div>
+        </div>
+      </div>
+      <div class="progress-list" id="progressList"></div>
+      <div class="score-log-wrapper">
+        <h3 class="score-log-title">📝 บันทึกคะแนน Mock Test</h3>
+        <div class="score-log-form">
+          <select id="scoreSubject" class="score-select">
+            <option value="">เลือกวิชา</option>
+          </select>
+          <input type="number" id="scoreInput" class="score-input" placeholder="คะแนน (0-100)" min="0" max="100" />
+          <input type="date" id="scoreDateInput" class="score-date" />
+          <button id="addScoreBtn" class="btn-primary">+ บันทึก</button>
+        </div>
+        <div class="score-log-list" id="scoreLogList"></div>
+      </div>
+    </section>
+
+    <!-- ===== TIPS SECTION ===== -->
+    <section class="section" id="tips">
+      <div class="section-header">
+        <div class="section-tag">เคล็ดลับการสอบ</div>
+        <h2 class="section-title">กลยุทธ์สู่การสอบผ่าน</h2>
+      </div>
+      <div class="tips-grid">
+        <div class="tip-card">
+          <div class="tip-icon">⚡</div>
+          <h4>บริหารเวลา</h4>
+          <p>ข้อสอบ 100 ข้อ ใน 2.5 ชม. = 1.5 นาที/ข้อ ฝึกทำข้อสอบให้เสร็จภายในเวลา และข้ามข้อที่ยากก่อน</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🔢</div>
+          <h4>คณิตศาสตร์</h4>
+          <p>เน้น อนุกรม, ร้อยละ, งาน-เวลา, ส่วนเบี่ยงเบนมาตรฐาน, สมการ และมิติสัมพันธ์ ทำข้อสอบเก่าอย่างน้อย 3 ชุด</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">🧠</div>
+          <h4>ตรรกะ & อุปมาอุปไมย</h4>
+          <p>จำรูปแบบให้ได้ ฝึกหา Pattern ของอนุกรม ทำโจทย์อุปมาฯ วันละ 20 ข้อ จนคล่อง</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">💻</div>
+          <h4>Digital Literacy</h4>
+          <p>ครอบคลุมเรื่อง ระบบคอมพิวเตอร์, โปรแกรม Office, ความปลอดภัยไซเบอร์ และอินเทอร์เน็ต (~20 คะแนน)</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">📅</div>
+          <h4>วางแผนล่วงหน้า</h4>
+          <p>เรียนวันละ 2-3 ชม. แบ่งเป็น เรียนทฤษฎี 1 ชม. + ทำข้อสอบ 1 ชม. + ทบทวน 30 นาที</p>
+        </div>
+        <div class="tip-card">
+          <div class="tip-icon">📋</div>
+          <h4>เอกสารสำคัญ</h4>
+          <p>ตรวจสอบว่ามี ใบ กว. (วิศวกร), คะแนน TOEIC ≥ 550 และเอกสารทุกอย่างพร้อมตามประกาศรับสมัคร</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>📚 EGAT 60-Day Study Planner · ข้อมูลอ้างอิงจากแนวสอบจริงปี 65, 68, 69 · กรุณาตรวจสอบประกาศล่าสุดที่ <a href="https://www.egat.co.th" target="_blank" rel="noopener">www.egat.co.th</a></p>
+    <p class="footer-note">⚠️ โครงสร้างข้อสอบอาจเปลี่ยนแปลงได้ตามนโยบายรับสมัครแต่ละปี</p>
+  </footer>
+
+  <!-- ======= VIDEO CINEMA MODAL ======= -->
+  <div class="video-modal-overlay" id="videoModalOverlay" style="display:none;">
+    <div class="video-modal">
+      <div class="video-modal-header">
+        <div class="vm-header-meta">
+          <span class="vm-badge" id="videoModalCategory">วิชา</span>
+          <h3 class="vm-title" id="videoModalTitle">ชื่อวิดีโอ</h3>
+          <span class="vm-channel" id="videoModalChannel">ช่อง YouTube</span>
+        </div>
+        <div class="vm-header-actions">
+          <a href="#" id="videoModalExternalLink" target="_blank" rel="noopener noreferrer" class="btn-external-yt">
+            ▶ ดูบน YouTube ↗
+          </a>
+          <button class="vm-close-btn" id="videoModalClose" title="ปิดหน้าต่าง">✕</button>
+        </div>
+      </div>
+      <div class="video-player-wrapper">
+        <iframe id="videoModalIframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+      </div>
+      <div class="video-modal-footer">
+        <a href="#" id="videoModalFooterLink" target="_blank" rel="noopener noreferrer" class="btn-external-yt-link">
+          หากคลิปไม่เล่นในป๊อปอัพ คลิกที่นี่เพื่อเปิดบน YouTube ↗
+        </a>
+        <button class="btn-mark-watched" id="videoModalWatchedBtn">✓ Mark เรียนจบแล้ว</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
