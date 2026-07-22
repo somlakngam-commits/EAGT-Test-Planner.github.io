@@ -1746,6 +1746,7 @@ function buildVideoGrid() {
 
   // --- กรณีเลือกหมวดข้อสอบเก่า/ติวรวม (mock) -> แสดง PDF Exam Cards ---
   if (currentVideoCategory === 'mock') {
+    const isMobile = isMobileOrTabletDevice();
     container.innerHTML = EXAM_PDFS.map(pdf => `
       <div class="pdf-exam-card">
         <div class="pec-thumb">
@@ -1760,7 +1761,7 @@ function buildVideoGrid() {
             <span>📑 ${pdf.pages}</span>
           </div>
           <button class="btn-open-pdf-modal" data-pdfid="${pdf.id}" type="button">
-            📖 เปิดดูแนวข้อสอบ (PDF Popup)
+            ${isMobile ? '📖 เปิดดูแนวข้อสอบ (หน้าต่างใหม่) ↗' : '📖 เปิดดูแนวข้อสอบ (PDF Popup)'}
           </button>
         </div>
       </div>
@@ -2034,12 +2035,31 @@ function closeVideoModal() {
 }
 
 // ======================================================
-// PDF EXAM VIEWER MODAL
+// DEVICE DETECTOR (iPad / Mobile / Touch Tablet)
+// ======================================================
+function isMobileOrTabletDevice() {
+  const ua = navigator.userAgent || navigator.vendor || window.opera;
+  const isTouchMac = (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1); // iPadOS 13+
+  const isMobileUA = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
+  const isSmallScreen = window.innerWidth <= 1024;
+
+  return isMobileUA || isTouchMac || isSmallScreen;
+}
+
+// ======================================================
+// PDF EXAM VIEWER MODAL / DIRECT NEW TAB
 // ======================================================
 function openPdfModal(pdfId) {
   const pdf = EXAM_PDFS.find(p => p.id === pdfId);
   if (!pdf) return;
 
+  // เฉพาะใน iPad และ Mobile -> ไม่ต้องเปิดแบบ Popup เมื่อกดให้เด้งเปิด PDF หน้าใหม่ทันที
+  if (isMobileOrTabletDevice()) {
+    window.open(pdf.file, '_blank');
+    return;
+  }
+
+  // บน Desktop / PC -> เปิดใน Popup Modal เหมือนเดิม
   const overlay    = document.getElementById('pdfModalOverlay');
   const title      = document.getElementById('pdfModalTitle');
   const badge      = document.getElementById('pdfModalBadge');
