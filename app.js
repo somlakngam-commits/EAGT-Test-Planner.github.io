@@ -2040,13 +2040,15 @@ function openPdfModal(pdfId) {
   const pdf = EXAM_PDFS.find(p => p.id === pdfId);
   if (!pdf) return;
 
-  const overlay = document.getElementById('pdfModalOverlay');
-  const iframe  = document.getElementById('pdfViewerIframe');
-  const title   = document.getElementById('pdfModalTitle');
-  const badge   = document.getElementById('pdfModalBadge');
-  const size    = document.getElementById('pdfModalSize');
-  const dlBtn   = document.getElementById('pdfModalDownload');
-  const extBtn  = document.getElementById('pdfModalExternal');
+  const overlay    = document.getElementById('pdfModalOverlay');
+  const title      = document.getElementById('pdfModalTitle');
+  const badge      = document.getElementById('pdfModalBadge');
+  const size       = document.getElementById('pdfModalSize');
+  const dlBtn      = document.getElementById('pdfModalDownload');
+  const extBtn     = document.getElementById('pdfModalExternal');
+  const fExtBtn    = document.getElementById('pdfModalFooterExternal');
+  const fDlBtn     = document.getElementById('pdfModalFooterDownload');
+  const wrapper    = document.querySelector('.pdf-viewer-wrapper');
 
   if (title) title.textContent = pdf.title;
   if (badge) {
@@ -2058,7 +2060,18 @@ function openPdfModal(pdfId) {
   if (size) size.textContent = `📦 ${pdf.size} · ${pdf.pages}`;
   if (dlBtn) dlBtn.href = pdf.file;
   if (extBtn) extBtn.href = pdf.file;
-  if (iframe) iframe.src = pdf.file;
+  if (fExtBtn) fExtBtn.href = pdf.file;
+  if (fDlBtn) fDlBtn.href = pdf.file;
+
+  if (wrapper) {
+    const pdfUrl = `${pdf.file}#toolbar=1&navpanes=1&scrollbar=1&view=FitH`;
+    wrapper.innerHTML = `
+      <object data="${pdfUrl}" type="application/pdf" width="100%" height="100%">
+        <embed src="${pdfUrl}" type="application/pdf" width="100%" height="100%" />
+        <iframe id="pdfViewerIframe" src="${pdfUrl}" width="100%" height="100%" frameborder="0" style="border:none;width:100%;height:100%;min-height:500px;"></iframe>
+      </object>
+    `;
+  }
 
   if (overlay) overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -2066,8 +2079,8 @@ function openPdfModal(pdfId) {
 
 function closePdfModal() {
   const overlay = document.getElementById('pdfModalOverlay');
-  const iframe  = document.getElementById('pdfViewerIframe');
-  if (iframe) iframe.src = '';
+  const wrapper = document.querySelector('.pdf-viewer-wrapper');
+  if (wrapper) wrapper.innerHTML = '';
   if (overlay) overlay.style.display = 'none';
   document.body.style.overflow = '';
 }

@@ -1417,13 +1417,73 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   flex: 1;
   width: 100%;
   height: 100%;
+  min-height: 0;
   background: #1e1e24;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  position: relative;
 }
 
+.pdf-viewer-wrapper object,
+.pdf-viewer-wrapper embed,
 .pdf-viewer-wrapper iframe {
   width: 100%;
   height: 100%;
+  min-height: 100%;
+  display: block;
   border: none;
+}
+
+.pdf-modal-footer {
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-card2);
+  border-top: 1px solid var(--border);
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.pm-mobile-hint {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+
+.pm-footer-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-pdf-footer-action {
+  background: var(--grad-main);
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: var(--radius-md);
+  font-size: 0.84rem;
+  font-family: var(--font-th);
+  font-weight: 700;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.btn-pdf-footer-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(59, 130, 246, 0.45);
+}
+
+.btn-pdf-footer-action.btn-dl {
+  background: rgba(52, 211, 153, 0.15);
+  border: 1px solid rgba(52, 211, 153, 0.35);
+  color: var(--green);
+  box-shadow: none;
+}
+
+.btn-pdf-footer-action.btn-dl:hover {
+  background: var(--green);
+  color: #fff;
 }
 
 /* PDF Card UI */
