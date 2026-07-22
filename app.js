@@ -1761,7 +1761,7 @@ function buildVideoGrid() {
             <span>📑 ${pdf.pages}</span>
           </div>
           <button class="btn-open-pdf-modal" data-pdfid="${pdf.id}" type="button">
-            ${isMobile ? '📖 เปิดดูแนวข้อสอบ (หน้าต่างใหม่) ↗' : '📖 เปิดดูแนวข้อสอบ (PDF Popup)'}
+            📖 เปิดดูแนวข้อสอบ
           </button>
         </div>
       </div>
