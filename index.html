@@ -10,6 +10,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
+  <!-- Favicon / Web Icon -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="icon" type="image/png" href="favicon.png" />
+  <link rel="shortcut icon" href="favicon.png" />
+  <link rel="apple-touch-icon" href="favicon.png" />
+
   <!-- Firebase SDK v9 (compat mode — ใช้งานกับ CDN ได้ทันที) -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -306,6 +312,31 @@
           หากคลิปไม่เล่นในป๊อปอัพ คลิกที่นี่เพื่อเปิดบน YouTube ↗
         </a>
         <button class="btn-mark-watched" id="videoModalWatchedBtn">✓ Mark เรียนจบแล้ว</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======= PDF EXAM VIEWER MODAL ======= -->
+  <div class="pdf-modal-overlay" id="pdfModalOverlay" style="display:none;">
+    <div class="pdf-modal">
+      <div class="pdf-modal-header">
+        <div class="pm-header-meta">
+          <span class="pm-badge" id="pdfModalBadge">🎓 ข้อสอบเก่า กฟผ.</span>
+          <h3 class="pm-title" id="pdfModalTitle">ชื่อแนวข้อสอบ</h3>
+          <span class="pm-size" id="pdfModalSize">12 MB</span>
+        </div>
+        <div class="pm-header-actions">
+          <a href="#" id="pdfModalDownload" download class="btn-pdf-action btn-download" title="ดาวน์โหลดไฟล์ PDF">
+            📥 ดาวน์โหลด PDF
+          </a>
+          <a href="#" id="pdfModalExternal" target="_blank" rel="noopener noreferrer" class="btn-pdf-action btn-external" title="เปิดหน้าต่างใหม่">
+            ↗️ เปิดหน้าใหม่
+          </a>
+          <button class="pm-close-btn" id="pdfModalCloseBtn" title="ปิดหน้าต่าง">✕</button>
+        </div>
+      </div>
+      <div class="pdf-viewer-wrapper">
+        <iframe id="pdfViewerIframe" src="" title="PDF Exam Viewer" frameborder="0"></iframe>
       </div>
     </div>
   </div>

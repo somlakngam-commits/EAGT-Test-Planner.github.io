@@ -132,11 +132,11 @@ const PHASES = [
     title: 'Phase 3 — ทำข้อสอบเก่าเต็มชุด', days: 'วันที่ 31–45', color: '#22d3ee',
     desc: 'ทำข้อสอบเก่า กฟผ. เต็มชุด เก็บสถิติคะแนน',
     groups: [
-      { days: 'วันที่ 31–33', subject: 'Mock Test ชุดที่ 1 (ปี 65)', tasks: ['ทำข้อสอบปี 65 ครบทุกวิชา', 'เก็บเวลา 2.30 ชั่วโมง', 'วิเคราะห์ข้อที่ผิด'] },
+      { days: 'วันที่ 31–33', subject: 'Mock Test ชุดที่ 1 (ปี 65)', tasks: ['ทำข้อสอบปี 65 ครบทุกวิชา <button class="btn-pdf-task" data-pdfid="pdf_egat_65" type="button">📖 เปิดดูข้อสอบปี 65 (PDF)</button>', 'เก็บเวลา 2.30 ชั่วโมง', 'วิเคราะห์ข้อที่ผิด'] },
       { days: 'วันที่ 34–36', subject: 'เน้นจุดอ่อน จาก Mock 1',    tasks: ['ทบทวนเฉพาะหัวข้อที่ผิดมากที่สุด', 'ฝึกข้อสอบเพิ่มเติมเฉพาะจุด', 'สรุปสูตรและ Pattern ที่ลืม'] },
-      { days: 'วันที่ 37–39', subject: 'Mock Test ชุดที่ 2 (ปี 68)', tasks: ['ทำข้อสอบปี 68 เต็มชุด', 'เก็บเวลาเหมือนสอบจริง', 'เปรียบเทียบคะแนนกับ Mock 1'] },
+      { days: 'วันที่ 37–39', subject: 'Mock Test ชุดที่ 2 (ปี 68)', tasks: ['ทำข้อสอบปี 68 เต็มชุด <button class="btn-pdf-task" data-pdfid="pdf_egat_68" type="button">📖 เปิดดูข้อสอบปี 68 (PDF)</button>', 'เก็บเวลาเหมือนสอบจริง', 'เปรียบเทียบคะแนนกับ Mock 1'] },
       { days: 'วันที่ 40–42', subject: 'เน้นจุดอ่อน จาก Mock 2',    tasks: ['เจาะวิชาที่คะแนนต่ำสุด', 'ทำโจทย์เพิ่ม 50 ข้อ/วิชา', 'ฝึกเทคนิคตัดตัวเลือก'] },
-      { days: 'วันที่ 43–45', subject: 'Mock Test ชุดที่ 3 (ปี 69)', tasks: ['ทำข้อสอบปี 69 ทั้ง #1 และ #2', 'จัดเวลาให้เหมือนสอบจริงที่สุด', 'บันทึกคะแนนและวิเคราะห์'] },
+      { days: 'วันที่ 43–45', subject: 'Mock Test ชุดที่ 3 (ปี 69)', tasks: ['ทำข้อสอบปี 69 ทั้ง #1 และ #2 <button class="btn-pdf-task" data-pdfid="pdf_egat_69_1" type="button">📖 เปิดปี 69 #1</button> <button class="btn-pdf-task" data-pdfid="pdf_egat_69_2" type="button">📖 เปิดปี 69 #2</button>', 'จัดเวลาให้เหมือนสอบจริงที่สุด', 'บันทึกคะแนนและวิเคราะห์'] },
     ]
   },
   {
@@ -1140,51 +1140,669 @@ const LESSON_VIDEOS = [
     youtubeId: 'fjZJEeemQs0',
     desc: 'สรุปการเทียบอัตราส่วนและสัดส่วนคณิตศาสตร์ทั่วไป',
     relatedTopics: ['math_pct']
+  },
+  {
+    id: 'v_em_1',
+    title: 'Math วันละนิด - โจทย์เกี่ยวกับ คน วัน งาน',
+    channel: 'Easy Math',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '15:00',
+    youtubeId: 'gpHIKlbnBAw',
+    desc: 'ติวเจาะลึกโจทย์ประเภท คน-วัน-งาน (Work Rate) สูตรและเทคนิคทำข้อสอบภาค ก.',
+    relatedTopics: ['math_work']
+  },
+  {
+    id: 'v_tn_1',
+    title: 'สถิติ ค่ากลางของข้อมูล - ค่าเฉลี่ย มัธยฐาน ฐานนิยม',
+    channel: 'TUENONG',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '20:00',
+    youtubeId: 'o1O_fJ05GNs',
+    desc: 'อธิบายค่ากลางของข้อมูลครบ 3 ตัว ค่าเฉลี่ย มัธยฐาน ฐานนิยม พร้อมตัวอย่างและวิธีทำ',
+    relatedTopics: ['math_stat']
+  },
+  {
+    id: 'v_sm_1',
+    title: 'สถิติ ม.3 - สรุปทุกสิ่งที่ต้องรู้',
+    channel: 'พี่ปั้น SmartMathPro',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '22:00',
+    youtubeId: 'JqTxhYtJVJA',
+    desc: 'สรุปครบทุกหัวข้อสถิติ ม.3 ทั้ง mean, median, mode, range และ SD ในคลิปเดียว',
+    relatedTopics: ['math_stat']
+  },
+  {
+    id: 'v_sm_2',
+    title: 'สรุปสูตรเลขยกกำลัง ม.5 - คณิตวันละนิด EP.15',
+    channel: 'พี่ปั้น SmartMathPro',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '10:00',
+    youtubeId: '_YsGMt_3hMU',
+    desc: 'สรุปสูตรและกฎเลขยกกำลังทั้งหมดที่ต้องรู้ พร้อมตัวอย่างประกอบ',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_1',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep1: ปูพื้นฐานความถนัดทางเชาวน์ปัญญา',
+    channel: 'Engineer Tutor',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '15:00',
+    youtubeId: '8rPEGqgf0ZY',
+    desc: 'ปูพื้นฐานความถนัดทางเชาวน์ปัญญาและการวิเคราะห์ความสัมพันธ์เชิงตรรกะ',
+    relatedTopics: ['logic_sym', 'logic_decide']
+  },
+  {
+    id: 'v_et_2',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep2: ตรรกศาสตร์ การจำประพจน์ที่สมมูล',
+    channel: 'Engineer Tutor',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '20:00',
+    youtubeId: 'wpr6t_kxRiU',
+    desc: 'เทคนิคการจำและวิเคราะห์ประพจน์ที่สมมูลกันในวิชาตรรกศาสตร์',
+    relatedTopics: ['logic_prop', 'logic_sym']
+  },
+  {
+    id: 'v_et_3',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep3: แบบฝึกหัดตรรกศาสตร์',
+    channel: 'Engineer Tutor',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '22:00',
+    youtubeId: 'qlsZk2hmQDo',
+    desc: 'ตะลุยแบบฝึกหัดวิเคราะห์ตรรกศาสตร์และโครงสร้างเงื่อนไขประพจน์',
+    relatedTopics: ['logic_prop', 'logic_deduce']
+  },
+  {
+    id: 'v_et_4',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep4: แบบฝึกหัดหาค่าความจริงของประพจน์',
+    channel: 'Engineer Tutor',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '22:00',
+    youtubeId: 'B-f3PsczyBg',
+    desc: 'การหาค่าความจริงของประพจน์เชิงซ้อนและการสร้างตารางค่าความจริง',
+    relatedTopics: ['logic_prop']
+  },
+  {
+    id: 'v_et_5',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep5: แบบฝึกหัดเรื่องสมมูล',
+    channel: 'Engineer Tutor',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '25:00',
+    youtubeId: 'gmhPzOuTiCE',
+    desc: 'ฝึกทำโจทย์เรื่องรูปแบบประพจน์ที่สมมูลกันและการแปลงสัญลักษณ์ตรรกศาสตร์',
+    relatedTopics: ['logic_prop', 'logic_sym']
+  },
+  {
+    id: 'v_et_6',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep6: แบบฝึกหัดสัจนิรันดร์',
+    channel: 'Engineer Tutor',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '24:00',
+    youtubeId: 'bBScETvtQdw',
+    desc: 'การพิสูจน์และการตรวจสอบสัจนิรันดร์ด้วยวิธีหาข้อขัดแย้ง',
+    relatedTopics: ['logic_prop']
+  },
+  {
+    id: 'v_et_7',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep7: เมทริกซ์ การหามิติ และการบวกลบเมทริกซ์',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '25:00',
+    youtubeId: 'I6ZPZCJqV-o',
+    desc: 'ปูพื้นฐานเรื่องเมทริกซ์ มิติของเมทริกซ์ และการดำเนินการบวกลบ',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_8',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep8: เมทริกซ์ ทรานสโพส และการคูณเมทริกซ์',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '26:00',
+    youtubeId: 'vJ7R7DM-4QM',
+    desc: 'การทรานสโพสเมทริกซ์ (Matrix Transpose) และเทคนิคการคูณเมทริกซ์',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_9',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep9: เมทริกซ์ การหาดีเทอร์มิแนนต์ 2x2 และ 3x3',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '28:00',
+    youtubeId: 'DZQBfKZLiEo',
+    desc: 'การคำนวณหาค่าดีเทอร์มิแนนต์ (Determinant) ของเมทริกซ์มิติ 2x2 และ 3x3',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_10',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep10: เมทริกซ์ การหาอินเวอร์สเมทริกซ์ 2x2 และ 3x3',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '30:00',
+    youtubeId: 'bmiTkfgV_pQ',
+    desc: 'การหาอินเวอร์สเมทริกซ์ผกผัน (Inverse Matrix) สำหรับมิติ 2x2 และ 3x3',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_11',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep11: การหาลิมิตของลำดับอนันต์',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '25:00',
+    youtubeId: 'l_8T02xIBUI',
+    desc: 'การหาค่าลิมิตของลำดับอนันต์ (Limits of Infinite Sequences)',
+    relatedTopics: ['math_series']
+  },
+  {
+    id: 'v_et_12',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep12: อนุกรมอนันต์และการทดสอบการลู่ออก',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '25:00',
+    youtubeId: 'msF7hIKStVI',
+    desc: 'บทเรียนอนุกรมอนันต์ ผลบวกอนุกรม และการลู่เข้า/ลู่ออกของอนุกรม',
+    relatedTopics: ['math_series']
+  },
+  {
+    id: 'v_et_13',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep13: การเรียงลำดับประโยค',
+    channel: 'Engineer Tutor',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '25:00',
+    youtubeId: 'EOdH4u2vNyY',
+    desc: 'เทคนิคการวิเคราะห์และเรียงลำดับข้อความ/ประโยคภาษาไทย',
+    relatedTopics: ['verbal_reading', 'verbal_middle']
+  },
+  {
+    id: 'v_et_14',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep14: การอ่านบทความสั้น',
+    channel: 'Engineer Tutor',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '28:00',
+    youtubeId: 'Cw9wMGqJais',
+    desc: 'การอ่านจับใจความสำคัญ วิเคราะห์ประเด็น และสรุปความจากบทความสั้น',
+    relatedTopics: ['verbal_reading']
+  },
+  {
+    id: 'v_et_15',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep15: จำนวนจริง สมบัติของจำนวนจริง และค่าสัมบูรณ์',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '30:00',
+    youtubeId: 'oQihtJ08wEw',
+    desc: 'สรุปโครงสร้างระบบจำนวนจริง สมบัติทางพีชคณิต และค่าสัมบูรณ์',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_16',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep16: จำนวนจริง พหุนามและการหารยาว',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '25:00',
+    youtubeId: 'eudcgwK2Ock',
+    desc: 'การจัดการพหุนาม ทฤษฎีบทเศษเหลือและการหารสังเคราะห์',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_17',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep17: การแยกตัวประกอบพหุนามดีกรีสอง',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '27:00',
+    youtubeId: 'w9nlY-fdLYM',
+    desc: 'เทคนิคการแยกตัวประกอบพหุนามดีกรีสองและการใช้สูตรหาคำตอบสมการ',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_18',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep18: จำนวนจริง การแก้อสมการพหุนาม',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '26:00',
+    youtubeId: 'FB4Ddx06QMc',
+    desc: 'การแก้และลงเส้นจำนวนหาช่วงคำตอบของอสมการพหุนาม',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_19',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep19: การแก้อสมการค่าสัมบูรณ์',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '28:00',
+    youtubeId: '7cQPjq7lEMQ',
+    desc: 'การแก้อสมการที่มีเครื่องหมายค่าสัมบูรณ์และการพิจารณาช่วงคำตอบ',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_20',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep20: ตะลุยแนวข้อสอบจำนวนจริง',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '30:00',
+    youtubeId: 'nL0VAxbhT68',
+    desc: 'ตะลุยแนวข้อสอบเรื่องระบบจำนวนจริง สมการ และอสมการประยุกต์',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_21',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep21: แบบฝึกหัดลิมิตและแคลคูลัส',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '32:00',
+    youtubeId: 'hn0sjI3zEiE',
+    desc: 'แบบฝึกหัดการหาอนุพันธ์และลิมิตในวิชาแคลคูลัส',
+    relatedTopics: ['math_equation', 'math_series']
+  },
+  {
+    id: 'v_et_22',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep22: สรุปสูตรอินทิเกรต',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '30:00',
+    youtubeId: 'rMVWosFsiY0',
+    desc: 'สรุปสูตรการอินทิเกรต (Integration) รูปแบบต่างๆ สำหรับเตรียมสอบ',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_23',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep23: การอินทิเกรตค่าสัมบูรณ์และหลายชั้น',
+    channel: 'Engineer Tutor',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '35:00',
+    youtubeId: '1st64xHT6IE',
+    desc: 'เทคนิคการอินทิเกรตฟังก์ชันค่าสัมบูรณ์และการคำนวณอินทิเกรตสองชั้น',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_et_24',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep24: ความถนัดทางเชาวน์ปัญญา มิติสัมพันธ์',
+    channel: 'Engineer Tutor',
+    category: 'spatial',
+    categoryLabel: '🎲 มิติสัมพันธ์',
+    accentColor: '#fb923c',
+    duration: '30:00',
+    youtubeId: '_WNbrsOe8QE',
+    desc: 'ติวสอบความถนัดทางเชาวน์ปัญญา มิติสัมพันธ์ การมองรูป และอนุกรมรูปภาพ',
+    relatedTopics: ['spatial_unfold', 'spatial_rotate', 'spatial_mirror']
+  },
+  {
+    id: 'v_et_25',
+    title: 'คอร์สติวสอบการไฟฟ้าฝ่ายผลิต Ep25: Digital Literacy',
+    channel: 'Engineer Tutor',
+    category: 'digital',
+    categoryLabel: '💻 ทักษะดิจิทัล',
+    accentColor: '#34d399',
+    duration: '30:00',
+    youtubeId: 'BEfadcPOngA',
+    desc: 'สรุปความรู้ทักษะดิจิทัล ความมั่นคงปลอดภัยไซเบอร์ และเทคโนโลยีสารสนเทศ',
+    relatedTopics: ['dig_hardware', 'dig_security', 'dig_internet']
+  },
+  {
+    id: 'v_ik_1',
+    title: 'I know MATH ep.1 - เซต (Part 1 : พื้นฐานของเซต)',
+    channel: 'I know PHYSICs a little',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '11:17',
+    youtubeId: 'Ia5LO-HtbyI',
+    desc: 'ปูพื้นฐานเรื่องเซต นิยามของเซต การเขียนเซตแบบแจกแจงสมาชิกและแบบบอกเงื่อนไข',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_ik_2',
+    title: 'I know MATH ep.1 - เซต (Part 2 : Subset & Power set)',
+    channel: 'I know PHYSICs a little',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '18:59',
+    youtubeId: 'XWW-AbP7Oyc',
+    desc: 'สรุปสับเซต (Subset) และเพาเวอร์เซต (Power set) พร้อมสูตรหาจำนวนสมาชิก',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_ik_3',
+    title: 'I know MATH ep.1 - เซต (Part 3 : แผนภาพ เวนน์ - ออยเลอร์)',
+    channel: 'I know PHYSICs a little',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '27:59',
+    youtubeId: 'e-BQf5kbBKQ',
+    desc: 'การใช้งานแผนภาพเวนน์-ออยเลอร์ แก้โจทย์เรื่องเซต Union, Intersection, Complement',
+    relatedTopics: ['logic_venn']
+  },
+  {
+    id: 'v_pb_1',
+    title: 'แผนภาพเวนน์-ออยเลอร์ | คณิต ม.4',
+    channel: 'พ่อบ้านติวคณิต',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '20:00',
+    youtubeId: 'XSlG1-Ri_og',
+    desc: 'สอนแผนภาพเวนน์-ออยเลอร์ในการทำโจทย์ตรรกศาสตร์และเซต',
+    relatedTopics: ['logic_venn']
+  },
+  {
+    id: 'v_gb_19',
+    title: 'ภาษาไทย ภาค ก. - คำที่ไม่เข้าพวก และคำที่เขียนผิด',
+    channel: 'พี่น็อต GoodBrain',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '20:00',
+    youtubeId: 'SaM9N0MhM1g',
+    desc: 'ติวภาษาไทยเรื่องการหาคำที่ไม่เข้าพวกตามหมวดหมู่ความหมาย และข้อสังเกตคำที่เขียนถูก/ผิด',
+    relatedTopics: ['verbal_classify', 'verbal_spell']
+  },
+  {
+    id: 'v_gb_20',
+    title: 'ภาษาไทย ภาค ก. - คำตรงข้าม และคำพ้องความหมาย',
+    channel: 'พี่น็อต GoodBrain',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '20:00',
+    youtubeId: 'XP2VWOSGRfk',
+    desc: 'ติวคำตรงข้าม (Antonym) และคำพ้องความหมาย (Synonym) ที่มักนำมาออกข้อสอบภาค ก.',
+    relatedTopics: ['verbal_antonym']
+  },
+  {
+    id: 'v_gb_21',
+    title: 'ติวภาษาไทย "การใช้คำให้ถูกต้อง" EP 1/5',
+    channel: 'พี่น็อต GoodBrain',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '25:00',
+    youtubeId: 'cKjp7lVHV7Y',
+    desc: 'ติวการใช้คำให้ถูกต้องตามหลักภาษาไทย คำราชาศัพท์ และโครงสร้างประโยค',
+    relatedTopics: ['verbal_reading', 'verbal_middle']
+  },
+  {
+    id: 'v_ct_1',
+    title: 'เทคนิคหา ห.ร.ม. และ ค.ร.น.',
+    channel: 'CHULATUTOR',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '15:37',
+    youtubeId: 'j2hFg_KliUY',
+    desc: 'เทคนิคการหา ห.ร.ม. (หารร่วมมาก) และ ค.ร.น. (คูณร่วมน้อย) พร้อมตัวอย่างโจทย์ประยุกต์',
+    relatedTopics: ['math_gcf']
+  },
+  {
+    id: 'v_sm_3',
+    title: 'การแยกตัวประกอบพหุนาม - คณิตวันละนิด EP.4',
+    channel: 'พี่ปั้น SmartMathPro',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '23:21',
+    youtubeId: 'iTPMAJBP33w',
+    desc: 'ปูพื้นฐานการแยกตัวประกอบพหุนามและสูตรผลต่างกำลังสอง',
+    relatedTopics: ['math_equation']
+  },
+  {
+    id: 'v_ct_2',
+    title: 'บวก ลบ คูณ หารระคน เศษส่วน',
+    channel: 'CHULATUTOR',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '18:14',
+    youtubeId: 'ZdTvO7WISr0',
+    desc: 'การบวก ลบ คูณ หารระคนของเศษส่วน พร้อมโจทย์ตัวอย่างฝึกทำ',
+    relatedTopics: ['math_pct', 'math_equation']
+  },
+  {
+    id: 'v_sm_4',
+    title: 'พื้นที่ผิวและปริมาตร ม.3 (พีระมิด กรวย และทรงกลม)',
+    channel: 'พี่ปั้น SmartMathPro',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '38:00',
+    youtubeId: 'q-hWoIjgmqA',
+    desc: 'สรุปหลักการและสูตรคำนวณพื้นที่ผิวและปริมาตรของพีระมิด กรวย และทรงกลม',
+    relatedTopics: ['math_geo']
+  },
+  {
+    id: 'v_pt_1',
+    title: 'ทบทวนเรขาคณิต EP1: จุด เส้น มุม สามเหลี่ยม',
+    channel: 'คณิตพี่ถา',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '1:23:59',
+    youtubeId: 'xuNnzgouE1E',
+    desc: 'ทบทวนพื้นฐานเรขาคณิตเรื่อง จุด เส้น มุม และสามเหลี่ยม',
+    relatedTopics: ['math_geo']
+  },
+  {
+    id: 'v_pt_2',
+    title: 'ทบทวนเรขาคณิต EP2: สี่เหลี่ยม หลายเหลี่ยม เส้นขนาน',
+    channel: 'คณิตพี่ถา',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '1:20:00',
+    youtubeId: '4wZk0a69Rr4',
+    desc: 'สอนสมบัติรูปสี่เหลี่ยมชนิดต่างๆ รูปหลายเหลี่ยม และผลรวมมุมภายใน',
+    relatedTopics: ['math_geo']
+  },
+  {
+    id: 'v_pt_3',
+    title: 'ทบทวนเรขาคณิต EP3: เส้นขนานจัดเต็ม',
+    channel: 'คณิตพี่ถา',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '1:35:54',
+    youtubeId: 'q02pGSBfc-Y',
+    desc: 'สอนเจาะลึกเรื่องเส้นขนาน สมบัติมุมแย้ง มุมภายใน และตะลุยโจทย์ประยุกต์',
+    relatedTopics: ['math_geo']
+  },
+  {
+    id: 'v_pt_4',
+    title: 'ทบทวนเรขาคณิต EP5: คำนวณพื้นที่ซับซ้อน',
+    channel: 'คณิตพี่ถา',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '1:46:16',
+    youtubeId: 'QxW9JAw_mzE',
+    desc: 'เทคนิคคำนวณหาพื้นที่รูปทรงซับซ้อน การหาพื้นที่ส่วนที่แรเงา',
+    relatedTopics: ['math_geo']
+  },
+  {
+    id: 'v_pt_5',
+    title: 'ทบทวนเรขาคณิต EP6: คำนวณพื้นที่และปริมาตรอย่างง่าย',
+    channel: 'คณิตพี่ถา',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '1:46:16',
+    youtubeId: 'DyMSYyghruY',
+    desc: 'สรุปการคำนวณพื้นที่เรขาคณิตขั้นสูง และปูพื้นฐานปริมาตรทรง 3 มิติ',
+    relatedTopics: ['math_geo']
   }
 ];
 
 let currentVideoCategory = 'all';
 let currentVideoChannel = 'all';
 let activeModalVideoId = null;
+let videoGridExpanded  = false;
+
+const VIDEO_INITIAL_COUNT = 6; // 2 แถว × ~3 คอล
+
+// ======================================================
+// DATA: ไฟล์แนวข้อสอบ PDF กฟผ.
+// ======================================================
+const EXAM_PDFS = [
+  {
+    id: 'pdf_egat_65',
+    title: 'แนวข้อสอบเก่า กฟผ. (ระดับปริญญาตรี) ปี 2565',
+    year: 'ปี 2565',
+    file: 'exams/egat_exam_2565.pdf',
+    size: '12.1 MB',
+    pages: 'ฉบับเต็มชุด',
+    desc: 'ข้อสอบจริง กฟผ. ปริญญาตรี ปี 65 ครอบคลุม Aptitude Test ทุกส่วนพร้อมเฉลยและวิธีทำ',
+    badge: '🎓 ข้อสอบเก่า ปี 65',
+    accentColor: '#3b82f6'
+  },
+  {
+    id: 'pdf_egat_68',
+    title: 'แนวข้อสอบเก่า กฟผ. (ระดับปริญญาตรี) ปี 2568',
+    year: 'ปี 2568',
+    file: 'exams/egat_exam_2568.pdf',
+    size: '8.5 MB',
+    pages: 'ฉบับเต็มชุด',
+    desc: 'ข้อสอบจริง กฟผ. ปริญญาตรี ปี 68 แนวใหม่ ล่าสุด ครบทั้ง Math, Verbal, Logic และ Spatial',
+    badge: '🎓 ข้อสอบเก่า ปี 68',
+    accentColor: '#a78bfa'
+  },
+  {
+    id: 'pdf_egat_69_1',
+    title: 'แนวข้อสอบเก่า กฟผ. (ระดับปริญญาตรี) ปี 2569 — ชุดที่ 1',
+    year: 'ปี 2569 #1',
+    file: 'exams/egat_exam_2569_1.pdf',
+    size: '14.1 MB',
+    pages: 'ชุดที่ 1',
+    desc: 'แนวข้อสอบเข้มข้น กฟผ. ปริญญาตรี ปี 69 ชุดที่ 1 ฉบับปรับปรุงใหม่ล่าสุด',
+    badge: '🔥 ข้อสอบล่าสุด ปี 69 #1',
+    accentColor: '#ef4444'
+  },
+  {
+    id: 'pdf_egat_69_2',
+    title: 'แนวข้อสอบเก่า กฟผ. (ระดับปริญญาตรี) ปี 2569 — ชุดที่ 2',
+    year: 'ปี 2569 #2',
+    file: 'exams/egat_exam_2569_2.pdf',
+    size: '7.9 MB',
+    pages: 'ชุดที่ 2',
+    desc: 'แนวข้อสอบเข้มข้น กฟผ. ปริญญาตรี ปี 69 ชุดที่ 2 เพิ่มเติมโจทย์วิเคราะห์',
+    badge: '🔥 ข้อสอบล่าสุด ปี 69 #2',
+    accentColor: '#f59e0b'
+  }
+];
 
 function buildVideoGrid() {
   const container = document.getElementById('videoGrid');
   if (!container) return;
 
+  // --- กรณีเลือกหมวดข้อสอบเก่า/ติวรวม (mock) -> แสดง PDF Exam Cards ---
+  if (currentVideoCategory === 'mock') {
+    container.innerHTML = EXAM_PDFS.map(pdf => `
+      <div class="pdf-exam-card">
+        <div class="pec-thumb">
+          <div class="pec-icon">📄</div>
+          <span class="pec-badge" style="color:${pdf.accentColor};border-color:${pdf.accentColor}44;background:${pdf.accentColor}11;">${pdf.badge}</span>
+        </div>
+        <div class="pec-body">
+          <h4 class="pec-title">${pdf.title}</h4>
+          <p class="pec-desc">${pdf.desc}</p>
+          <div class="pec-meta">
+            <span>📦 ${pdf.size}</span>
+            <span>📑 ${pdf.pages}</span>
+          </div>
+          <button class="btn-open-pdf-modal" data-pdfid="${pdf.id}" type="button">
+            📖 เปิดดูแนวข้อสอบ (PDF Popup)
+          </button>
+        </div>
+      </div>
+    `).join('');
+    return;
+  }
+
   const filtered = LESSON_VIDEOS.filter(v => {
-    const matchCat = (currentVideoCategory === 'all' || v.category === currentVideoCategory);
-    const matchChan = (currentVideoChannel === 'all' || v.channel === currentVideoChannel);
+    const matchCat  = (currentVideoCategory === 'all' || v.category === currentVideoCategory);
+    const matchChan = (currentVideoChannel  === 'all' || v.channel  === currentVideoChannel);
     return matchCat && matchChan;
   });
 
   if (filtered.length === 0) {
     container.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 56px 20px; color: var(--text-secondary); background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius-lg);">
-        <div style="font-size: 2.5rem; margin-bottom: 12px;">🎬</div>
-        <h3 style="font-size: 1.1rem; color: var(--text-primary); margin-bottom: 6px;">ยังไม่มีวิดีโอในระบบ</h3>
-        <p style="font-size: 0.88rem; color: var(--text-muted);">ส่งลิงก์วิดีโอ YouTube ที่คุณต้องการให้ผม เพื่อเพิ่มเข้าสู่คลังวิดีโอได้เลยครับ</p>
+      <div style="grid-column:1/-1;text-align:center;padding:56px 20px;color:var(--text-secondary);background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);">
+        <div style="font-size:2.5rem;margin-bottom:12px;">🎬</div>
+        <h3 style="font-size:1.1rem;color:var(--text-primary);margin-bottom:6px;">ยังไม่มีวิดีโอในระบบ</h3>
+        <p style="font-size:0.88rem;color:var(--text-muted);">ส่งลิงก์วิดีโอ YouTube ที่คุณต้องการให้ผม เพื่อเพิ่มเข้าสู่คลังวิดีโอได้เลยครับ</p>
       </div>`;
     return;
   }
 
-  container.innerHTML = filtered.map(v => {
-    const isWatched = !!watchedVideos[v.id];
-    const thumbUrl = `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`;
+  const hasMore   = filtered.length > VIDEO_INITIAL_COUNT;
+  const hiddenCnt = filtered.length - VIDEO_INITIAL_COUNT;
+
+  // --- Render การ์ดทุกตัวครั้งเดียว แล้วใช้ CSS class ควบคุมว่าจะโชว์ไหม ---
+  container.innerHTML = filtered.map((v, idx) => {
+    const isWatched  = !!watchedVideos[v.id];
+    const thumbUrl   = `https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg`;
+    const isExtra    = hasMore && idx >= VIDEO_INITIAL_COUNT;
 
     return `
-      <div class="video-card ${isWatched ? 'watched' : ''}" data-vid="${v.id}">
+      <div class="video-card ${isWatched ? 'watched' : ''} ${isExtra ? 'vc-extra vc-hidden' : ''}" data-vid="${v.id}">
         <div class="vc-thumb-wrap">
           <img src="${thumbUrl}" alt="${v.title}" class="vc-thumb-img" loading="lazy" />
           <span class="vc-duration">${v.duration}</span>
-          <div class="vc-play-overlay">
-            <div class="vc-play-btn">▶</div>
-          </div>
+          <div class="vc-play-overlay"><div class="vc-play-btn">▶</div></div>
         </div>
         <div class="vc-body">
           <div class="vc-meta">
-            <span class="vc-badge" style="color:${v.accentColor}; border-color:${v.accentColor}44; background:${v.accentColor}11;">
-              ${v.categoryLabel}
-            </span>
+            <span class="vc-badge" style="color:${v.accentColor};border-color:${v.accentColor}44;background:${v.accentColor}11;">${v.categoryLabel}</span>
             <span class="vc-channel">📺 ${v.channel}</span>
           </div>
           <h4 class="vc-title">${v.title}</h4>
@@ -1192,26 +1810,99 @@ function buildVideoGrid() {
             <button class="btn-toggle-watched" data-vid="${v.id}" type="button">
               ${isWatched ? '✓ เรียนแล้ว' : '+ มาร์กเรียนแล้ว'}
             </button>
-            <span style="font-size: 0.78rem; color: ${isWatched ? 'var(--green)' : 'var(--text-muted)'};">
+            <span style="font-size:0.78rem;color:${isWatched ? 'var(--green)' : 'var(--text-muted)'};">
               ${isWatched ? 'เรียนแล้ว ✅' : 'ยังไม่ได้เรียน'}
             </span>
           </div>
         </div>
-      </div>
-    `;
+      </div>`;
   }).join('');
 
+  // --- ปุ่ม Show More ---
+  if (hasMore) {
+    const btnWrap = document.createElement('div');
+    btnWrap.id = 'vcToggleWrap';
+    btnWrap.style.cssText = 'grid-column:1/-1;display:flex;justify-content:center;margin-top:8px;';
+    btnWrap.innerHTML = `
+      <button class="btn-show-more-videos" id="toggleVideoBtn">
+        <span class="bsm-icon">🎬</span>
+        <span class="bsm-label">แสดงวิดีโอเพิ่มเติม (${hiddenCnt} รายการ)</span>
+        <span class="bsm-chevron">▼</span>
+      </button>`;
+    container.appendChild(btnWrap);
+  }
+
+  // --- Apply expand state ที่บันทึกไว้ก่อนหน้า (เช่น หลัง filter เปลี่ยน) ---
+  _applyVideoExpandState(false); // false = ไม่ animate ครั้งแรก
+
+  // --- Events: ปุ่ม show more ---
+  const toggleBtn = document.getElementById('toggleVideoBtn');
+  if (toggleBtn) {
+    toggleBtn.addEventListener('click', () => {
+      videoGridExpanded = !videoGridExpanded;
+      _applyVideoExpandState(true); // true = ใช้ animation
+    });
+  }
+
+  // --- Events: การ์ดวิดีโอ ---
   container.querySelectorAll('.video-card').forEach(card => {
     const vid = card.dataset.vid;
-    card.addEventListener('click', (e) => {
-      if (e.target.closest('.btn-toggle-watched')) {
-        e.stopPropagation();
-        toggleVideoWatched(vid);
-        return;
-      }
+    card.addEventListener('click', e => {
+      if (e.target.closest('.btn-toggle-watched')) { e.stopPropagation(); toggleVideoWatched(vid); return; }
       openVideoModal(vid);
     });
   });
+}
+
+// ควบคุมการ show/hide การ์ด extra พร้อม animation
+function _applyVideoExpandState(animate) {
+  const container = document.getElementById('videoGrid');
+  if (!container) return;
+
+  const extras  = container.querySelectorAll('.vc-extra');
+  const btn     = document.getElementById('toggleVideoBtn');
+  const chevron = btn ? btn.querySelector('.bsm-chevron') : null;
+  const label   = btn ? btn.querySelector('.bsm-label')   : null;
+  const icon    = btn ? btn.querySelector('.bsm-icon')    : null;
+  const hiddenCnt = extras.length;
+
+  if (videoGridExpanded) {
+    // ขยาย: แสดงการ์ดทีละตัว stagger
+    extras.forEach((card, i) => {
+      card.classList.remove('vc-hidden');
+      if (animate) {
+        card.style.animationDelay = `${i * 55}ms`;
+        card.classList.add('vc-reveal');
+        card.addEventListener('animationend', () => card.classList.remove('vc-reveal'), { once: true });
+      }
+    });
+    if (btn) {
+      btn.classList.add('expanded');
+      if (chevron) chevron.textContent = '▲';
+      if (label)   label.textContent   = 'ย่อวิดีโอกลับ';
+      if (icon)    icon.textContent    = '';
+    }
+  } else {
+    // ย่อ: ซ่อนการ์ดพร้อม fade-out
+    extras.forEach((card, i) => {
+      if (animate) {
+        card.classList.add('vc-collapse');
+        card.style.animationDelay = `${(hiddenCnt - 1 - i) * 35}ms`;
+        card.addEventListener('animationend', () => {
+          card.classList.remove('vc-collapse');
+          card.classList.add('vc-hidden');
+        }, { once: true });
+      } else {
+        card.classList.add('vc-hidden');
+      }
+    });
+    if (btn) {
+      btn.classList.remove('expanded');
+      if (chevron) chevron.textContent = '▼';
+      if (label)   label.textContent   = `แสดงวิดีโอเพิ่มเติม (${hiddenCnt} รายการ)`;
+      if (icon)    icon.textContent    = '🎬';
+    }
+  }
 }
 
 // ======================================================
@@ -1342,6 +2033,45 @@ function closeVideoModal() {
   activeModalVideoId = null;
 }
 
+// ======================================================
+// PDF EXAM VIEWER MODAL
+// ======================================================
+function openPdfModal(pdfId) {
+  const pdf = EXAM_PDFS.find(p => p.id === pdfId);
+  if (!pdf) return;
+
+  const overlay = document.getElementById('pdfModalOverlay');
+  const iframe  = document.getElementById('pdfViewerIframe');
+  const title   = document.getElementById('pdfModalTitle');
+  const badge   = document.getElementById('pdfModalBadge');
+  const size    = document.getElementById('pdfModalSize');
+  const dlBtn   = document.getElementById('pdfModalDownload');
+  const extBtn  = document.getElementById('pdfModalExternal');
+
+  if (title) title.textContent = pdf.title;
+  if (badge) {
+    badge.textContent = pdf.badge;
+    badge.style.color = pdf.accentColor;
+    badge.style.borderColor = pdf.accentColor + '44';
+    badge.style.background = pdf.accentColor + '11';
+  }
+  if (size) size.textContent = `📦 ${pdf.size} · ${pdf.pages}`;
+  if (dlBtn) dlBtn.href = pdf.file;
+  if (extBtn) extBtn.href = pdf.file;
+  if (iframe) iframe.src = pdf.file;
+
+  if (overlay) overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closePdfModal() {
+  const overlay = document.getElementById('pdfModalOverlay');
+  const iframe  = document.getElementById('pdfViewerIframe');
+  if (iframe) iframe.src = '';
+  if (overlay) overlay.style.display = 'none';
+  document.body.style.overflow = '';
+}
+
 function updateVideoModalWatchedBtn(vid) {
   const btn = document.getElementById('videoModalWatchedBtn');
   if (!btn) return;
@@ -1364,6 +2094,31 @@ function initVideoSection() {
       buildVideoGrid();
     });
   }
+
+  // --- Global click listener for PDF exam cards & Modals ---
+  document.addEventListener('click', (e) => {
+    const pdfBtn = e.target.closest('[data-pdfid]');
+    if (pdfBtn) {
+      openPdfModal(pdfBtn.dataset.pdfid);
+    }
+  });
+
+  const pdfCloseBtn = document.getElementById('pdfModalCloseBtn');
+  if (pdfCloseBtn) pdfCloseBtn.addEventListener('click', closePdfModal);
+
+  const pdfOverlay = document.getElementById('pdfModalOverlay');
+  if (pdfOverlay) {
+    pdfOverlay.addEventListener('click', (e) => {
+      if (e.target === pdfOverlay) closePdfModal();
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeVideoModal();
+      closePdfModal();
+    }
+  });
 
 
 
