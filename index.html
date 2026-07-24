@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EGAT 60-Day Study Planner | แผนเตรียมสอบ กฟผ. 60 วัน</title>
-  <meta name="description" content="วางแผนเตรียมสอบการไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.) ระดับปริญญาตรี ติดตามความก้าวหน้าครบทุกวิชา Aptitude Test ใน 60 วัน" />
+  <title>EGAT Prep 60D | แผนเตรียมสอบ กฟผ.</title>
+  <meta name="description" content="คู่มือและแผนเตรียมสอบ กฟผ. 60 วัน ครบถ้วนทุกวิชา Aptitude Test คลังโจทย์ 300+ ข้อ พร้อมระบบสุ่มข้อสอบและติดตามความก้าวหน้า" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -124,6 +124,7 @@
         <a href="#subjects" class="nav-link active"><span class="nav-icon">📚</span><span class="nav-text">วิชาที่สอบ</span></a>
         <a href="#planner" class="nav-link"><span class="nav-icon">📅</span><span class="nav-text">ตารางเรียน</span></a>
         <a href="#videos" class="nav-link"><span class="nav-icon">🎬</span><span class="nav-text">วิดีโอเรียน</span></a>
+        <a href="#mocktest" class="nav-link"><span class="nav-icon">📝</span><span class="nav-text">ข้อสอบ Mock Test</span></a>
         <a href="#progress" class="nav-link"><span class="nav-icon">📊</span><span class="nav-text">ความก้าวหน้า</span></a>
         <a href="#tips" class="nav-link"><span class="nav-icon">💡</span><span class="nav-text">เคล็ดลับ</span></a>
       </div>
@@ -185,14 +186,124 @@
           <button class="video-tab" data-cat="verbal">💬 ภาษา</button>
           <button class="video-tab" data-cat="logic">🧠 ตรรกะ</button>
           <button class="video-tab" data-cat="spatial">🎲 มิติสัมพันธ์</button>
+          <button class="video-tab" data-cat="egat">⚡ ความรู้ กฟผ.</button>
           <button class="video-tab" data-cat="digital">💻 Digital Literacy</button>
-          <button class="video-tab" data-cat="mock">🎓 ข้อสอบเก่า/ติวรวม</button>
         </div>
       </div>
 
       <!-- Video Grid -->
       <div class="video-grid" id="videoGrid">
         <!-- filled by JS -->
+      </div>
+    </section>
+
+    <!-- ===== MOCK TEST SECTION ===== -->
+    <section class="section" id="mocktest">
+      <div class="section-header">
+        <div class="section-tag">คลังข้อสอบ & จำลองสอบ</div>
+        <h2 class="section-title">Mock Test ฝึกทำข้อสอบแยกตามรายวิชา</h2>
+        <p class="section-desc">คลังโจทย์แนวสอบจริง 250+ ข้อ (วิชาละ 50 ข้อ) พร้อมระบบสุ่มข้อสอบ (Randomized Questions) สลับช้อยส์ A/B/C/D ตรวจเฉลยคำอธิบายละเอียด และบันทึกคะแนนอัตโนมัติ</p>
+      </div>
+
+      <!-- Controls & Filter -->
+      <div class="mocktest-controls">
+        <div class="mocktest-category-tabs" id="mockCategoryTabs">
+          <button class="mock-tab active" data-cat="all">🌟 ทั้งหมด</button>
+          <button class="mock-tab" data-cat="math">🔢 คณิตศาสตร์</button>
+          <button class="mock-tab" data-cat="verbal">💬 ภาษา</button>
+          <button class="mock-tab" data-cat="logic">🧠 ตรรกะ</button>
+          <button class="mock-tab" data-cat="spatial">🎲 มิติสัมพันธ์</button>
+          <button class="mock-tab" data-cat="egat">⚡ ความรู้ กฟผ.</button>
+          <button class="mock-tab" data-cat="digital">💻 Digital Literacy</button>
+          <button class="mock-tab" data-cat="pdf">📄 ชุดข้อสอบเก่า PDF</button>
+        </div>
+      </div>
+
+      <!-- Grid view of available Quiz Sets -->
+      <div class="mocktest-grid" id="mocktestGrid">
+        <!-- filled by JS -->
+      </div>
+
+      <!-- Interactive Quiz Runner Container (hidden by default until user selects a quiz) -->
+      <div class="quiz-runner-container" id="quizRunnerContainer" style="display:none;">
+        <div class="quiz-runner-card">
+          <div class="quiz-runner-header">
+            <div class="quiz-runner-meta">
+              <span class="quiz-badge" id="quizBadge">วิชา</span>
+              <h3 class="quiz-runner-title" id="quizTitle">ชื่อชุดข้อสอบ</h3>
+            </div>
+            <div class="quiz-runner-stats">
+              <div class="quiz-stat-item">
+                <span class="quiz-stat-label">ข้อที่</span>
+                <span class="quiz-stat-val" id="quizProgressText">1/10</span>
+              </div>
+              <div class="quiz-stat-item">
+                <span class="quiz-stat-label">เวลาที่ใช้</span>
+                <span class="quiz-stat-val" id="quizTimerText">00:00</span>
+              </div>
+              <button class="btn-quit-quiz" id="quitQuizBtn" title="ออกจากแบบทดสอบ">✕ ออก</button>
+            </div>
+          </div>
+
+          <!-- Progress Bar -->
+          <div class="quiz-progress-track">
+            <div class="quiz-progress-bar" id="quizProgressBar" style="width: 10%;"></div>
+          </div>
+
+          <!-- Question Body -->
+          <div class="quiz-body" id="quizBody">
+            <div class="question-prompt" id="questionPrompt">
+              <!-- Question text rendered by JS -->
+            </div>
+            <div class="choices-container" id="choicesContainer">
+              <!-- Choices rendered by JS -->
+            </div>
+
+            <!-- Explanation Box (shown after answer check) -->
+            <div class="explanation-box" id="explanationBox" style="display:none;">
+              <div class="explanation-header">
+                <span id="explanationIcon">💡</span>
+                <strong id="explanationTitle">เฉลยและวิธีคิดอย่างละเอียด:</strong>
+              </div>
+              <p class="explanation-text" id="explanationText"></p>
+            </div>
+
+            <!-- Actions Footer -->
+            <div class="quiz-actions">
+              <button class="btn-secondary" id="prevQuestionBtn" disabled>← ข้อก่อนหน้า</button>
+              <div class="quiz-action-right">
+                <button class="btn-check-answer" id="checkAnswerBtn">✓ ตรวจคำตอบ</button>
+                <button class="btn-primary" id="nextQuestionBtn" style="display:none;">ข้อถัดไป →</button>
+                <button class="btn-finish-quiz" id="finishQuizBtn" style="display:none;">🏁 สรุปผลคะแนน</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Result Summary View (shown when quiz is completed) -->
+          <div class="quiz-result-summary" id="quizResultSummary" style="display:none;">
+            <div class="result-header">
+              <div class="result-badge-icon" id="resultIcon">🎉</div>
+              <h3 class="result-title" id="resultTitle">สรุปผลแบบทดสอบ</h3>
+              <p class="result-subtitle" id="resultSubtitle">คุณทำแบบทดสอบเสร็จเรียบร้อยแล้ว!</p>
+            </div>
+            <div class="result-score-card">
+              <div class="result-score-num" id="resultScoreNum">8 / 10</div>
+              <div class="result-score-pct" id="resultScorePct">80%</div>
+              <div class="result-status-pill" id="resultStatusPill">ผ่านเกณฑ์ยอดเยี่ยม ✨</div>
+            </div>
+
+            <div class="result-breakdown" id="resultBreakdown">
+              <!-- Breakdown list -->
+            </div>
+
+            <div class="result-actions">
+              <button class="btn-primary" id="saveScoreToLogBtn">📝 บันทึกคะแนนไปยังส่วนความก้าวหน้า</button>
+              <button class="btn-secondary" id="retakeQuizBtn">🔄 ลองทำใหม่อีกครั้ง</button>
+              <button class="btn-secondary" id="backToQuizzesBtn">← กลับไปเลือกชุดข้อสอบ</button>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
 
@@ -284,7 +395,7 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>📚 EGAT 60-Day Study Planner · ข้อมูลอ้างอิงจากแนวสอบจริงปี 65, 68, 69 · กรุณาตรวจสอบประกาศล่าสุดที่ <a href="https://www.egat.co.th" target="_blank" rel="noopener">www.egat.co.th</a></p>
+    <p>⚡ EGAT Prep 60D · คู่มือและแผนเตรียมสอบ กฟผ. · อ้างอิงแนวสอบจริงปี 65, 68, 69 · <a href="https://www.egat.co.th" target="_blank" rel="noopener">www.egat.co.th</a></p>
     <p class="footer-note">⚠️ โครงสร้างข้อสอบอาจเปลี่ยนแปลงได้ตามนโยบายรับสมัครแต่ละปี</p>
   </footer>
 
