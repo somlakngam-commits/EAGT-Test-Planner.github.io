@@ -125,56 +125,210 @@ const SUBJECTS = [
 ];
 
 // ======================================================
-// DATA: แผน 60 วัน
+// DATA: PHASE TEMPLATES — เนื้อหาแต่ละช่วงการเรียน
+//   w = น้ำหนักวันสัมพัทธ์ภายใน phase นั้น
 // ======================================================
-const PHASES = [
-  {
-    title: 'Phase 1 — ปูพื้นฐาน', days: 'วันที่ 1–15', color: '#3b82f6',
+const PHASE_TEMPLATES = {
+  p1_foundation: {
+    titleSuffix: ' — ปูพื้นฐาน', color: '#3b82f6',
     desc: 'สร้างความเข้าใจพื้นฐานทุกวิชา ทบทวนสูตรสำคัญ',
     groups: [
-      { days: 'วันที่ 1–3',   subject: 'คณิตศาสตร์ (พื้นฐาน)',    tasks: ['ทบทวนสูตร ร้อยละ กำไร-ขาดทุน', 'ฝึกโจทย์งานและเวลา 20 ข้อ', 'ทำข้อสอบเก่า Section Math 30 ข้อ'] },
-      { days: 'วันที่ 4–5',   subject: 'อนุกรมและลำดับ',           tasks: ['จำรูปแบบอนุกรม 15 ประเภท', 'ฝึกทำ 40 ข้อ', 'ตรวจสอบ Pattern ที่ผิดบ่อย'] },
-      { days: 'วันที่ 6–8',   subject: 'ตรรกะ & ประพจน์',          tasks: ['ทบทวน p→q, p∧q, p↔q', 'ฝึก Venn Diagram', 'ทำข้อสอบจริงปี 69 ส่วนตรรกะ'] },
-      { days: 'วันที่ 9–10',  subject: 'ภาษาและอุปมาอุปไมย',       tasks: ['ฝึก Analogy 30 ข้อ/วัน', 'หาคำตรงกลาง / คำตรงข้าม', 'อ่านบทความและสรุปใจความ'] },
-      { days: 'วันที่ 11–12', subject: 'มิติสัมพันธ์',              tasks: ['ฝึกกางกล่อง/พับกล่อง', 'ฝึกหมุนภาพ 3 มิติ', 'นับลูกบาศก์ 20 ข้อ'] },
-      { days: 'วันที่ 13–15', subject: 'Digital Literacy',          tasks: ['ทบทวน Hardware/Software', 'ฝึกโจทย์ MS Office', 'ทบทวนความปลอดภัยไซเบอร์'] },
+      { subject: 'คณิตศาสตร์ (พื้นฐาน)', w: 3, tasks: ['ทบทวนสูตร ร้อยละ กำไร-ขาดทุน', 'ฝึกโจทย์งานและเวลา 20 ข้อ', 'ทำข้อสอบเก่า Section Math 30 ข้อ'] },
+      { subject: 'อนุกรมและลำดับ',        w: 2, tasks: ['จำรูปแบบอนุกรม 15 ประเภท', 'ฝึกทำ 40 ข้อ', 'ตรวจสอบ Pattern ที่ผิดบ่อย'] },
+      { subject: 'ตรรกะ & ประพจน์',       w: 3, tasks: ['ทบทวน p→q, p∧q, p↔q', 'ฝึก Venn Diagram', 'ทำข้อสอบจริงปี 69 ส่วนตรรกะ'] },
+      { subject: 'ภาษาและอุปมาอุปไมย',    w: 2, tasks: ['ฝึก Analogy 30 ข้อ/วัน', 'หาคำตรงกลาง / คำตรงข้าม', 'อ่านบทความและสรุปใจความ'] },
+      { subject: 'มิติสัมพันธ์',           w: 2, tasks: ['ฝึกกางกล่อง/พับกล่อง', 'ฝึกหมุนภาพ 3 มิติ', 'นับลูกบาศก์ 20 ข้อ'] },
+      { subject: 'Digital Literacy',       w: 3, tasks: ['ทบทวน Hardware/Software', 'ฝึกโจทย์ MS Office', 'ทบทวนความปลอดภัยไซเบอร์'] },
     ]
   },
-  {
-    title: 'Phase 2 — เจาะลึกและฝึกข้อสอบ', days: 'วันที่ 16–30', color: '#a78bfa',
+  p2_deep: {
+    titleSuffix: ' — เจาะลึกและฝึกข้อสอบ', color: '#a78bfa',
     desc: 'เจาะลึกหัวข้อสำคัญ ทำข้อสอบเก่ากฟผ. แต่ละวิชา',
     groups: [
-      { days: 'วันที่ 16–18', subject: 'คณิตศาสตร์ (ขั้นสูง)',     tasks: ['สถิติ: ค่าเฉลี่ย, มัธยฐาน, SD', 'โจทย์ส่วนเบี่ยงเบนมาตรฐาน', 'ทำข้อสอบ กฟผ. Section Math เต็มชุด'] },
-      { days: 'วันที่ 19–21', subject: 'ตรรกะขั้นสูง',             tasks: ['การสรุปเหตุผลและ Syllogism', 'ฝึกโจทย์สัญลักษณ์', 'ทบทวนข้อสอบจริงปี 68'] },
-      { days: 'วันที่ 22–24', subject: 'ภาษาขั้นสูง',              tasks: ['อ่านบทความยาวและตอบคำถาม', 'ฝึกหาความหมายคำจากบริบท', 'ทำข้อสอบ Section Verbal เต็มชุด'] },
-      { days: 'วันที่ 25–26', subject: 'มิติสัมพันธ์ (เต็มรูป)',    tasks: ['ฝึก Embedded Figure 25 ข้อ', 'ภาพสะท้อนซับซ้อน', 'ทบทวนทุกประเภทมิติสัมพันธ์'] },
-      { days: 'วันที่ 27–30', subject: 'Digital Literacy (ขั้นสูง)', tasks: ['ทบทวนระบบเครือข่ายเบื้องต้น', 'โจทย์ Office Excel สูตร', 'ทำ Mock Test Digital ชุดแรก'] },
+      { subject: 'คณิตศาสตร์ (ขั้นสูง)',       w: 3, tasks: ['สถิติ: ค่าเฉลี่ย, มัธยฐาน, SD', 'โจทย์ส่วนเบี่ยงเบนมาตรฐาน', 'ทำข้อสอบ กฟผ. Section Math เต็มชุด'] },
+      { subject: 'ตรรกะขั้นสูง',                w: 3, tasks: ['การสรุปเหตุผลและ Syllogism', 'ฝึกโจทย์สัญลักษณ์', 'ทบทวนข้อสอบจริงปี 68'] },
+      { subject: 'ภาษาขั้นสูง',                 w: 3, tasks: ['อ่านบทความยาวและตอบคำถาม', 'ฝึกหาความหมายคำจากบริบท', 'ทำข้อสอบ Section Verbal เต็มชุด'] },
+      { subject: 'มิติสัมพันธ์ (เต็มรูป)',       w: 2, tasks: ['ฝึก Embedded Figure 25 ข้อ', 'ภาพสะท้อนซับซ้อน', 'ทบทวนทุกประเภทมิติสัมพันธ์'] },
+      { subject: 'Digital Literacy (ขั้นสูง)',   w: 4, tasks: ['ทบทวนระบบเครือข่ายเบื้องต้น', 'โจทย์ Office Excel สูตร', 'ทำ Mock Test Digital ชุดแรก'] },
     ]
   },
-  {
-    title: 'Phase 3 — ทำข้อสอบเก่าเต็มชุด', days: 'วันที่ 31–45', color: '#22d3ee',
+  p3_mock: {
+    titleSuffix: ' — ทำข้อสอบเก่าเต็มชุด', color: '#22d3ee',
     desc: 'ทำข้อสอบเก่า กฟผ. เต็มชุด เก็บสถิติคะแนน',
     groups: [
-      { days: 'วันที่ 31–33', subject: 'Mock Test ชุดที่ 1 (ปี 65)', tasks: ['ทำข้อสอบปี 65 ครบทุกวิชา <button class="btn-pdf-task" data-pdfid="pdf_egat_65" type="button">📖 เปิดดูข้อสอบปี 65 (PDF)</button>', 'เก็บเวลา 2.30 ชั่วโมง', 'วิเคราะห์ข้อที่ผิด'] },
-      { days: 'วันที่ 34–36', subject: 'เน้นจุดอ่อน จาก Mock 1',    tasks: ['ทบทวนเฉพาะหัวข้อที่ผิดมากที่สุด', 'ฝึกข้อสอบเพิ่มเติมเฉพาะจุด', 'สรุปสูตรและ Pattern ที่ลืม'] },
-      { days: 'วันที่ 37–39', subject: 'Mock Test ชุดที่ 2 (ปี 68)', tasks: ['ทำข้อสอบปี 68 เต็มชุด <button class="btn-pdf-task" data-pdfid="pdf_egat_68" type="button">📖 เปิดดูข้อสอบปี 68 (PDF)</button>', 'เก็บเวลาเหมือนสอบจริง', 'เปรียบเทียบคะแนนกับ Mock 1'] },
-      { days: 'วันที่ 40–42', subject: 'เน้นจุดอ่อน จาก Mock 2',    tasks: ['เจาะวิชาที่คะแนนต่ำสุด', 'ทำโจทย์เพิ่ม 50 ข้อ/วิชา', 'ฝึกเทคนิคตัดตัวเลือก'] },
-      { days: 'วันที่ 43–45', subject: 'Mock Test ชุดที่ 3 (ปี 69)', tasks: ['ทำข้อสอบปี 69 ทั้ง #1 และ #2 <button class="btn-pdf-task" data-pdfid="pdf_egat_69_1" type="button">📖 เปิดปี 69 #1</button> <button class="btn-pdf-task" data-pdfid="pdf_egat_69_2" type="button">📖 เปิดปี 69 #2</button>', 'จัดเวลาให้เหมือนสอบจริงที่สุด', 'บันทึกคะแนนและวิเคราะห์'] },
+      { subject: 'Mock Test ชุดที่ 1 (ปี 65)', w: 3, tasks: ['ทำข้อสอบปี 65 ครบทุกวิชา <button class="btn-pdf-task" data-pdfid="pdf_egat_65" type="button">📖 เปิดดูข้อสอบปี 65 (PDF)</button>', 'เก็บเวลา 2.30 ชั่วโมง', 'วิเคราะห์ข้อที่ผิด'] },
+      { subject: 'เน้นจุดอ่อน จาก Mock 1',    w: 3, tasks: ['ทบทวนเฉพาะหัวข้อที่ผิดมากที่สุด', 'ฝึกข้อสอบเพิ่มเติมเฉพาะจุด', 'สรุปสูตรและ Pattern ที่ลืม'] },
+      { subject: 'Mock Test ชุดที่ 2 (ปี 68)', w: 3, tasks: ['ทำข้อสอบปี 68 เต็มชุด <button class="btn-pdf-task" data-pdfid="pdf_egat_68" type="button">📖 เปิดดูข้อสอบปี 68 (PDF)</button>', 'เก็บเวลาเหมือนสอบจริง', 'เปรียบเทียบคะแนนกับ Mock 1'] },
+      { subject: 'เน้นจุดอ่อน จาก Mock 2',    w: 3, tasks: ['เจาะวิชาที่คะแนนต่ำสุด', 'ทำโจทย์เพิ่ม 50 ข้อ/วิชา', 'ฝึกเทคนิคตัดตัวเลือก'] },
+      { subject: 'Mock Test ชุดที่ 3 (ปี 69)', w: 3, tasks: ['ทำข้อสอบปี 69 ทั้ง #1 และ #2 <button class="btn-pdf-task" data-pdfid="pdf_egat_69_1" type="button">📖 เปิดปี 69 #1</button> <button class="btn-pdf-task" data-pdfid="pdf_egat_69_2" type="button">📖 เปิดปี 69 #2</button>', 'จัดเวลาให้เหมือนสอบจริงที่สุด', 'บันทึกคะแนนและวิเคราะห์'] },
     ]
   },
-  {
-    title: 'Phase 4 — ทบทวนและเตรียมสอบ', days: 'วันที่ 46–60', color: '#34d399',
+  p4_review: {
+    titleSuffix: ' — ทบทวนและเตรียมสอบ', color: '#34d399',
     desc: 'ทบทวนสรุปทุกวิชา เน้นความเร็ว และเตรียมจิตใจ',
     groups: [
-      { days: 'วันที่ 46–48', subject: 'ทบทวนคณิตศาสตร์รวม',       tasks: ['ทำโจทย์ Mix 80 ข้อ ใน 45 นาที', 'ทบทวนสูตรทุกหมวด', 'เน้นจุดที่ยังผิดอยู่'] },
-      { days: 'วันที่ 49–51', subject: 'ทบทวนตรรกะ + ภาษา',        tasks: ['ทำโจทย์รวม Verbal+Logic 60 ข้อ', 'ฝึกให้ใช้เวลาต่อข้อลดลง', 'อ่านบทความ 1 บทความ/วัน'] },
-      { days: 'วันที่ 52–54', subject: 'Final Mock Test',            tasks: ['ทำ Simulation เต็มรูปแบบ', 'เก็บเวลาเหมือนสอบจริง 100%', 'วิเคราะห์และแก้ไขจุดอ่อน'] },
-      { days: 'วันที่ 55–57', subject: 'Quick Review ทุกวิชา',      tasks: ['อ่านสรุปสูตรที่เตรียมไว้', 'ทำโจทย์เร็วๆ ข้างละ 20 ข้อ', 'ดูตัวอย่างข้อสอบที่ชอบออก'] },
-      { days: 'วันที่ 58–59', subject: 'เตรียมพร้อมก่อนสอบ',       tasks: ['พักผ่อนให้เพียงพอ 7-8 ชม.', 'ตรวจสอบเอกสาร (ใบ กว., TOEIC)', 'อ่านสถานที่และเวลาสอบ'] },
-      { days: 'วันที่ 60',    subject: '🎯 วันสอบ!',               tasks: ['มาถึงสถานที่ก่อนเวลา 30 นาที', 'นำบัตรประจำตัวและเอกสารครบ', 'ทำใจนิ่ง · สู้ได้! 💪'] },
+      { subject: 'ทบทวนคณิตศาสตร์รวม',  w: 3, tasks: ['ทำโจทย์ Mix 80 ข้อ ใน 45 นาที', 'ทบทวนสูตรทุกหมวด', 'เน้นจุดที่ยังผิดอยู่'] },
+      { subject: 'ทบทวนตรรกะ + ภาษา',   w: 3, tasks: ['ทำโจทย์รวม Verbal+Logic 60 ข้อ', 'ฝึกให้ใช้เวลาต่อข้อลดลง', 'อ่านบทความ 1 บทความ/วัน'] },
+      { subject: 'Final Mock Test',       w: 3, tasks: ['ทำ Simulation เต็มรูปแบบ', 'เก็บเวลาเหมือนสอบจริง 100%', 'วิเคราะห์และแก้ไขจุดอ่อน'] },
+      { subject: 'Quick Review ทุกวิชา', w: 3, tasks: ['อ่านสรุปสูตรที่เตรียมไว้', 'ทำโจทย์เร็วๆ ข้างละ 20 ข้อ', 'ดูตัวอย่างข้อสอบที่ชอบออก'] },
+      { subject: 'เตรียมพร้อมก่อนสอบ',  w: 2, tasks: ['พักผ่อนให้เพียงพอ 7-8 ชม.', 'ตรวจสอบเอกสาร (ใบ กว., TOEIC)', 'อ่านสถานที่และเวลาสอบ'] },
+      { subject: '🎯 วันสอบ!',           w: 1, tasks: ['มาถึงสถานที่ก่อนเวลา 30 นาที', 'นำบัตรประจำตัวและเอกสารครบ', 'ทำใจนิ่ง · สู้ได้! 💪'] },
     ]
   }
-];
+};
+
+// ---- State: แผนที่ generate แล้ว ----
+let PHASES    = [];   // จะถูก generate ใหม่เสมอเมื่อ examDate เปลี่ยน
+let totalDays = 60;  // จำนวนวันทั้งหมดตั้งแต่วันนี้ถึงวันสอบ
+
+// ======================================================
+// DYNAMIC PLAN GENERATOR
+// ======================================================
+
+/**
+ * คำนวณจำนวนวันทั้งหมดนับจากวันนี้ถึงวันสอบ (inclusive)
+ * คืนค่า fallback 60 ถ้ายังไม่มีการตั้งวันสอบ
+ */
+function calcTotalDays() {
+  if (!examDate) return 60;
+  const parts = examDate.split('-');
+  const exam  = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const diff = Math.round((exam - today) / 86400000) + 1; // +1 รวมวันนี้
+  return Math.max(1, diff);
+}
+
+/**
+ * แจกวันของ groups ภายใน phase (ตามน้ำหนัก w)
+ * @param {Array} groups  - template groups ที่มี {subject, w, tasks}
+ * @param {number} start  - วันเริ่มของ phase
+ * @param {number} end    - วันสุดของ phase
+ * @returns {Array}       - groups พร้อม days label
+ */
+function distributeGroupDays(groups, start, end) {
+  const phaseDays  = end - start + 1;
+  const totalW     = groups.reduce((s, g) => s + g.w, 0);
+  const result     = [];
+  let dayPos       = start;
+
+  groups.forEach((g, gi) => {
+    if (dayPos > end) return; // วันเต็มแล้ว ข้ามไป
+    const isLast  = gi === groups.length - 1;
+    const gDays   = isLast
+      ? end - dayPos + 1
+      : Math.max(1, Math.round(phaseDays * (g.w / totalW)));
+    const gEnd    = Math.min(dayPos + gDays - 1, end);
+    const label   = gEnd === dayPos ? `วันที่ ${dayPos}` : `วันที่ ${dayPos}–${gEnd}`;
+    result.push({ days: label, subject: g.subject, tasks: g.tasks });
+    dayPos = gEnd + 1;
+  });
+
+  return result;
+}
+
+/**
+ * สร้าง PHASES array แบบ dynamic ตามจำนวนวัน
+ * - n ≥ 30 วัน → 4 phases (Foundation · Deep · Mock · Review)
+ * - 15–29 วัน → 3 phases (Deep · Mock · Review)
+ * - 7–14 วัน  → 2 phases (Mock · Review)
+ * - < 7 วัน   → 1 phase  (Review + วันสอบ)
+ */
+function generateDynamicPlan(n) {
+  if (n < 1) n = 1;
+
+  let phaseConfig;
+  if (n >= 30) {
+    phaseConfig = [
+      { key: 'p1_foundation', ratio: 0.25 },
+      { key: 'p2_deep',       ratio: 0.25 },
+      { key: 'p3_mock',       ratio: 0.25 },
+      { key: 'p4_review',     ratio: 0.25 },
+    ];
+  } else if (n >= 15) {
+    phaseConfig = [
+      { key: 'p2_deep',   ratio: 0.25 },
+      { key: 'p3_mock',   ratio: 0.45 },
+      { key: 'p4_review', ratio: 0.30 },
+    ];
+  } else if (n >= 7) {
+    phaseConfig = [
+      { key: 'p3_mock',   ratio: 0.50 },
+      { key: 'p4_review', ratio: 0.50 },
+    ];
+  } else {
+    phaseConfig = [
+      { key: 'p4_review', ratio: 1.0 },
+    ];
+  }
+
+  // คำนวณ boundary ของแต่ละ phase
+  const count = phaseConfig.length;
+  const boundaries = [];
+  let current = 1;
+  phaseConfig.forEach((cfg, i) => {
+    const phaseDays = (i === count - 1)
+      ? n - current + 1
+      : Math.max(1, Math.round(n * cfg.ratio));
+    boundaries.push({ start: current, end: current + phaseDays - 1 });
+    current += phaseDays;
+  });
+
+  // สร้าง phase objects
+  return phaseConfig.map((cfg, i) => {
+    const tmpl    = PHASE_TEMPLATES[cfg.key];
+    const { start, end } = boundaries[i];
+    const phaseNum = i + 1;
+    const metaMap = {
+      p1_foundation: { icon: '📖', badge: 'สร้างรากฐาน' },
+      p2_deep:       { icon: '🎯', badge: 'เจาะลึก' },
+      p3_mock:       { icon: '📝', badge: 'ฝึกจริง' },
+      p4_review:     { icon: '🏆', badge: 'ทบทวน & สอบ' },
+    };
+    return {
+      title:  `Phase ${phaseNum}${tmpl.titleSuffix}`,
+      days:   start === end ? `วันที่ ${start}` : `วันที่ ${start}–${end}`,
+      color:  tmpl.color,
+      desc:   tmpl.desc,
+      groups: distributeGroupDays(tmpl.groups, start, end),
+      meta:   metaMap[cfg.key] || { icon: '📚', badge: 'Phase' },
+    };
+  });
+}
+
+/**
+ * Rebuild แผนทั้งหมดเมื่อ examDate เปลี่ยน
+ * (จะถูกเรียกทุกครั้งที่ user กำหนด/เปลี่ยนวันสอบ)
+ */
+function rebuildPlan() {
+  totalDays = calcTotalDays();
+  PHASES    = generateDynamicPlan(totalDays);
+
+  // อัปเดต section tag badge
+  const tag = document.getElementById('plannerSectionTag');
+  if (tag) tag.textContent = `ตารางเรียน ${totalDays} วัน`;
+
+  // อัปเดต hero title: แสดง "N วัน" เมื่อมีวันสอบ หรือ "กฟผ." เมื่อยังไม่มี
+  const heroSpan = document.getElementById('heroTitleDays');
+  if (heroSpan) heroSpan.textContent = examDate ? `${totalDays} วัน` : 'กฟผ.';
+
+  // อัปเดต section desc ตาม phase count จริง
+  const desc = document.querySelector('#planner .section-desc');
+  if (desc) {
+    const pCount = PHASES.length;
+    desc.textContent = `แบ่งเนื้อหาเป็น ${pCount} ช่วง · ทบทวนสะสม · ทำข้อสอบเก่า · Mock Test`;
+  }
+
+  // Reset phase index ถ้า index เกิน phase ที่มีอยู่
+  if (currentPhase >= PHASES.length) currentPhase = 0;
+  // Reset สัปดาห์ถ้าเกิน
+  const maxWeek = Math.ceil(totalDays / 7) - 1;
+  if (currentWeek > maxWeek) currentWeek = 0;
+
+  buildPhaseTabs();
+  buildPhaseContent(false);
+  buildWeeklyGrid();
+}
 
 // ======================================================
 // FIREBASE SYNC
@@ -234,6 +388,7 @@ function listenToCloud() {
     const examInput = document.getElementById('examDateInput');
     if (examInput) examInput.value = examDate || '';
     updateCountdown();
+    if (typeof rebuildPlan === 'function') rebuildPlan(); // สร้างแผนใหม่อัตโนมัติตามวันที่เหลือ
 
     // 2. Topic Status
     if (data.topicStatus !== undefined) {
@@ -432,6 +587,7 @@ function resetExamDate() {
   const examInput = document.getElementById('examDateInput');
   if (examInput) examInput.value = '';
   updateCountdown();
+  rebuildPlan(); // สร้างแผนใหม่ด้วย default 60 วัน
   showToast('🗑 รีเซ็ตวันสอบเรียบร้อย');
 }
 
@@ -559,7 +715,8 @@ function buildPhaseTabs() {
 function buildPhaseContent(animated = true) {
   const container = document.getElementById('phaseContent');
   const phase     = PHASES[currentPhase];
-  const meta      = PHASE_META[currentPhase];
+  if (!phase) return; // guard ถ้า PHASES ยังว่างอยู่
+  const meta      = phase.meta || { icon: '📚', badge: 'Phase' }; // ใช้ meta ที่ฝังมาใน phase object
 
   // ตั้ง CSS custom property สีตาม phase
   container.style.setProperty('--phase-color', phase.color);
@@ -605,12 +762,42 @@ function buildPhaseContent(animated = true) {
 // WEEKLY CALENDAR
 // ======================================================
 const DAYS_TH = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
+const MONTHS_TH_SHORT = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
+
+/**
+ * คืนวันเริ่มต้นแผน = วันนี้ (วันที่ 1 ของแผน)
+ * วันสอบ = วันที่ totalDays ของแผนเสมอ
+ */
+function getPlanStartDate() {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  return start;
+}
+
+/**
+ * แปลงเลขวันในแผน (1-N) เป็นวัน Date จริง
+ * วันที่ 1 = วันนี้ เสมอ
+ */
+function getDayRealDate(planDay) {
+  const start = new Date();
+  start.setHours(0, 0, 0, 0);
+  start.setDate(start.getDate() + planDay - 1);
+  return start;
+}
+
+/**
+ * แสดงวันที่แบบไทยสั้น เช่น "1 ก.ค."
+ */
+function formatDateShortTH(d) {
+  if (!d) return '';
+  return `${d.getDate()} ${MONTHS_TH_SHORT[d.getMonth()]}`;
+}
 
 function getWeekPlan(weekIdx) {
   const startDay = weekIdx * 7 + 1;
   return Array.from({length: 7}, (_, i) => {
     const day = startDay + i;
-    if (day > 60) return null;
+    if (day > totalDays) return null;  // ใช้ totalDays dynamic
     let task = '';
     for (const phase of PHASES) {
       for (const g of phase.groups) {
@@ -622,21 +809,31 @@ function getWeekPlan(weekIdx) {
         }
       }
     }
-    return { day, task, done: !!dayDone[day] };
+    const realDate = getDayRealDate(day);
+    return { day, task, done: !!dayDone[day], realDate };
   });
 }
 
 function buildWeeklyGrid() {
   const container  = document.getElementById('weeklyGrid');
   const weekLabel  = document.getElementById('weekLabel');
-  weekLabel.textContent = `สัปดาห์ที่ ${currentWeek + 1} / ${Math.ceil(60/7)}`;
+  weekLabel.textContent = `สัปดาห์ที่ ${currentWeek + 1} / ${Math.ceil(totalDays/7)}`;
+
+  const todayStr = new Date().toDateString();
 
   container.innerHTML = getWeekPlan(currentWeek).map((p, i) => {
-    if (!p) return `<div class="day-cell" style="opacity:0.3;"><div class="day-name">${DAYS_TH[i%7]}</div><div class="day-num" style="color:var(--text-muted);">-</div></div>`;
-    const cls = ['day-cell', p.done?'completed':'', (i===0||i===6)?'weekend':''].filter(Boolean).join(' ');
+    if (!p) return `<div class="day-cell" style="opacity:0.3;"><div class="day-num" style="color:var(--text-muted);">-</div></div>`;
+    const isToday = p.realDate && p.realDate.toDateString() === todayStr;
+    const realDateLabel = p.realDate ? `<div class="day-real-date">${formatDateShortTH(p.realDate)}</div>` : '';
+    const cls = ['day-cell',
+      p.done ? 'completed' : '',
+      (i===0||i===6) ? 'weekend' : '',
+      isToday ? 'is-today' : ''
+    ].filter(Boolean).join(' ');
     return `<div class="${cls}" data-day="${p.day}">
-      <div class="day-name">${DAYS_TH[i%7]}</div>
+
       <div class="day-num">วัน ${p.day}</div>
+      ${realDateLabel}
       <div class="day-task">${p.task}</div>
       <div class="day-badge">✓</div>
     </div>`;
@@ -878,7 +1075,8 @@ function init() {
       examDate = examInput.value;
       saveAll(LS_KEY_EXAMDATE, examDate);
       updateCountdown();
-      showToast('📅 บันทึกและซิงค์วันสอบแล้ว!');
+      rebuildPlan(); // สร้างแผนใหม่อัตโนมัติตามวันที่เหลือ
+      showToast(`📅 บันทึกวันสอบแล้ว! เหลือ ${totalDays} วัน — สู้ได้! 💪`);
     }
   };
 
@@ -891,9 +1089,7 @@ function init() {
 
   // ---- Build UI ----
   buildSubjectGrid();
-  buildPhaseTabs();
-  buildPhaseContent(false); // ไม่ animate ครั้งแรก
-  buildWeeklyGrid();
+  rebuildPlan(); // สร้างแผนครั้งแรก (รวม buildPhaseTabs + buildPhaseContent + buildWeeklyGrid)
   buildProgressList();
   buildScoreLog();
   populateScoreSelect();
@@ -915,7 +1111,8 @@ function init() {
     if (currentWeek > 0) { currentWeek--; buildWeeklyGrid(); }
   });
   document.getElementById('nextWeek').addEventListener('click', () => {
-    if (currentWeek < 8) { currentWeek++; buildWeeklyGrid(); }
+    const maxWeek = Math.ceil(totalDays / 7) - 1; // dynamic limit
+    if (currentWeek < maxWeek) { currentWeek++; buildWeeklyGrid(); }
   });
 
   // ---- Score log ----

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EGAT Prep 60D | แผนเตรียมสอบ กฟผ.</title>
-  <meta name="description" content="คู่มือและแผนเตรียมสอบ กฟผ. 60 วัน ครบถ้วนทุกวิชา Aptitude Test คลังโจทย์ 300+ ข้อ พร้อมระบบสุ่มข้อสอบและติดตามความก้าวหน้า" />
+  <title>EGAT Prep | แผนเตรียมสอบ กฟผ.</title>
+  <meta name="description" content="คู่มือและแผนเตรียมสอบ กฟผ. ครบถ้วนทุกวิชา Aptitude Test คลังโจทย์ 300+ ข้อ พร้อมระบบสุ่มข้อสอบและติดตามความก้าวหน้า" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
@@ -64,7 +64,7 @@
         <span class="badge-dot"></span>
         <span>การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.)</span>
       </div>
-      <h1 class="hero-title">แผนเตรียมสอบ<br/><span class="gradient-text">60 วัน</span></h1>
+      <h1 class="hero-title">แผนเตรียมสอบ<br/><span class="gradient-text" id="heroTitleDays">กฟผ.</span></h1>
       <p class="hero-subtitle">วางแผนอย่างเป็นระบบ · ติดตามความก้าวหน้า · สอบผ่านอย่างมั่นใจ</p>
 
       <!-- Countdown -->
@@ -146,16 +146,11 @@
     <!-- ===== PLANNER SECTION ===== -->
     <section class="section" id="planner">
       <div class="section-header">
-        <div class="section-tag">ตารางเรียน 60 วัน</div>
+        <div class="section-tag" id="plannerSectionTag">ตารางเรียน N วัน</div>
         <h2 class="section-title">แผนการเรียนรายสัปดาห์</h2>
         <p class="section-desc">แบ่งเนื้อหาเป็น 4 ช่วง · ทบทวนสะสม · ทำข้อสอบเก่า · Mock Test</p>
       </div>
-      <div class="phase-tabs" id="phaseTabs">
-        <button class="phase-tab active" data-phase="0">Phase 1<br/><small>วันที่ 1-15</small></button>
-        <button class="phase-tab" data-phase="1">Phase 2<br/><small>วันที่ 16-30</small></button>
-        <button class="phase-tab" data-phase="2">Phase 3<br/><small>วันที่ 31-45</small></button>
-        <button class="phase-tab" data-phase="3">Phase 4<br/><small>วันที่ 46-60</small></button>
-      </div>
+      <div class="phase-tabs" id="phaseTabs"></div>
       <div class="phase-content" id="phaseContent"></div>
       <div class="weekly-wrapper">
         <div class="weekly-header-row">
