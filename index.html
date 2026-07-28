@@ -219,6 +219,30 @@
         <!-- filled by JS -->
       </div>
 
+      <!-- ===== CUSTOM QUIZ BUILDER MODAL ===== -->
+      <div class="custom-quiz-overlay" id="customQuizOverlay" style="display:none;">
+        <div class="custom-quiz-modal">
+          <div class="cqm-header">
+            <div class="cqm-header-text">
+              <div class="cqm-tag">⚙️ Custom Quiz Builder</div>
+              <h3 class="cqm-title">สร้างชุดข้อสอบตามที่ต้องการ</h3>
+              <p class="cqm-desc">เลือกวิชา → เลือกหัวข้อย่อย → ตั้งค่าจำนวนข้อและเวลา</p>
+            </div>
+            <button class="cqm-close-btn" id="closeCustomQuizBtn" title="ปิด">&#x2715;</button>
+          </div>
+
+          <!-- Dynamic body — rendered by JS -->
+          <div class="cqm-body" id="cqmModalBody">
+            <!-- renderCQMStep1() will fill this -->
+          </div>
+
+          <div class="cqm-footer">
+            <button class="cqm-cancel-btn" id="cqmCancelBtn">ยกเลิก</button>
+            <button class="cqm-start-btn" id="cqmStartBtn" disabled>🚀 เริ่มทำแบบทดสอบ →</button>
+          </div>
+        </div>
+      </div>
+
       <!-- Interactive Quiz Runner Container (hidden by default until user selects a quiz) -->
       <div class="quiz-runner-container" id="quizRunnerContainer" style="display:none;">
         <div class="quiz-runner-card">
@@ -336,11 +360,18 @@
       <!-- Remaining Videos Panel: วิดีโอที่ยังต้องดูเพื่อให้หัวข้อเปลี่ยนเป็นเขียว -->
       <div class="remaining-videos-section" id="remainingVideosSectionWrapper">
         <div class="rvs-header">
-          <div class="rvs-title">
-            <span class="rvs-icon">📺</span>
-            <span>วิดีโอที่ยังต้องดูเพื่อเสร็จหัวข้อ</span>
+          <div class="rvs-title-group">
+            <div class="rvs-title">
+              <span class="rvs-icon">📺</span>
+              <span>วิดีโอที่ยังต้องดูเพื่อเสร็จหัวข้อ</span>
+              <span class="rvs-badge-summary" id="rvsHeaderSummaryBadge" style="display:none;"></span>
+            </div>
+            <span class="rvs-hint">หัวข้อที่กำลังเรียน <span class="rvs-dot in-prog"></span> → เมื่อดูครบจะเปลี่ยนเป็น <span class="rvs-dot done"></span></span>
           </div>
-          <span class="rvs-hint">หัวข้อที่กำลังเรียน <span class="rvs-dot in-prog"></span> → เมื่อดูครบจะเปลี่ยนเป็น <span class="rvs-dot done"></span></span>
+          <button class="rvs-toggle-btn" id="rvsToggleBtn" type="button" title="ย่อ / ขยาย เนื้อหา">
+            <span id="rvsToggleText">ย่อเนื้อหา</span>
+            <span class="rvs-toggle-icon" id="rvsToggleIcon">▲</span>
+          </button>
         </div>
         <div id="remainingVideosPanel"></div>
       </div>
