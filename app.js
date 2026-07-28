@@ -641,10 +641,51 @@ function buildSubjectGrid() {
         <ul class="sc-topics">
           ${sub.topics.map(t => {
             const st = topicStatus[t.id] || 'pending';
+            const relVids = LESSON_VIDEOS.filter(v => v.relatedTopics && v.relatedTopics.includes(t.id));
+            const watchedCnt = relVids.filter(v => !!watchedVideos[v.id]).length;
+            const totalVids = relVids.length;
+            const remainingVids = relVids.filter(v => !watchedVideos[v.id]);
+            const hasVids = totalVids > 0;
+
+            // video progress badge
+            let vidBadge = '';
+            if (hasVids) {
+              if (watchedCnt === totalVids) {
+                vidBadge = `<span class="topic-vid-badge tvb-done">${totalVids}/${totalVids} ✅</span>`;
+              } else if (watchedCnt > 0) {
+                vidBadge = `<span class="topic-vid-badge tvb-progress">${watchedCnt}/${totalVids} 🎬</span>`;
+              } else {
+                vidBadge = `<span class="topic-vid-badge tvb-pending">0/${totalVids} 🎬</span>`;
+              }
+            }
+
+            // expand button for in-progress topics with remaining videos
+            const hasRemaining = st === 'in-progress' && remainingVids.length > 0;
+            const expandBtn = hasRemaining
+              ? `<button class="topic-expand-btn" data-tid="${t.id}" type="button" title="ดูวิดีโอที่ยังค้างอยู่">▾</button>`
+              : '';
+
+            // remaining videos panel (hidden by default)
+            const remainingPanel = hasRemaining ? `
+              <div class="topic-remaining-panel" id="trp-${t.id}">
+                <div class="trp-header">📺 วิดีโอที่ยังต้องดู (${remainingVids.length} คลิป เพื่อเสร็จหัวข้อนี้)</div>
+                ${remainingVids.map(v => `
+                  <div class="trp-video-item" data-vid="${v.id}">
+                    <span class="trp-play-icon">▶</span>
+                    <div class="trp-info">
+                      <div class="trp-title">${v.title}</div>
+                      <div class="trp-meta">${v.channel} · ${v.duration}</div>
+                    </div>
+                  </div>
+                `).join('')}
+              </div>` : '';
+
             return `<li class="sc-topic status-${st}" data-tid="${t.id}">
               <span class="topic-check">${STATUS_ICON[st]}</span>
-              <span>${t.label}</span>
-            </li>`;
+              <span class="topic-label-text">${t.label}</span>
+              ${vidBadge}
+              ${expandBtn}
+            </li>${remainingPanel}`;
           }).join('')}
         </ul>
         <div class="sc-progress-bar-track" style="margin-top: 14px;">
@@ -653,8 +694,10 @@ function buildSubjectGrid() {
       </div>
     `;
 
+    // Click: cycle topic status (ไม่ cycle ถ้ากด expand btn)
     card.querySelectorAll('.sc-topic').forEach(li => {
-      li.addEventListener('click', () => {
+      li.addEventListener('click', (e) => {
+        if (e.target.closest('.topic-expand-btn')) return;
         const tid = li.dataset.tid;
         const newSt = cycleStatus(topicStatus[tid] || 'pending');
         topicStatus[tid] = newSt;
@@ -665,13 +708,37 @@ function buildSubjectGrid() {
         saveAll(LS_KEY_TOPICS, topicStatus);
         buildSubjectGrid();
         buildProgressList();
+        buildRemainingVideosPanel();
         updateOverall();
         const labels = {
           'in-progress': '📖 กำลังเรียน',
           'done': '✅ เสร็จแล้ว (ซิงค์วิดีโอเรียนแล้วอัตโนมัติ)',
           'pending': '⏳ รีเซ็ต (ปลดมาร์กวิดีโอที่เกี่ยวข้อง)'
         };
-        showToast(labels[newSt] + ' — ' + li.querySelector('span:last-child').textContent, 3000);
+        const labelEl = li.querySelector('.topic-label-text');
+        showToast(labels[newSt] + ' — ' + (labelEl ? labelEl.textContent : ''), 3000);
+      });
+    });
+
+    // Click: expand/collapse remaining videos panel
+    card.querySelectorAll('.topic-expand-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const tid = btn.dataset.tid;
+        const panel = card.querySelector(`#trp-${tid}`);
+        if (!panel) return;
+        const isOpen = panel.classList.contains('trp-open');
+        panel.classList.toggle('trp-open', !isOpen);
+        btn.textContent = isOpen ? '▾' : '▴';
+        btn.classList.toggle('expanded', !isOpen);
+      });
+    });
+
+    // Click: open video modal from remaining panel
+    card.querySelectorAll('.trp-video-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openVideoModal(item.dataset.vid);
       });
     });
 
@@ -875,7 +942,14 @@ function buildProgressList() {
       <div class="pl-subtopics">
         ${sub.topics.map(t => {
           const st = topicStatus[t.id] || 'pending';
-          return `<span class="subtopic-pill ${st==='done'?'done':st==='in-progress'?'in-progress':''}" data-tid="${t.id}">${t.label}</span>`;
+          const relVids = LESSON_VIDEOS.filter(v => v.relatedTopics && v.relatedTopics.includes(t.id));
+          const watchedCnt = relVids.filter(v => !!watchedVideos[v.id]).length;
+          const totalVids = relVids.length;
+          let vidInfo = '';
+          if (totalVids > 0) {
+            vidInfo = `<span class="pill-vid-count ${watchedCnt === totalVids ? 'pvc-done' : watchedCnt > 0 ? 'pvc-progress' : 'pvc-none'}">${watchedCnt}/${totalVids}</span>`;
+          }
+          return `<span class="subtopic-pill ${st==='done'?'done':st==='in-progress'?'in-progress':''}" data-tid="${t.id}">${t.label}${vidInfo}</span>`;
         }).join('')}
       </div>`;
 
@@ -891,6 +965,7 @@ function buildProgressList() {
         saveAll(LS_KEY_TOPICS, topicStatus);
         buildSubjectGrid();
         buildProgressList();
+        buildRemainingVideosPanel();
         updateOverall();
         const labels = {
           'in-progress': '📖 กำลังเรียน',
@@ -902,6 +977,79 @@ function buildProgressList() {
     });
 
     container.appendChild(card);
+  });
+}
+
+// ======================================================
+// REMAINING VIDEOS PANEL
+// ======================================================
+function buildRemainingVideosPanel() {
+  const container = document.getElementById('remainingVideosPanel');
+  if (!container) return;
+
+  // รวม topic ทั้งหมดที่ in-progress และมีวิดีโอที่ยังค้างอยู่
+  const groups = [];
+  SUBJECTS.forEach(sub => {
+    sub.topics.forEach(t => {
+      const st = topicStatus[t.id] || 'pending';
+      if (st !== 'in-progress') return;
+      const relVids = LESSON_VIDEOS.filter(v => v.relatedTopics && v.relatedTopics.includes(t.id));
+      const remaining = relVids.filter(v => !watchedVideos[v.id]);
+      if (remaining.length > 0) {
+        groups.push({ subject: sub, topic: t, remaining });
+      }
+    });
+  });
+
+  if (groups.length === 0) {
+    container.innerHTML = `
+      <div class="rvp-empty">
+        <div class="rvp-empty-icon">🎉</div>
+        <div class="rvp-empty-title">ไม่มีวิดีโอค้างอยู่!</div>
+        <div class="rvp-empty-desc">คุณดูวิดีโอครบทุกหัวข้อที่กำลังเรียนอยู่แล้ว</div>
+      </div>`;
+    return;
+  }
+
+  // นับรวมทั้งหมด
+  const totalRemaining = groups.reduce((s, g) => s + g.remaining.length, 0);
+
+  container.innerHTML = `
+    <div class="rvp-summary">
+      <span class="rvp-count-badge">${totalRemaining} คลิปที่ต้องดู</span>
+      <span class="rvp-hint">ดูให้ครบเพื่อให้หัวข้อเปลี่ยนเป็น ✅ สีเขียว</span>
+    </div>
+    ${groups.map(g => `
+      <div class="rvp-group">
+        <div class="rvp-group-header" style="color:${g.subject.accentColor};">
+          ${g.subject.icon} ${g.topic.label}
+          <span class="rvp-group-sub">(${g.subject.title.split(' (')[0]})</span>
+          <span class="rvp-group-cnt">${g.remaining.length} คลิปเหลือ</span>
+        </div>
+        ${g.remaining.map(v => `
+          <div class="rvp-video-item" data-vid="${v.id}">
+            <div class="rvpi-thumb">
+              <img src="https://img.youtube.com/vi/${v.youtubeId}/default.jpg" alt="" />
+              <span class="rvpi-play">▶</span>
+            </div>
+            <div class="rvpi-info">
+              <div class="rvpi-title">${v.title}</div>
+              <div class="rvpi-meta">${v.channel} · ${v.duration}</div>
+            </div>
+            <button class="rvpi-watch-btn" data-vid="${v.id}" type="button">ดูเลย</button>
+          </div>
+        `).join('')}
+      </div>
+    `).join('')}
+  `;
+
+  // Events: เปิดวิดีโอ modal
+  container.querySelectorAll('.rvp-video-item, .rvpi-watch-btn').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const vid = el.dataset.vid;
+      if (vid) openVideoModal(vid);
+    });
   });
 }
 
@@ -1136,6 +1284,7 @@ function init() {
   buildVideoGrid();
   initVideoSection();
   initMockTestSection();
+  buildRemainingVideosPanel();
 
   initNavObserver();
   initSyncBarScroll();
@@ -2203,6 +2352,7 @@ function toggleVideoWatched(vid) {
     saveAll(LS_KEY_TOPICS, topicStatus);
     buildSubjectGrid();
     buildProgressList();
+    buildRemainingVideosPanel();
     updateOverall();
   }
 
