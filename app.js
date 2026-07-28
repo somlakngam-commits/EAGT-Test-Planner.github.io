@@ -2051,6 +2051,90 @@ const LESSON_VIDEOS = [
     youtubeId: 'DyMSYyghruY',
     desc: 'สรุปการคำนวณพื้นที่เรขาคณิตขั้นสูง และปูพื้นฐานปริมาตรทรง 3 มิติ',
     relatedTopics: ['math_geo']
+  },
+  {
+    id: 'v_mbuisc_1',
+    title: 'ติวสอบ เทคโนโลยีดิจิทัลเพื่อการศึกษา 100 ข้อ',
+    channel: 'Mbuisc Channel',
+    category: 'digital',
+    categoryLabel: '💻 ทักษะดิจิทัล',
+    accentColor: '#34d399',
+    duration: '45:00',
+    youtubeId: 's42Z59M6RwQ',
+    desc: 'ติวเจาะลึกข้อสอบเทคโนโลยีดิจิทัลเพื่อการศึกษา และทักษะดิจิทัล 100 ข้อ',
+    relatedTopics: ['dig_hardware', 'dig_security']
+  },
+  {
+    id: 'v_khim_1',
+    title: 'เฉลย เงื่อนไขภาษา ก.พ. e-Exam69 วันที่ 24 พ.ค.2569 รอบเช้า | EP299',
+    channel: 'พี่ขิม ติวสอบราชการ',
+    category: 'logic',
+    categoryLabel: '🧠 ตรรกะ',
+    accentColor: '#22d3ee',
+    duration: '35:00',
+    youtubeId: 'FBQNc_aP4kE',
+    desc: 'เฉลยข้อสอบเงื่อนไขภาษา ก.พ. e-Exam อย่างละเอียด เทคนิคการวิเคราะห์ประพจน์และเงื่อนไข',
+    relatedTopics: ['logic_sym', 'logic_deduce']
+  },
+  {
+    id: 'v_khim_2',
+    title: 'ติวอุปมา อุปไมย พร้อมเฉลยข้อสอบ ก.พ. รอบวันที่ 28 - 30 มี.ค.2568 | TEP07',
+    channel: 'พี่ขิม ติวสอบราชการ',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '30:00',
+    youtubeId: 'PaogSFUTv2Y',
+    desc: 'ติวข้อสอบอุปมา อุปไมย ภาษาไทย พร้อมเฉลยข้อสอบจริง ก.พ. รอบล่าสุด',
+    relatedTopics: ['verbal_analogy']
+  },
+  {
+    id: 'v_nat_1',
+    title: 'Digital Literacy ความฉลาดทางดิจิทัลคืออะไร มีอะไรบ้าง?',
+    channel: 'ครูณัฐพล บัวอุไร',
+    category: 'digital',
+    categoryLabel: '💻 ทักษะดิจิทัล',
+    accentColor: '#34d399',
+    duration: '15:00',
+    youtubeId: 'lkxBuS5CmrI',
+    desc: 'สรุปความรู้ Digital Literacy ความฉลาดทางดิจิทัล องค์ประกอบสำคัญ และเทคโนโลยีไซเบอร์',
+    relatedTopics: ['dig_hardware', 'dig_security']
+  },
+  {
+    id: 'v_arit_1',
+    title: 'ติวเข้มข้อสอบ Digital Literacy IC3',
+    channel: 'ARIT PKRU',
+    category: 'digital',
+    categoryLabel: '💻 ทักษะดิจิทัล',
+    accentColor: '#34d399',
+    duration: '50:00',
+    youtubeId: 'CpHeZ80fSfw',
+    desc: 'ติวเข้มเก็งข้อสอบ Digital Literacy IC3 ครอบคลุมระบบคอมพิวเตอร์ อินเทอร์เน็ต และ Office',
+    relatedTopics: ['dig_hardware', 'dig_office', 'dig_security', 'dig_internet']
+  },
+  {
+    id: 'v_khim_3',
+    title: 'ติวภาษาไทย ก.พ. การเรียงประโยค ตอนที่ 1 ปูพื้นฐาน | TEP01',
+    channel: 'พี่ขิม ติวสอบราชการ',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '25:00',
+    youtubeId: 'T5plFJes0rw',
+    desc: 'ปูพื้นฐานการเรียงลำดับประโยคและข้อความภาษาไทย เทคนิคการสังเกตประโยคแรกและประโยคเชื่อม',
+    relatedTopics: ['verbal_middle', 'verbal_reading']
+  },
+  {
+    id: 'v_khim_4',
+    title: 'ติวภาษาไทย ก.พ. การเรียงประโยค ตอนที่ 2 ตะลุยโจทย์ | TEP02',
+    channel: 'พี่ขิม ติวสอบราชการ',
+    category: 'verbal',
+    categoryLabel: '💬 ความสามารถด้านภาษา',
+    accentColor: '#a78bfa',
+    duration: '28:00',
+    youtubeId: 'DZO44oMUzQw',
+    desc: 'ตะลุยโจทย์การเรียงลำดับประโยคภาษาไทย ฝึกทำข้อสอบจริง ก.พ. เทคนิคทำเร็ว',
+    relatedTopics: ['verbal_middle', 'verbal_reading']
   }
 ];
 
