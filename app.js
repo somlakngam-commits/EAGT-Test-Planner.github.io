@@ -3755,7 +3755,7 @@ const MATH_QUESTIONS = [
   }
 ,
   {
-      "prompt": "ข้อที่ 76 (ลิมิต ม.เกษตร 1.1): จงหาค่าของ \\(\\lim_{x \\to -7} (2x + 5)\\)",
+      "prompt": "ข้อที่ 76 (ลิมิต ม.เกษตร 1.1): จงหาค่าของ \(\lim_{x \to -7} (2x + 5)\)",
       "choices": [
           "-9",
           "-7",
@@ -3766,7 +3766,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = -7 โดยตรง: 2(-7) + 5 = -14 + 5 = <strong>-9</strong>"
   },
   {
-      "prompt": "ข้อที่ 77 (ลิมิต ม.เกษตร 1.2): จงหาค่าของ \\(\\lim_{x \\to 12} (10 - 3x)\\)",
+      "prompt": "ข้อที่ 77 (ลิมิต ม.เกษตร 1.2): จงหาค่าของ \(\lim_{x \to 12} (10 - 3x)\)",
       "choices": [
           "-26",
           "-16",
@@ -3777,7 +3777,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = 12 โดยตรง: 10 - 3(12) = 10 - 36 = <strong>-26</strong>"
   },
   {
-      "prompt": "ข้อที่ 78 (ลิมิต ม.เกษตร 1.3): จงหาค่าของ \\(\\lim_{x \\to 2} (x^2 - 5x + 10)\\)",
+      "prompt": "ข้อที่ 78 (ลิมิต ม.เกษตร 1.3): จงหาค่าของ \(\lim_{x \to 2} (x^2 - 5x + 10)\)",
       "choices": [
           "2",
           "4",
@@ -3788,7 +3788,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = 2 โดยตรง: (2)^2 - 5(2) + 10 = 4 - 10 + 10 = <strong>4</strong>"
   },
   {
-      "prompt": "ข้อที่ 79 (ลิมิต ม.เกษตร 1.4): จงหาค่าของ \\(\\lim_{x \\to -2} (x^3 - 2x^2 + 4x + 8)\\)",
+      "prompt": "ข้อที่ 79 (ลิมิต ม.เกษตร 1.4): จงหาค่าของ \(\lim_{x \to -2} (x^3 - 2x^2 + 4x + 8)\)",
       "choices": [
           "-16",
           "-8",
@@ -3799,7 +3799,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = -2: (-2)^3 - 2(-2)^2 + 4(-2) + 8 = -8 - 8 - 8 + 8 = <strong>-16</strong>"
   },
   {
-      "prompt": "ข้อที่ 80 (ลิมิต ม.เกษตร 1.5): จงหาค่าของ \\(\\lim_{t \\to 6} 8(t - 5)(t - 7)\\)",
+      "prompt": "ข้อที่ 80 (ลิมิต ม.เกษตร 1.5): จงหาค่าของ \(\lim_{t \to 6} 8(t - 5)(t - 7)\)",
       "choices": [
           "-8",
           "0",
@@ -3810,7 +3810,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า t = 6: 8(6 - 5)(6 - 7) = 8(1)(-1) = <strong>-8</strong>"
   },
   {
-      "prompt": "ข้อที่ 81 (ลิมิต ม.เกษตร 1.6): จงหาค่าของ \\(\\lim_{s \\to 2/3} 3s(2s - 1)\\)",
+      "prompt": "ข้อที่ 81 (ลิมิต ม.เกษตร 1.6): จงหาค่าของ \(\lim_{s \to 2/3} 3s(2s - 1)\)",
       "choices": [
           "1/3",
           "2/3",
@@ -3821,7 +3821,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า s = 2/3: 3(2/3)(2(2/3) - 1) = 2(4/3 - 1) = 2(1/3) = <strong>2/3</strong>"
   },
   {
-      "prompt": "ข้อที่ 82 (ลิมิต ม.เกษตร 1.7): จงหาค่าของ \\(\\lim_{x \\to 2} \\frac{x + 3}{x + 6}\\)",
+      "prompt": "ข้อที่ 82 (ลิมิต ม.เกษตร 1.7): จงหาค่าของ \(\lim_{x \to 2} \frac{x + 3}{x + 6}\)",
       "choices": [
           "3/8",
           "5/8",
@@ -3832,7 +3832,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = 2: (2 + 3) / (2 + 6) = <strong>5/8</strong>"
   },
   {
-      "prompt": "ข้อที่ 83 (ลิมิต ม.เกษตร 1.8): จงหาค่าของ \\(\\lim_{x \to 5} (x - 7)\\)",
+      "prompt": "ข้อที่ 83 (ลิมิต ม.เกษตร 1.8): จงหาค่าของ \(\lim_{x \to 5} (x - 7)\)",
       "choices": [
           "-2",
           "0",
@@ -3843,7 +3843,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = 5: 5 - 7 = <strong>-2</strong>"
   },
   {
-      "prompt": "ข้อที่ 84 (ลิมิต ม.เกษตร 1.9): จงหาค่าของ \\(\\lim_{y \\to -2} \\frac{y^2 - 9}{y}\\)",
+      "prompt": "ข้อที่ 84 (ลิมิต ม.เกษตร 1.9): จงหาค่าของ \(\lim_{y \to -2} \frac{y^2 - 9}{y}\)",
       "choices": [
           "5/2",
           "3/2",
@@ -3854,7 +3854,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า y = -2: ((-2)^2 - 9) / (-2) = (4 - 9) / (-2) = -5 / (-2) = <strong>5/2</strong>"
   },
   {
-      "prompt": "ข้อที่ 85 (ลิมิต ม.เกษตร 1.10): จงหาค่าของ \\(\\lim_{y \\to 2} \\frac{y + 2}{y^2 + 5y + 6}\\)",
+      "prompt": "ข้อที่ 85 (ลิมิต ม.เกษตร 1.10): จงหาค่าของ \(\lim_{y \to 2} \frac{y + 2}{y^2 + 5y + 6}\)",
       "choices": [
           "1/5",
           "2/5",
@@ -3865,7 +3865,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า y = 2: (2 + 2) / (4 + 10 + 6) = 4 / 20 = <strong>1/5</strong>"
   },
   {
-      "prompt": "ข้อที่ 86 (ลิมิต ม.เกษตร 1.11): จงหาค่าของ \\(\\lim_{x \\to -1} 3(2x - 1)^2\\)",
+      "prompt": "ข้อที่ 86 (ลิมิต ม.เกษตร 1.11): จงหาค่าของ \(\lim_{x \to -1} 3(2x - 1)^2\)",
       "choices": [
           "9",
           "18",
@@ -3876,7 +3876,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = -1: 3(2(-1) - 1)^2 = 3(-3)^2 = 3(9) = <strong>27</strong>"
   },
   {
-      "prompt": "ข้อที่ 87 (ลิมิต ม.เกษตร 1.12): จงหาค่าของ \\(\\lim_{x \\to -4} (x + 3)^{1984}\\)",
+      "prompt": "ข้อที่ 87 (ลิมิต ม.เกษตร 1.12): จงหาค่าของ \(\lim_{x \to -4} (x + 3)^{1984}\)",
       "choices": [
           "-1",
           "0",
@@ -3887,7 +3887,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า x = -4: (-4 + 3)^1984 = (-1)^1984 = <strong>1</strong>"
   },
   {
-      "prompt": "ข้อที่ 88 (ลิมิต ม.เกษตร 1.13): จงหาค่าของ \\(\\lim_{y \\to -3} (5 - y)^{4/3}\\)",
+      "prompt": "ข้อที่ 88 (ลิมิต ม.เกษตร 1.13): จงหาค่าของ \(\lim_{y \to -3} (5 - y)^{4/3}\)",
       "choices": [
           "8",
           "12",
@@ -3898,7 +3898,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า y = -3: (5 - (-3))^4/3 = 8^(4/3) = (2^3)^(4/3) = 2^4 = <strong>16</strong>"
   },
   {
-      "prompt": "ข้อที่ 89 (ลิมิต ม.เกษตร 1.14): จงหาค่าของ \\(\\lim_{z \\to 0} (2z - 8)^{1/3}\\)",
+      "prompt": "ข้อที่ 89 (ลิมิต ม.เกษตร 1.14): จงหาค่าของ \(\lim_{z \to 0} (2z - 8)^{1/3}\)",
       "choices": [
           "-2",
           "0",
@@ -3909,7 +3909,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า z = 0: (-8)^(1/3) = <strong>-2</strong>"
   },
   {
-      "prompt": "ข้อที่ 90 (ลิมิต ม.เกษตร 1.15): จงหาค่าของ \\(\\lim_{h \\to 0} \\frac{3h + 3}{h + 2}\\)",
+      "prompt": "ข้อที่ 90 (ลิมิต ม.เกษตร 1.15): จงหาค่าของ \(\lim_{h \to 0} \frac{3h + 3}{h + 2}\)",
       "choices": [
           "1",
           "3/2",
@@ -3920,7 +3920,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า h = 0: (0 + 3) / (0 + 2) = <strong>3/2</strong>"
   },
   {
-      "prompt": "ข้อที่ 91 (ลิมิต ม.เกษตร 1.16): จงหาค่าของ \\(\\lim_{h \\to 0} \\frac{5h + 5}{4h + 4}\\)",
+      "prompt": "ข้อที่ 91 (ลิมิต ม.เกษตร 1.16): จงหาค่าของ \(\lim_{h \to 0} \frac{5h + 5}{4h + 4}\)",
       "choices": [
           "1",
           "5/4",
@@ -3931,7 +3931,7 @@ const MATH_QUESTIONS = [
       "explanation": "แทนค่า h = 0: (0 + 5) / (0 + 4) = <strong>5/4</strong>"
   },
   {
-      "prompt": "ข้อที่ 92 (ลิมิต ม.เกษตร 1.17): จงหาค่าของ \\(\\lim_{h \\to 0} \\frac{\\sqrt{3h + 1} - 1}{h}\\)",
+      "prompt": "ข้อที่ 92 (ลิมิต ม.เกษตร 1.17): จงหาค่าของ \(\lim_{h \to 0} \frac{\\sqrt{3h + 1} - 1}{h}\)",
       "choices": [
           "1",
           "3/2",
@@ -3942,7 +3942,7 @@ const MATH_QUESTIONS = [
       "explanation": "ใช้วิธี Conjugate หรือ L'Hopital: Derivative ของ √(3h+1) ที่ h=0 คือ 3/(2√(1)) = <strong>3/2</strong>"
   },
   {
-      "prompt": "ข้อที่ 93 (ลิมิต ม.เกษตร 1.18): จงหาค่าของ \\(\\lim_{h \\to 0} \\frac{\\sqrt{5h + 4} - 2}{h}\\)",
+      "prompt": "ข้อที่ 93 (ลิมิต ม.เกษตร 1.18): จงหาค่าของ \(\lim_{h \to 0} \frac{\\sqrt{5h + 4} - 2}{h}\)",
       "choices": [
           "1",
           "5/4",
@@ -3953,7 +3953,7 @@ const MATH_QUESTIONS = [
       "explanation": "ใช้วิธี Conjugate หรือ L'Hopital: Derivative ของ √(5h+4) ที่ h=0 คือ 5/(2√(4)) = 5/4 = <strong>5/4</strong>"
   },
   {
-      "prompt": "ข้อที่ 94 (ลิมิต ม.เกษตร 1.19): จงหาค่าของ \\(\\lim_{x \\to 25} \\frac{\\sqrt{x} - 5}{x - 25}\\)",
+      "prompt": "ข้อที่ 94 (ลิมิต ม.เกษตร 1.19): จงหาค่าของ \(\lim_{x \to 25} \frac{\\sqrt{x} - 5}{x - 25}\)",
       "choices": [
           "1/10",
           "1/5",
@@ -3964,7 +3964,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบ x - 25 = (√x - 5)(√x + 5) ตัดกันได้ 1 / (√25 + 5) = 1 / (5 + 5) = <strong>1/10</strong>"
   },
   {
-      "prompt": "ข้อที่ 95 (ลิมิต ม.เกษตร 1.20): จงหาค่าของ \\(\\lim_{x \\to -3} \\frac{x + 3}{x^2 + 4x + 3}\\)",
+      "prompt": "ข้อที่ 95 (ลิมิต ม.เกษตร 1.20): จงหาค่าของ \(\lim_{x \to -3} \frac{x + 3}{x^2 + 4x + 3}\)",
       "choices": [
           "-1/2",
           "0",
@@ -3975,7 +3975,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบตัวส่วน: (x+3)(x+1) ตัด (x+3) เหลือ 1 / (-3 + 1) = 1 / (-2) = <strong>-1/2</strong>"
   },
   {
-      "prompt": "ข้อที่ 96 (ลิมิต ม.เกษตร 1.21): จงหาค่าของ \\(\\lim_{x \\to -5} \\frac{x^2 + 3x - 10}{x + 5}\\)",
+      "prompt": "ข้อที่ 96 (ลิมิต ม.เกษตร 1.21): จงหาค่าของ \(\lim_{x \to -5} \frac{x^2 + 3x - 10}{x + 5}\)",
       "choices": [
           "-7",
           "-5",
@@ -3986,7 +3986,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบตัวเศษ: (x+5)(x-2) ตัด (x+5) เหลือ (-5 - 2) = <strong>-7</strong>"
   },
   {
-      "prompt": "ข้อที่ 97 (ลิมิต ม.เกษตร 1.22): จงหาค่าของ \\(\\lim_{x \\to 2} \\frac{x^2 - 7x + 10}{x - 2}\\)",
+      "prompt": "ข้อที่ 97 (ลิมิต ม.เกษตร 1.22): จงหาค่าของ \(\lim_{x \to 2} \frac{x^2 - 7x + 10}{x - 2}\)",
       "choices": [
           "-5",
           "-3",
@@ -3997,7 +3997,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบตัวเศษ: (x-2)(x-5) ตัด (x-2) เหลือ (2 - 5) = <strong>-3</strong>"
   },
   {
-      "prompt": "ข้อที่ 98 (ลิมิต ม.เกษตร 1.23): จงหาค่าของ \\(\\lim_{t \\to 1} \\frac{t^2 + t - 2}{t^2 - 1}\\)",
+      "prompt": "ข้อที่ 98 (ลิมิต ม.เกษตร 1.23): จงหาค่าของ \(\lim_{t \to 1} \frac{t^2 + t - 2}{t^2 - 1}\)",
       "choices": [
           "1",
           "3/2",
@@ -4008,7 +4008,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบ (t-1)(t+2) / ((t-1)(t+1)) ตัด (t-1) เหลือ (1+2)/(1+1) = <strong>3/2</strong>"
   },
   {
-      "prompt": "ข้อที่ 99 (ลิมิต ม.เกษตร 1.24): จงหาค่าของ \\(\\lim_{t \\to -1} \\frac{t^2 - 1}{t^2 - 2t - 3}\\)",
+      "prompt": "ข้อที่ 99 (ลิมิต ม.เกษตร 1.24): จงหาค่าของ \(\lim_{t \to -1} \frac{t^2 - 1}{t^2 - 2t - 3}\)",
       "choices": [
           "-1/3",
           "0",
@@ -4019,7 +4019,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบ (t+1)(t-1) / ((t+1)(t-3)) ตัด (t+1) เหลือ (-1-1)/(-1-3) = -2/-4... (สอดคล้องกับเฉลย -1/3) = <strong>-1/3</strong>"
   },
   {
-      "prompt": "ข้อที่ 100 (ลิมิต ม.เกษตร 1.25): จงหาค่าของ \\(\\lim_{x \\to -2} \\frac{x^3 + 2x^2 - x - 2}{x^2 - 4}\\)",
+      "prompt": "ข้อที่ 100 (ลิมิต ม.เกษตร 1.25): จงหาค่าของ \(\lim_{x \to -2} \frac{x^3 + 2x^2 - x - 2}{x^2 - 4}\)",
       "choices": [
           "-1/2",
           "0",
@@ -4030,7 +4030,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบ (x+2)(x^2-1) / ((x+2)(x-2)) ตัด (x+2) เหลือ (4-1)/(-2-2) = 3/-4... สอดคล้องกับเฉลย = <strong>-1/2</strong>"
   },
   {
-      "prompt": "ข้อที่ 101 (ลิมิต ม.เกษตร 1.27): จงหาค่าของ \\(\\lim_{u \\to 1} \\frac{u^4 - 1}{u^3 - 1}\\)",
+      "prompt": "ข้อที่ 101 (ลิมิต ม.เกษตร 1.27): จงหาค่าของ \(\lim_{u \to 1} \frac{u^4 - 1}{u^3 - 1}\)",
       "choices": [
           "1",
           "4/3",
@@ -4038,10 +4038,10 @@ const MATH_QUESTIONS = [
           "2"
       ],
       "answer": 1,
-      "explanation": "ใช้กฎ L'Hopital: \\(\\lim_{u \\to 1} \\frac{4u^3}{3u^2} = \\frac{4(1)^3}{3(1)^2} = \\mathbf{4/3}\\)"
+      "explanation": "ใช้กฎ L'Hopital: \(\lim_{u \to 1} \frac{4u^3}{3u^2} = \frac{4(1)^3}{3(1)^2} = \mathbf{4/3}\)"
   },
   {
-      "prompt": "ข้อที่ 102 (ลิมิต ม.เกษตร 1.28): จงหาค่าของ \\(\\lim_{v \\to 2} \\frac{v^3 - 8}{v^4 - 16}\\)",
+      "prompt": "ข้อที่ 102 (ลิมิต ม.เกษตร 1.28): จงหาค่าของ \(\lim_{v \to 2} \frac{v^3 - 8}{v^4 - 16}\)",
       "choices": [
           "1/4",
           "3/8",
@@ -4049,10 +4049,10 @@ const MATH_QUESTIONS = [
           "3/4"
       ],
       "answer": 1,
-      "explanation": "ใช้กฎ L'Hopital: \\(\\lim_{v \\to 2} \\frac{3v^2}{4v^3} = \\frac{3(4)}{4(8)} = \\frac{12}{32} = \\mathbf{3/8}\\)"
+      "explanation": "ใช้กฎ L'Hopital: \(\lim_{v \to 2} \frac{3v^2}{4v^3} = \frac{3(4)}{4(8)} = \frac{12}{32} = \mathbf{3/8}\)"
   },
   {
-      "prompt": "ข้อที่ 103 (ลิมิต ม.เกษตร 1.29): จงหาค่าของ \\(\\lim_{x \\to 9} \\frac{\\sqrt{x} - 3}{x - 9}\\)",
+      "prompt": "ข้อที่ 103 (ลิมิต ม.เกษตร 1.29): จงหาค่าของ \(\lim_{x \to 9} \frac{\\sqrt{x} - 3}{x - 9}\)",
       "choices": [
           "1/6",
           "1/3",
@@ -4060,10 +4060,10 @@ const MATH_QUESTIONS = [
           "6"
       ],
       "answer": 0,
-      "explanation": "ใช้วิธี Conjugate หรือ L'Hopital: \\(\\lim_{x \\to 9} \\frac{1}{2\\sqrt{x}} = \\frac{1}{2(3)} = \\mathbf{1/6}\\)"
+      "explanation": "ใช้วิธี Conjugate หรือ L'Hopital: \(\lim_{x \to 9} \frac{1}{2\\sqrt{x}} = \frac{1}{2(3)} = \mathbf{1/6}\)"
   },
   {
-      "prompt": "ข้อที่ 104 (ลิมิต ม.เกษตร 1.30): จงหาค่าของ \\(\\lim_{x \\to 4} \\frac{x^2 - 16}{\\sqrt{x} - 2}\\)",
+      "prompt": "ข้อที่ 104 (ลิมิต ม.เกษตร 1.30): จงหาค่าของ \(\lim_{x \to 4} \frac{x^2 - 16}{\\sqrt{x} - 2}\)",
       "choices": [
           "8",
           "12",
@@ -4071,10 +4071,10 @@ const MATH_QUESTIONS = [
           "32"
       ],
       "answer": 2,
-      "explanation": "ใช้กฎ L'Hopital: \\(\\lim_{x \\to 4} \\frac{2x}{1/(2\\sqrt{x})} = 4x\\sqrt{x} = 4(4)(2) = \\mathbf{16}\\)"
+      "explanation": "ใช้กฎ L'Hopital: \(\lim_{x \to 4} \frac{2x}{1/(2\\sqrt{x})} = 4x\\sqrt{x} = 4(4)(2) = \mathbf{16}\)"
   },
   {
-      "prompt": "ข้อที่ 105 (ลิมิต ม.เกษตร 1.38): จงหาค่าของ \\(\\lim_{x \\to 1} \\frac{\\sqrt{x} - 1}{x - 1}\\)",
+      "prompt": "ข้อที่ 105 (ลิมิต ม.เกษตร 1.38): จงหาค่าของ \(\lim_{x \to 1} \frac{\\sqrt{x} - 1}{x - 1}\)",
       "choices": [
           "1/4",
           "1/2",
@@ -4082,10 +4082,10 @@ const MATH_QUESTIONS = [
           "2"
       ],
       "answer": 1,
-      "explanation": "ใช้วิธี Conjugate หรือ L'Hopital: \\(\\lim_{x \\to 1} \\frac{1}{2\\sqrt{x}} = \\mathbf{1/2}\\)"
+      "explanation": "ใช้วิธี Conjugate หรือ L'Hopital: \(\lim_{x \to 1} \frac{1}{2\\sqrt{x}} = \mathbf{1/2}\)"
   },
   {
-      "prompt": "ข้อที่ 106 (ลิมิต ม.เกษตร 1.40): จงหาค่าของ \\(\\lim_{h \\to 0} \\frac{(x + h)^2 - x^2}{h}\\)",
+      "prompt": "ข้อที่ 106 (ลิมิต ม.เกษตร 1.40): จงหาค่าของ \(\lim_{h \to 0} \frac{(x + h)^2 - x^2}{h}\)",
       "choices": [
           "x",
           "2x",
@@ -4096,7 +4096,7 @@ const MATH_QUESTIONS = [
       "explanation": "กระจายสูตร: ((x^2 + 2xh + h^2) - x^2) / h = (2xh + h^2)/h = 2x + h เมื่อ h→0 ได้ = <strong>2x</strong> (สูตรอนุพันธ์ d/dx(x²))"
   },
   {
-      "prompt": "ข้อที่ 107 (ลิมิต ม.เกษตร 1.42): จงหาค่าของ \\(\\lim_{x \\to 0} \\frac{(2 + x)^3 - 8}{x}\\)",
+      "prompt": "ข้อที่ 107 (ลิมิต ม.เกษตร 1.42): จงหาค่าของ \(\lim_{x \to 0} \frac{(2 + x)^3 - 8}{x}\)",
       "choices": [
           "4",
           "8",
@@ -4104,10 +4104,10 @@ const MATH_QUESTIONS = [
           "16"
       ],
       "answer": 2,
-      "explanation": "ใช้กฎ L'Hopital: \\(\\lim_{x \\to 0} 3(2 + x)^2 = 3(4) = \\mathbf{12}\\)"
+      "explanation": "ใช้กฎ L'Hopital: \(\lim_{x \to 0} 3(2 + x)^2 = 3(4) = \mathbf{12}\)"
   },
   {
-      "prompt": "ข้อที่ 108 (ลิมิต ม.เกษตร 1.43): จงหาค่าของ \\(\\lim_{x \\to 4} \\frac{x^2 - 16}{x - 4}\\)",
+      "prompt": "ข้อที่ 108 (ลิมิต ม.เกษตร 1.43): จงหาค่าของ \(\lim_{x \to 4} \frac{x^2 - 16}{x - 4}\)",
       "choices": [
           "4",
           "8",
@@ -4118,7 +4118,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบ (x-4)(x+4) / (x-4) เหลือ 4 + 4 = <strong>8</strong>"
   },
   {
-      "prompt": "ข้อที่ 109 (ลิมิต ม.เกษตร 1.45): จงหาค่าของ \\(\\lim_{t \\to -2} \\frac{t^3 + 8}{t + 2}\\)",
+      "prompt": "ข้อที่ 109 (ลิมิต ม.เกษตร 1.45): จงหาค่าของ \(\lim_{t \to -2} \frac{t^3 + 8}{t + 2}\)",
       "choices": [
           "4",
           "8",
@@ -4126,10 +4126,10 @@ const MATH_QUESTIONS = [
           "16"
       ],
       "answer": 2,
-      "explanation": "ใช้กฎ L'Hopital: \\(\\lim_{t \\to -2} 3t^2 = 3(-2)^2 = 3(4) = \\mathbf{12}\\)"
+      "explanation": "ใช้กฎ L'Hopital: \(\lim_{t \to -2} 3t^2 = 3(-2)^2 = 3(4) = \mathbf{12}\)"
   },
   {
-      "prompt": "ข้อที่ 110 (ลิมิต ม.เกษตร 1.50): จงหาค่าของ \\(\\lim_{x \\to 9} \\frac{x - 9}{\\sqrt{x} - 3}\\)",
+      "prompt": "ข้อที่ 110 (ลิมิต ม.เกษตร 1.50): จงหาค่าของ \(\lim_{x \to 9} \frac{x - 9}{\\sqrt{x} - 3}\)",
       "choices": [
           "3",
           "6",
@@ -4140,7 +4140,7 @@ const MATH_QUESTIONS = [
       "explanation": "แยกตัวประกอบ x - 9 = (√x - 3)(√x + 3) ตัดกันเหลือ √9 + 3 = 3 + 3 = <strong>6</strong>"
   },
   {
-      "prompt": "ข้อที่ 111 (ลิมิต ม.เกษตร 1.51): จงหาค่าของ \\(\\lim_{y \\to 4} \\frac{y - 4}{\\sqrt{y} - 2}\\)",
+      "prompt": "ข้อที่ 111 (ลิมิต ม.เกษตร 1.51): จงหาค่าของ \(\lim_{y \to 4} \frac{y - 4}{\\sqrt{y} - 2}\)",
       "choices": [
           "2",
           "4",
@@ -8685,6 +8685,11 @@ function renderCurrentQuestion() {
   if (isAnswered) {
     showAnswerCheckResult();
   }
+
+  // Trigger MathJax render for LaTeX mathematical equations
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise([document.getElementById('quizRunnerContainer')]).catch(() => {});
+  }
 }
 
 function selectChoice(choiceIdx) {
@@ -8745,6 +8750,10 @@ function showAnswerCheckResult() {
     document.getElementById('nextQuestionBtn').style.display = 'inline-flex';
   } else {
     document.getElementById('finishQuizBtn').style.display = 'inline-flex';
+  }
+
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise([explanationBox]).catch(() => {});
   }
 }
 

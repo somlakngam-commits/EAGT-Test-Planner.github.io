@@ -21,6 +21,20 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
   <!-- Firebase Config (แก้ไขได้ในไฟล์ firebase-config.js) -->
   <script src="firebase-config.js"></script>
+
+  <!-- MathJax 3 for rendering mathematical LaTeX equations -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$','$']],
+        displayMath: [['\\[', '\\]'], ['$$','$$']]
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+      }
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
 <body>
   <!-- Background animated particles -->
