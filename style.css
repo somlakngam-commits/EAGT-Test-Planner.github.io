@@ -276,6 +276,9 @@ body {
   flex-wrap: wrap; justify-content: center;
   font-size: 0.85rem; color: var(--text-secondary);
 }
+.date-input-group {
+  display: flex; align-items: center; gap: 6px;
+}
 input[type="date"] {
   color-scheme: dark;
   background: rgba(255, 255, 255, 0.08);
@@ -603,12 +606,15 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   display: flex; align-items: center; gap: 10px;
   padding: 8px 12px;
   border-radius: 12px;
-  cursor: pointer;
+  cursor: default;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   background: rgba(30, 41, 59, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
-.sc-topic:hover {
+.sc-topic.has-dropdown {
+  cursor: pointer;
+}
+.sc-topic.has-dropdown:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: rgba(255, 255, 255, 0.15);
   color: var(--text-primary);
@@ -2982,6 +2988,16 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   line-height: 1.4;
   font-family: var(--font-en);
 }
+.sc-topic.status-pending .topic-expand-btn {
+  background: rgba(148, 163, 184, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  color: #cbd5e1;
+}
+.sc-topic.status-pending .topic-expand-btn:hover {
+  background: rgba(148, 163, 184, 0.22);
+  border-color: rgba(148, 163, 184, 0.4);
+  color: #fff;
+}
 .topic-expand-btn:hover {
   background: rgba(251,191,36,0.25);
   border-color: rgba(251,191,36,0.5);
@@ -2995,8 +3011,8 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 /* =============== TOPIC REMAINING VIDEOS PANEL =============== */
 .topic-remaining-panel {
   margin: 4px 0 4px 28px;
-  background: rgba(251,191,36,0.06);
-  border: 1px solid rgba(251,191,36,0.2);
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(148, 163, 184, 0.2);
   border-radius: 10px;
   overflow: hidden;
   max-height: 0;

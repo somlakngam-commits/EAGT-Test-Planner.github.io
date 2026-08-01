@@ -186,16 +186,15 @@ let totalDays = 60;  // จำนวนวันทั้งหมดตั้�
 // ======================================================
 
 /**
- * คำนวณจำนวนวันทั้งหมดนับจากวันนี้ถึงวันสอบ (inclusive)
+ * คำนวณจำนวนวันทั้งหมดนับจากวันเริ่มถึงวันสอบ (inclusive)
  * คืนค่า fallback 60 ถ้ายังไม่มีการตั้งวันสอบ
  */
 function calcTotalDays() {
   if (!examDate) return 60;
+  const start = getPlanStartDate();
   const parts = examDate.split('-');
   const exam  = new Date(+parts[0], +parts[1] - 1, +parts[2]);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
-  const diff = Math.round((exam - today) / 86400000) + 1; // +1 รวมวันนี้
+  const diff  = Math.round((exam - start) / 86400000) + 1; // +1 รวมวันเริ่ม
   return Math.max(1, diff);
 }
 
@@ -382,11 +381,19 @@ function listenToCloud() {
 
     isSyncing = true;
 
-    // 1. Exam Date
-    examDate = data.examDate ? data.examDate : null;
-    saveLocal(LS_KEY_EXAMDATE, examDate);
-    const examInput = document.getElementById('examDateInput');
-    if (examInput) examInput.value = examDate || '';
+    // 1. Start Date & Exam Date
+    if (data.startDate !== undefined) {
+      startDate = data.startDate ? data.startDate : getTodayDateStr();
+      saveLocal(LS_KEY_STARTDATE, startDate);
+      const startInput = document.getElementById('startDateInput');
+      if (startInput) startInput.value = startDate || '';
+    }
+    if (data.examDate !== undefined) {
+      examDate = data.examDate ? data.examDate : null;
+      saveLocal(LS_KEY_EXAMDATE, examDate);
+      const examInput = document.getElementById('examDateInput');
+      if (examInput) examInput.value = examDate || '';
+    }
     updateCountdown();
     if (typeof rebuildPlan === 'function') rebuildPlan(); // สร้างแผนใหม่อัตโนมัติตามวันที่เหลือ
 
@@ -453,6 +460,7 @@ function setSyncStatus(status) {
 // LOCAL STATE (localStorage fallback)
 // ======================================================
 const LS_KEY_TOPICS         = 'egat_topic_status';
+const LS_KEY_STARTDATE      = 'egat_start_date';
 const LS_KEY_EXAMDATE       = 'egat_exam_date';
 const LS_KEY_SCORES         = 'egat_score_log';
 const LS_KEY_DAY_DONE       = 'egat_day_done';
@@ -465,11 +473,26 @@ function saveLocal(key, val) {
   try { localStorage.setItem(key, JSON.stringify(val)); } catch {}
 }
 
+function getTodayDateStr() {
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  return `${yyyy}-${mm}-${dd}`;
+}
+
 let topicStatus   = loadLocal(LS_KEY_TOPICS, {});
+let startDate     = loadLocal(LS_KEY_STARTDATE, null);
 let examDate      = loadLocal(LS_KEY_EXAMDATE, null);
 let scoreLog      = loadLocal(LS_KEY_SCORES, []);
 let dayDone       = loadLocal(LS_KEY_DAY_DONE, {});
 let watchedVideos = loadLocal(LS_KEY_WATCHED_VIDEOS, {});
+
+// กำหนด startDate เริ่มต้นหากยังไม่มี (บันทึกลง localStorage เพื่อให้คงที่ ไม่เปลี่ยนทุกวัน)
+if (!startDate) {
+  startDate = getTodayDateStr();
+  saveLocal(LS_KEY_STARTDATE, startDate);
+}
 
 let countdownInterval = null; // guard ป้องกัน interval ซ้ำ
 
@@ -479,6 +502,7 @@ function saveAll(key, value) {
   // Map key -> Firebase field name
   const fieldMap = {
     [LS_KEY_TOPICS]:         'topicStatus',
+    [LS_KEY_STARTDATE]:      'startDate',
     [LS_KEY_EXAMDATE]:       'examDate',
     [LS_KEY_SCORES]:         'scoreLog',
     [LS_KEY_DAY_DONE]:       'dayDone',
@@ -581,14 +605,18 @@ function updateCountdown() {
 }
 
 function resetExamDate() {
-  if (!confirm('ต้องการรีเซ็ตวันสอบใช่ไหม?')) return;
-  examDate = null;
+  if (!confirm('ต้องการรีเซ็ตวันเริ่มและวันสอบใช่ไหม?')) return;
+  startDate = getTodayDateStr();
+  examDate  = null;
+  saveAll(LS_KEY_STARTDATE, startDate);
   saveAll(LS_KEY_EXAMDATE, '');
-  const examInput = document.getElementById('examDateInput');
-  if (examInput) examInput.value = '';
+  const startInput = document.getElementById('startDateInput');
+  const examInput  = document.getElementById('examDateInput');
+  if (startInput) startInput.value = startDate;
+  if (examInput)  examInput.value = '';
   updateCountdown();
   rebuildPlan(); // สร้างแผนใหม่ด้วย default 60 วัน
-  showToast('🗑 รีเซ็ตวันสอบเรียบร้อย');
+  showToast('🗑 รีเซ็ตวันที่เรียบร้อย');
 }
 
 // ======================================================
@@ -659,16 +687,16 @@ function buildSubjectGrid() {
               }
             }
 
-            // expand button for in-progress topics with remaining videos
-            const hasRemaining = st === 'in-progress' && remainingVids.length > 0;
+            // expand button for topics with remaining videos
+            const hasRemaining = remainingVids.length > 0;
             const expandBtn = hasRemaining
-              ? `<button class="topic-expand-btn" data-tid="${t.id}" type="button" title="ดูวิดีโอที่ยังค้างอยู่">▾</button>`
+              ? `<button class="topic-expand-btn" data-tid="${t.id}" type="button" title="ดูวิดีโอเนื้อหา">▾</button>`
               : '';
 
             // remaining videos panel (hidden by default)
             const remainingPanel = hasRemaining ? `
               <div class="topic-remaining-panel" id="trp-${t.id}">
-                <div class="trp-header">📺 วิดีโอที่ยังต้องดู (${remainingVids.length} คลิป เพื่อเสร็จหัวข้อนี้)</div>
+                <div class="trp-header">📺 วิดีโอเรียน (${remainingVids.length} คลิป${st === 'in-progress' ? ' ที่ยังต้องดู' : ''})</div>
                 ${remainingVids.map(v => `
                   <div class="trp-video-item" data-vid="${v.id}">
                     <span class="trp-play-icon">▶</span>
@@ -680,7 +708,7 @@ function buildSubjectGrid() {
                 `).join('')}
               </div>` : '';
 
-            return `<li class="sc-topic status-${st}" data-tid="${t.id}">
+            return `<li class="sc-topic status-${st} ${hasRemaining ? 'has-dropdown' : ''}" data-tid="${t.id}">
               <span class="topic-check">${STATUS_ICON[st]}</span>
               <span class="topic-label-text">${t.label}</span>
               ${vidBadge}
@@ -694,43 +722,19 @@ function buildSubjectGrid() {
       </div>
     `;
 
-    // Click: cycle topic status (ไม่ cycle ถ้ากด expand btn)
+    // Click: toggle remaining videos panel if available (ไม่เปลี่ยนสถานะหัวข้อ)
     card.querySelectorAll('.sc-topic').forEach(li => {
       li.addEventListener('click', (e) => {
-        if (e.target.closest('.topic-expand-btn')) return;
         const tid = li.dataset.tid;
-        const newSt = cycleStatus(topicStatus[tid] || 'pending');
-        topicStatus[tid] = newSt;
-
-        // 2-Way Sync: หากผู้ใช้กดอัปเดตหัวข้อเอง -> ให้ซิงค์สถานะมาร์กวิดีโอเรียนแล้วอัตโนมัติ
-        syncVideosFromTopic(tid, newSt);
-
-        saveAll(LS_KEY_TOPICS, topicStatus);
-        buildSubjectGrid();
-        buildProgressList();
-        buildRemainingVideosPanel();
-        updateOverall();
-        const labels = {
-          'in-progress': '📖 กำลังเรียน',
-          'done': '✅ เสร็จแล้ว (ซิงค์วิดีโอเรียนแล้วอัตโนมัติ)',
-          'pending': '⏳ รีเซ็ต (ปลดมาร์กวิดีโอที่เกี่ยวข้อง)'
-        };
-        const labelEl = li.querySelector('.topic-label-text');
-        showToast(labels[newSt] + ' — ' + (labelEl ? labelEl.textContent : ''), 3000);
-      });
-    });
-
-    // Click: expand/collapse remaining videos panel
-    card.querySelectorAll('.topic-expand-btn').forEach(btn => {
-      btn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const tid = btn.dataset.tid;
         const panel = card.querySelector(`#trp-${tid}`);
-        if (!panel) return;
+        if (!panel) return; // ไม่มี panel ป้องกันไม่ให้คลิกเปลี่ยนสถานะ
+        const btn = li.querySelector('.topic-expand-btn');
         const isOpen = panel.classList.contains('trp-open');
         panel.classList.toggle('trp-open', !isOpen);
-        btn.textContent = isOpen ? '▾' : '▴';
-        btn.classList.toggle('expanded', !isOpen);
+        if (btn) {
+          btn.textContent = isOpen ? '▾' : '▴';
+          btn.classList.toggle('expanded', !isOpen);
+        }
       });
     });
 
@@ -832,10 +836,17 @@ const DAYS_TH = ['อา.','จ.','อ.','พ.','พฤ.','ศ.','ส.'];
 const MONTHS_TH_SHORT = ['ม.ค.','ก.พ.','มี.ค.','เม.ย.','พ.ค.','มิ.ย.','ก.ค.','ส.ค.','ก.ย.','ต.ค.','พ.ย.','ธ.ค.'];
 
 /**
- * คืนวันเริ่มต้นแผน = วันนี้ (วันที่ 1 ของแผน)
- * วันสอบ = วันที่ totalDays ของแผนเสมอ
+ * คืนวันเริ่มต้นแผน (จาก startDate หรือ วันนี้หากไม่มี)
  */
 function getPlanStartDate() {
+  if (startDate) {
+    const parts = startDate.split('-');
+    if (parts.length === 3) {
+      const d = new Date(+parts[0], +parts[1] - 1, +parts[2]);
+      d.setHours(0, 0, 0, 0);
+      return d;
+    }
+  }
   const start = new Date();
   start.setHours(0, 0, 0, 0);
   return start;
@@ -843,11 +854,10 @@ function getPlanStartDate() {
 
 /**
  * แปลงเลขวันในแผน (1-N) เป็นวัน Date จริง
- * วันที่ 1 = วันนี้ เสมอ
+ * วันที่ 1 = วันเริ่มต้นแผน
  */
 function getDayRealDate(planDay) {
-  const start = new Date();
-  start.setHours(0, 0, 0, 0);
+  const start = getPlanStartDate();
   start.setDate(start.getDate() + planDay - 1);
   return start;
 }
@@ -952,29 +962,6 @@ function buildProgressList() {
           return `<span class="subtopic-pill ${st==='done'?'done':st==='in-progress'?'in-progress':''}" data-tid="${t.id}">${t.label}${vidInfo}</span>`;
         }).join('')}
       </div>`;
-
-    card.querySelectorAll('.subtopic-pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        const tid = pill.dataset.tid;
-        const newSt = cycleStatus(topicStatus[tid] || 'pending');
-        topicStatus[tid] = newSt;
-
-        // 2-Way Sync: หากผู้ใช้กดอัปเดตหัวข้อเอง -> ให้ซิงค์สถานะมาร์กวิดีโอเรียนแล้วอัตโนมัติ
-        syncVideosFromTopic(tid, newSt);
-
-        saveAll(LS_KEY_TOPICS, topicStatus);
-        buildSubjectGrid();
-        buildProgressList();
-        buildRemainingVideosPanel();
-        updateOverall();
-        const labels = {
-          'in-progress': '📖 กำลังเรียน',
-          'done': '✅ เสร็จแล้ว (ซิงค์วิดีโอเรียนแล้วอัตโนมัติ)',
-          'pending': '⏳ รีเซ็ต (ปลดมาร์กวิดีโอที่เกี่ยวข้อง)'
-        };
-        showToast(labels[newSt] + ' — ' + pill.textContent.trim(), 3000);
-      });
-    });
 
     container.appendChild(card);
   });
@@ -1171,6 +1158,7 @@ function activateSyncCode(code) {
     dbRef.once('value').then(snapshot => {
       if (!snapshot.exists()) {
         saveAll(LS_KEY_TOPICS, topicStatus);
+        saveAll(LS_KEY_STARTDATE, startDate);
         saveAll(LS_KEY_EXAMDATE, examDate);
         saveAll(LS_KEY_SCORES, scoreLog);
         saveAll(LS_KEY_DAY_DONE, dayDone);
@@ -1264,23 +1252,33 @@ function init() {
     showSyncModal();
   });
 
-  // ---- Exam date ----
-  const examInput = document.getElementById('examDateInput');
-  if (examDate && examInput) examInput.value = examDate;
+  // ---- Start Date & Exam date ----
+  const startInput = document.getElementById('startDateInput');
+  const examInput  = document.getElementById('examDateInput');
+  if (startDate && startInput) startInput.value = startDate;
+  if (examDate && examInput)   examInput.value = examDate;
 
-  const saveAndSyncExamDate = () => {
+  const saveAndSyncDates = () => {
+    if (startInput && startInput.value) {
+      startDate = startInput.value;
+      saveAll(LS_KEY_STARTDATE, startDate);
+    }
     if (examInput && examInput.value) {
       examDate = examInput.value;
       saveAll(LS_KEY_EXAMDATE, examDate);
-      updateCountdown();
-      rebuildPlan(); // สร้างแผนใหม่อัตโนมัติตามวันที่เหลือ
-      showToast(`📅 บันทึกวันสอบแล้ว! เหลือ ${totalDays} วัน — สู้ได้! 💪`);
+    } else if (examInput && !examInput.value) {
+      examDate = null;
+      saveAll(LS_KEY_EXAMDATE, '');
     }
+    updateCountdown();
+    rebuildPlan(); // สร้างแผนใหม่อัตโนมัติตามวันที่เหลือ
+    showToast(`📅 บันทึกวันที่เรียบร้อย! (${totalDays} วัน) 💪`);
   };
 
   const setBtn = document.getElementById('setExamDateBtn');
-  if (setBtn) setBtn.addEventListener('click', saveAndSyncExamDate);
-  if (examInput) examInput.addEventListener('change', saveAndSyncExamDate);
+  if (setBtn) setBtn.addEventListener('click', saveAndSyncDates);
+  if (startInput) startInput.addEventListener('change', saveAndSyncDates);
+  if (examInput)  examInput.addEventListener('change', saveAndSyncDates);
 
   document.getElementById('resetExamDateBtn').addEventListener('click', resetExamDate);
   updateCountdown();

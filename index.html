@@ -106,10 +106,16 @@
           </div>
         </div>
         <div class="countdown-setup" id="examSetupArea">
-          <label for="examDateInput">ตั้งวันสอบ:</label>
-          <input type="date" id="examDateInput" />
+          <div class="date-input-group">
+            <label for="startDateInput">วันเริ่มเรียน:</label>
+            <input type="date" id="startDateInput" />
+          </div>
+          <div class="date-input-group">
+            <label for="examDateInput">วันสอบ:</label>
+            <input type="date" id="examDateInput" />
+          </div>
           <button id="setExamDateBtn" class="btn-set">บันทึก</button>
-          <button id="resetExamDateBtn" class="btn-reset" title="รีเซ็ตวันสอบ">รีเซ็ต</button>
+          <button id="resetExamDateBtn" class="btn-reset" title="รีเซ็ตวันที่">รีเซ็ต</button>
         </div>
       </div>
 
