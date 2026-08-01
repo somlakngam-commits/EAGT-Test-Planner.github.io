@@ -3823,3 +3823,25 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   .cqm-topic-grid { grid-template-columns: 1fr; }
   .cqm-subject-grid-v2 { gap: 6px; }
 }
+
+/* =============== MATHJAX MATH EQUATIONS & FRACTIONS STYLING =============== */
+mjx-container {
+  display: inline-block !important;
+  font-size: 1.12em !important;
+  color: inherit !important;
+  margin: 0 3px !important;
+  vertical-align: middle !important;
+  line-height: 0 !important;
+}
+mjx-container[display="true"] {
+  display: block !important;
+  margin: 1em 0 !important;
+  text-align: center !important;
+}
+.question-prompt mjx-container {
+  font-size: 1.25em !important;
+}
+.choice-text mjx-container,
+.explanation-box mjx-container {
+  font-size: 1.15em !important;
+}

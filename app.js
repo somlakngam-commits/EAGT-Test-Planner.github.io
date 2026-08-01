@@ -8629,6 +8629,42 @@ function updateQuizTimerDisplay() {
   timerEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
 }
 
+/**
+ * ทำความสะอาดและแปลงรูปแบบ LaTeX ให้อยู่ในโครงสร้างที่ MathJax 3 อ่านและแสดงผลเป็นเศษส่วน/สมการคณิตศาสตร์ได้สมบูรณ์
+ */
+function fixLatexString(str) {
+  if (!str || typeof str !== 'string') return str || '';
+
+  let s = str;
+
+  // 1. ซ่อมแซมผลลัพธ์จาก JS Escape Characters ที่กลายเป็น control characters (เช่น \f -> \x0C, \t -> \x09)
+  s = s.replace(/\x0Crac(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\frac');
+  s = s.replace(/\x09o(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\to');
+  s = s.replace(/\x09heta(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\theta');
+  s = s.replace(/\x09imes(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\times');
+  s = s.replace(/\x0Au(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\nu');
+  s = s.replace(/\x0Dho(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\rho');
+  s = s.replace(/\x08eta(?=[{\s\d\w\(\\\+\-\*\/])/g, '\\beta');
+
+  // 2. เติม Backslash คำสั่ง LaTeX ยอดนิยมหากหลุดหาย
+  s = s.replace(/(^|[^\\])lim(?=_[{\d\w]|[\s\\({])/g, '$1\\lim');
+  s = s.replace(/(^|[^\\])frac(?=\{)/g, '$1\\frac');
+  s = s.replace(/(^|[^\\])sqrt(?=\{)/g, '$1\\sqrt');
+
+  // 3. ปรับการครอบสูตรคณิตศาสตร์ด้วย \( ... \) หรือ $ ... $
+  // หากพบสูตรเช่น \lim หรือ \frac หรือ \sqrt แต่ไม่มี \( ... \) หรือ $ ... $ ครอบ
+  // ให้สวม \( ... \) หุ้มสูตรไว้ เพื่อให้ MathJax 3 เรนเดอร์เป็นตัวเศษส่วนลอยกลาง/สมการสวยงามทันที
+  if ((s.includes('\\lim') || s.includes('\\frac') || s.includes('\\sqrt')) && !s.includes('\\(') && !s.includes('$')) {
+    s = s.replace(/(\([^)]*\\lim[^)]*\))/g, (m) => `\\(${m.slice(1, -1)}\\)`);
+    if (!s.includes('\\(')) {
+      s = s.replace(/(\\lim_{[^}]*}(\s*\\frac{[^}]*}{[^}]*})?)/g, '\\($1\\)');
+      s = s.replace(/(\\frac{[^}]*}{[^}]*})/g, '\\($1\\)');
+    }
+  }
+
+  return s;
+}
+
 // Render Question & Choices
 function renderCurrentQuestion() {
   if (!activeQuiz) return;
@@ -8641,7 +8677,7 @@ function renderCurrentQuestion() {
   document.getElementById('quizProgressBar').style.width = `${pct}%`;
 
   // Question Prompt
-  document.getElementById('questionPrompt').innerHTML = q.prompt;
+  document.getElementById('questionPrompt').innerHTML = fixLatexString(q.prompt);
 
   // Render Choices
   const choicesContainer = document.getElementById('choicesContainer');
@@ -8658,7 +8694,7 @@ function renderCurrentQuestion() {
     }
 
     const label = String.fromCharCode(65 + idx); // A, B, C, D
-    btn.innerHTML = `<span class="choice-prefix">${label}</span> <span class="choice-text">${choiceText}</span>`;
+    btn.innerHTML = `<span class="choice-prefix">${label}</span> <span class="choice-text">${fixLatexString(choiceText)}</span>`;
 
     btn.addEventListener('click', () => selectChoice(idx));
     choicesContainer.appendChild(btn);
@@ -8739,7 +8775,7 @@ function showAnswerCheckResult() {
     expIcon.textContent = '❌';
     explanationBox.className = 'explanation-box incorrect-box';
   }
-  expText.innerHTML = q.explanation;
+  expText.innerHTML = fixLatexString(q.explanation);
 
   // Toggle button visibility
   document.getElementById('checkAnswerBtn').style.display = 'none';
@@ -8838,7 +8874,7 @@ function finishQuiz() {
     item.innerHTML = `
       <div class="bd-icon">${isCorrect ? '✅' : '❌'}</div>
       <div class="bd-content">
-        <div class="bd-question">ข้อ ${idx + 1}: ${q.prompt}</div>
+        <div class="bd-question">ข้อ ${idx + 1}: ${fixLatexString(q.prompt)}</div>
         <div class="bd-answer-row">
           <span>คำตอบของคุณ: <strong>${userLabel}</strong></span>
           <span>เฉลยที่ถูกต้อง: <strong>${correctLabel}</strong></span>
@@ -8847,6 +8883,10 @@ function finishQuiz() {
     `;
     breakdown.appendChild(item);
   });
+
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    window.MathJax.typesetPromise([breakdown]).catch(() => {});
+  }
 }
 
 // Auto Save Score to Progress Section Log
@@ -8895,7 +8935,6 @@ document.addEventListener('DOMContentLoaded', init);
 // ---- Topic classifier (keyword-based) ----
 function classifyMathQuestion(q) {
   const txt = q.prompt || '';
-  if (/ลิมิต|limit|แคลคูลัส|อนุพันธ์|ดิฟ|อินทิเกรต/i.test(txt)) return 'limit';
   if (/ห\.ร\.ม|ค\.ร\.น|หารลงตัว|เชือก/.test(txt)) return 'gcf';
   if (/นาฬิกา|ปฏิทิน|อธิกสุรทิน|พฤษภาคม|มิถุนายน|มกราคม/.test(txt)) return 'clock';
   if (/อนุกรม|ลำดับ|ตัวเลขถัดไป/.test(txt)) return 'series';
@@ -8969,7 +9008,6 @@ const TOPIC_DEFS = {
       { id: 'geo',      label: 'เรขาคณิต / พื้นที่',   icon: '📐', classify: classifyMathQuestion },
       { id: 'clock',    label: 'นาฬิกา / ปฏิทิน',     icon: '🕐', classify: classifyMathQuestion },
       { id: 'gcf',      label: 'ห.ร.ม. และ ค.ร.น.',   icon: '🔢', classify: classifyMathQuestion },
-      { id: 'limit',    label: 'ลิมิต & แคลคูลัส (Limit)', icon: '∫', classify: classifyMathQuestion },
       { id: 'other',    label: 'อื่นๆ (คละ)',           icon: '📦', classify: classifyMathQuestion },
     ],
     pool: () => MATH_QUESTIONS,
