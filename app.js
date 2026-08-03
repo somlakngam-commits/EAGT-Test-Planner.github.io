@@ -417,7 +417,13 @@ function listenToCloud() {
       watchedVideos = data.watchedVideos || {};
       saveLocal(LS_KEY_WATCHED_VIDEOS, watchedVideos);
     }
+    // 6. AI Recommendations
+    if (data.aiRecommendations !== undefined) {
+      aiRecommendations = data.aiRecommendations || {};
+      saveLocal(LS_KEY_AI_RECS, aiRecommendations);
+    }
 
+    buildAiApprovalCenter();
     buildSubjectGrid();
     buildProgressList();
     buildWeeklyGrid();
@@ -481,6 +487,9 @@ function getTodayDateStr() {
   return `${yyyy}-${mm}-${dd}`;
 }
 
+const LS_KEY_AI_RECS = 'egat_ai_recommendations';
+let aiRecommendations = loadLocal(LS_KEY_AI_RECS, {});
+
 let topicStatus   = loadLocal(LS_KEY_TOPICS, {});
 let startDate     = loadLocal(LS_KEY_STARTDATE, null);
 let examDate      = loadLocal(LS_KEY_EXAMDATE, null);
@@ -507,6 +516,7 @@ function saveAll(key, value) {
     [LS_KEY_SCORES]:         'scoreLog',
     [LS_KEY_DAY_DONE]:       'dayDone',
     [LS_KEY_WATCHED_VIDEOS]: 'watchedVideos',
+    [LS_KEY_AI_RECS]:        'aiRecommendations',
   };
   const field = fieldMap[key];
   if (field) syncToCloud(field, value);
@@ -1284,12 +1294,16 @@ function init() {
   updateCountdown();
 
   // ---- Build UI ----
+  buildAiApprovalCenter();
   buildSubjectGrid();
   rebuildPlan(); // สร้างแผนครั้งแรก (รวม buildPhaseTabs + buildPhaseContent + buildWeeklyGrid)
   buildProgressList();
   buildScoreLog();
   populateScoreSelect();
   updateOverall();
+
+  const simBtn = document.getElementById('simulateAiAgentBtn');
+  if (simBtn) simBtn.addEventListener('click', simulateAgentSubmission);
 
   // ---- Phase tabs ----
   document.getElementById('phaseTabs').addEventListener('click', e => {
@@ -2257,6 +2271,205 @@ const EXAM_PDFS = [
   }
 ];
 
+// ======================================================
+// AI VIDEO APPROVAL CENTER & HELPER FUNCTIONS
+// ======================================================
+function getYoutubeIdFromUrl(url) {
+  if (!url) return '';
+  if (url.length === 11 && !url.includes('/') && !url.includes('.')) return url;
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+  const match = String(url).match(regExp);
+  return (match && match[2].length === 11) ? match[2] : url;
+}
+
+function getAllLessonVideos() {
+  const customApproved = [];
+  Object.values(aiRecommendations || {}).forEach(rec => {
+    if (rec.status === 'approved') {
+      customApproved.push({
+        id: rec.id,
+        title: rec.title + ' ✨ (AI Approved)',
+        channel: '🤖 AI Recommended',
+        category: rec.category || 'math',
+        categoryLabel: rec.categoryLabel || '🔢 คณิตศาสตร์',
+        accentColor: '#c084fc',
+        duration: 'แนะนำ',
+        youtubeId: rec.youtubeId || getYoutubeIdFromUrl(rec.url),
+        desc: rec.reason || 'วิดีโอที่ได้รับการอนุมัติจาก AI Agent',
+        relatedTopics: rec.relatedTopic ? [rec.relatedTopic] : [],
+        isAiApproved: true
+      });
+    }
+  });
+  return [...customApproved, ...LESSON_VIDEOS];
+}
+
+function buildAiApprovalCenter() {
+  const container = document.getElementById('aiApprovalContainer');
+  const navBadge = document.getElementById('navAiBadge');
+  if (!container) return;
+
+  const recList = Object.values(aiRecommendations || {}).filter(r => r.status === 'pending');
+
+  if (navBadge) {
+    if (recList.length > 0) {
+      navBadge.textContent = recList.length;
+      navBadge.style.display = 'inline-block';
+    } else {
+      navBadge.style.display = 'none';
+    }
+  }
+
+  if (recList.length === 0) {
+    container.innerHTML = `
+      <div class="ai-empty-state">
+        <p style="font-size: 1.2rem; margin-bottom: 6px; font-weight: 700; color: var(--text-primary);">✨ ยังไม่มีวิดีโอรอการอนุมัติในขณะนี้</p>
+        <p>เมื่อ Agent คัดเลือกลิงก์วิดีโอมาให้ประจำวัน (7:00 น.) รายการจะปรากฏที่นี่ เพื่อให้คุณตรวจสอบและกดอนุมัติก่อนเพิ่มเข้าบทเรียนจริง</p>
+        <p style="margin-top: 10px; opacity: 0.9; font-size: 0.85rem; color: #c084fc;">💡 สามารถทดลองกดปุ่ม <strong>"✨ จำลอง Agent เสนอวิดีโอ"</strong> ด้านบนเพื่อทดสอบระบบได้ทันที</p>
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = '';
+
+  recList.forEach(rec => {
+    const card = document.createElement('div');
+    card.className = 'ai-rec-card';
+
+    const ytId = rec.youtubeId || getYoutubeIdFromUrl(rec.url);
+
+    card.innerHTML = `
+      <div class="ai-rec-header">
+        <span class="ai-rec-badge">${rec.categoryLabel || '📚 วิชาเตรียมสอบ'}</span>
+        <span class="ai-rec-status">⌛ รอคุณอนุมัติ</span>
+      </div>
+      <h3 class="ai-rec-title">${rec.title}</h3>
+      <div class="ai-rec-reason">🤖 <strong>เหตุผลที่ AI คัดเลือก:</strong> ${rec.reason}</div>
+      <div class="ai-rec-actions">
+        <button class="btn-rec-approve" onclick="approveAiRecommendation('${rec.id}')">✅ อนุมัติ & เพิ่มเข้าบทเรียน</button>
+        <button class="btn-rec-preview" onclick="toggleRecPreview('${rec.id}')">▶️ ดูตัวอย่างวิดีโอ</button>
+        <button class="btn-rec-edit" onclick="editAiRecommendation('${rec.id}')">✏️ แก้ไขลิงก์/ชื่อ</button>
+        <button class="btn-rec-reject" onclick="rejectAiRecommendation('${rec.id}')">❌ ข้าม / ไม่เอา</button>
+      </div>
+      <div class="ai-preview-frame" id="recPreview_${rec.id}" style="display:none;">
+        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${ytId}" title="${rec.title}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+function approveAiRecommendation(recId) {
+  if (!aiRecommendations[recId]) return;
+  aiRecommendations[recId].status = 'approved';
+  aiRecommendations[recId].approvedAt = new Date().toISOString();
+  saveAll(LS_KEY_AI_RECS, aiRecommendations);
+
+  showToast('✅ อนุมัติวิดีโอเรียบร้อย! เพิ่มเข้าในบทเรียนและคลังวิดีโอแล้ว');
+  buildAiApprovalCenter();
+  buildSubjectGrid();
+  buildVideoGrid();
+}
+
+function rejectAiRecommendation(recId) {
+  if (!aiRecommendations[recId]) return;
+  aiRecommendations[recId].status = 'rejected';
+  saveAll(LS_KEY_AI_RECS, aiRecommendations);
+
+  showToast('🗑️ ปฏิเสธวิดีโอแนะนำแล้ว');
+  buildAiApprovalCenter();
+}
+
+function editAiRecommendation(recId) {
+  const rec = aiRecommendations[recId];
+  if (!rec) return;
+
+  const newTitle = prompt('แก้ไขชื่อวิดีโอ:', rec.title);
+  if (newTitle === null) return;
+
+  const newUrl = prompt('แก้ไข URL หรือ YouTube Video ID:', rec.url || rec.youtubeId);
+  if (newUrl === null) return;
+
+  rec.title = newTitle.trim() || rec.title;
+  rec.url = newUrl.trim() || rec.url;
+  rec.youtubeId = getYoutubeIdFromUrl(rec.url);
+
+  saveAll(LS_KEY_AI_RECS, aiRecommendations);
+  showToast('✏️ บันทึกการแก้ไขวิดีโอแล้ว');
+  buildAiApprovalCenter();
+}
+
+function toggleRecPreview(recId) {
+  const el = document.getElementById(`recPreview_${recId}`);
+  if (!el) return;
+  el.style.display = el.style.display === 'none' ? 'block' : 'none';
+}
+
+function simulateAgentSubmission() {
+  const inProgressTopics = Object.keys(topicStatus).filter(t => topicStatus[t] === 'in-progress');
+  const pendingTopics = Object.keys(topicStatus).filter(t => topicStatus[t] === 'pending' || !topicStatus[t]);
+
+  let targetTopic = inProgressTopics[0] || pendingTopics[0] || 'math_series';
+  let category = 'math';
+  let categoryLabel = '🔢 คณิตศาสตร์';
+
+  if (targetTopic.startsWith('verbal')) {
+    category = 'verbal';
+    categoryLabel = '💬 ภาษาไทย';
+  } else if (targetTopic.startsWith('logic')) {
+    category = 'logic';
+    categoryLabel = '🧠 ตรรกศาสตร์';
+  } else if (targetTopic.startsWith('spatial')) {
+    category = 'spatial';
+    categoryLabel = '🎲 มิติสัมพันธ์';
+  }
+
+  const mockSamples = [
+    {
+      title: 'ติวเข้มคณิตศาสตร์ กฟผ.: เทคนิคการแก้โจทย์อนุกรมสลับและอนุกรมหลายชั้น',
+      youtubeId: 'vJ7R7DM-4QM',
+      url: 'https://www.youtube.com/watch?v=vJ7R7DM-4QM',
+      reason: 'AI คัดเลือกคลิปติวแนวข้อสอบอนุกรมความยากสูงตรงตามสเปก กฟผ. (7:00 น.)'
+    },
+    {
+      title: 'สรุปเทคนิคตรรกศาสตร์ กฟผ.: การวิเคราะห์ประพจน์และการสรุปเหตุผล',
+      youtubeId: 'EOdH4u2vNyY',
+      url: 'https://www.youtube.com/watch?v=EOdH4u2vNyY',
+      reason: 'AI คัดเลือกลิงก์ติวบทสรุปตรรกศาสตร์ที่คนสอบผ่าน กฟผ. แนะนำมากที่สุด'
+    },
+    {
+      title: 'สรุปสูตรฟิสิกส์ & ไฟฟ้าเบื้องต้น สำหรับสอบวัดความรู้ กฟผ.',
+      youtubeId: 'l_8T02xIBUI',
+      url: 'https://www.youtube.com/watch?v=l_8T02xIBUI',
+      reason: 'AI แนะนำคลิปติวฟิสิกส์เน้นๆ ประจำวันสำหรับการสอบรอบสายช่างและวิศวกร'
+    }
+  ];
+
+  const sample = mockSamples[Math.floor(Math.random() * mockSamples.length)];
+  const recId = 'rec_' + Date.now();
+
+  aiRecommendations[recId] = {
+    id: recId,
+    title: sample.title,
+    url: sample.url,
+    youtubeId: sample.youtubeId,
+    category: category,
+    categoryLabel: categoryLabel,
+    relatedTopic: targetTopic,
+    reason: sample.reason,
+    status: 'pending',
+    createdAt: new Date().toISOString()
+  };
+
+  saveAll(LS_KEY_AI_RECS, aiRecommendations);
+  showToast('🤖 AI Agent (จำลอง 7:00 น.) ส่งวิดีโอแนะนำมาแล้ว 1 รายการ!');
+  buildAiApprovalCenter();
+
+  const el = document.getElementById('ai-approval');
+  if (el) el.scrollIntoView({ behavior: 'smooth' });
+}
+
 function buildVideoGrid() {
   const container = document.getElementById('videoGrid');
   if (!container) return;
@@ -2286,7 +2499,8 @@ function buildVideoGrid() {
     return;
   }
 
-  const filtered = LESSON_VIDEOS.filter(v => {
+  const allVids = getAllLessonVideos();
+  const filtered = allVids.filter(v => {
     const matchCat  = (currentVideoCategory === 'all' || v.category === currentVideoCategory);
     const matchChan = (currentVideoChannel  === 'all' || v.channel  === currentVideoChannel);
     return matchCat && matchChan;
@@ -2427,7 +2641,7 @@ function _applyVideoExpandState(animate) {
 // 2-WAY AUTO SYNC BETWEEN VIDEOS & PROGRESS TOPICS
 // ======================================================
 function getVideosForTopic(tid) {
-  return LESSON_VIDEOS.filter(v => v.relatedTopics && v.relatedTopics.includes(tid));
+  return getAllLessonVideos().filter(v => v.relatedTopics && v.relatedTopics.includes(tid));
 }
 
 // 1. Video -> Topic Sync: อัปเดตสถานะหัวข้อตามจำนวนวิดีโอที่เรียน
@@ -2471,7 +2685,7 @@ function toggleVideoWatched(vid) {
   watchedVideos[vid] = !watchedVideos[vid];
   saveAll(LS_KEY_WATCHED_VIDEOS, watchedVideos);
 
-  const video = LESSON_VIDEOS.find(v => v.id === vid);
+  const video = getAllLessonVideos().find(v => v.id === vid);
   let toastMsg = watchedVideos[vid] ? '✅ มาร์กเรียนวิดีโอนี้แล้ว!' : '⬜ ยกเลิกสถานะการเรียนแล้ว';
 
   if (video && video.relatedTopics && video.relatedTopics.length > 0) {
@@ -2508,7 +2722,7 @@ function toggleVideoWatched(vid) {
 }
 
 function openVideoModal(vid) {
-  const video = LESSON_VIDEOS.find(v => v.id === vid);
+  const video = getAllLessonVideos().find(v => v.id === vid);
   if (!video) return;
 
   activeModalVideoId = vid;

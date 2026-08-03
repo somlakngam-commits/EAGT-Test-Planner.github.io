@@ -3845,3 +3845,187 @@ mjx-container[display="true"] {
 .explanation-box mjx-container {
   font-size: 1.15em !important;
 }
+
+/* =============== AI VIDEO APPROVAL CENTER =============== */
+.ai-badge-count {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+  background: #ec4899;
+  color: #fff;
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 1px 6px;
+  border-radius: 10px;
+  box-shadow: 0 0 8px rgba(236,72,153,0.6);
+}
+.btn-simulate-ai {
+  background: linear-gradient(135deg, #a855f7, #ec4899);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(168,85,247,0.35);
+  transition: all 0.2s ease;
+  font-family: var(--font-th);
+}
+.btn-simulate-ai:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(168,85,247,0.5);
+}
+
+.ai-approval-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ai-rec-card {
+  background: rgba(15, 23, 42, 0.75);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 16px;
+  padding: 18px;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+}
+.ai-rec-card:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 10px 36px rgba(168, 85, 247, 0.2);
+}
+.ai-rec-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.ai-rec-badge {
+  background: rgba(168, 85, 247, 0.2);
+  color: #c084fc;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  padding: 4px 10px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+.ai-rec-status {
+  background: rgba(251, 146, 60, 0.2);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.4);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+.ai-rec-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.ai-rec-reason {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  border-left: 3px solid #a855f7;
+  padding: 8px 12px;
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 14px;
+}
+.ai-rec-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.btn-rec-approve {
+  background: linear-gradient(135deg, #10b981, #059669);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+  transition: all 0.18s ease;
+  font-family: var(--font-th);
+}
+.btn-rec-approve:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.45);
+}
+.btn-rec-preview {
+  background: rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--font-th);
+}
+.btn-rec-preview:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.btn-rec-edit {
+  background: rgba(251, 146, 60, 0.15);
+  color: #fb923c;
+  border: 1px solid rgba(251, 146, 60, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--font-th);
+}
+.btn-rec-edit:hover {
+  background: rgba(251, 146, 60, 0.25);
+}
+.btn-rec-reject {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  font-family: var(--font-th);
+}
+.btn-rec-reject:hover {
+  background: rgba(239, 68, 68, 0.25);
+}
+.ai-preview-frame {
+  margin-top: 12px;
+  width: 100%;
+  aspect-ratio: 16/9;
+  max-width: 640px;
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  overflow: hidden;
+}
+.ai-empty-state {
+  text-align: center;
+  padding: 32px 16px;
+  background: rgba(15, 23, 42, 0.4);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+}
+.badge-ai-approved {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.25), rgba(236, 72, 153, 0.25));
+  color: #e879f9;
+  border: 1px solid rgba(168, 85, 247, 0.4);
+  font-size: 0.7rem;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-weight: 700;
+  margin-left: 6px;
+}
