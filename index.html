@@ -143,7 +143,6 @@
       <div class="nav-links">
         <a href="#subjects" class="nav-link active"><span class="nav-icon">📚</span><span class="nav-text">วิชาที่สอบ</span></a>
         <a href="#planner" class="nav-link"><span class="nav-icon">📅</span><span class="nav-text">ตารางเรียน</span></a>
-        <a href="#ai-approval" class="nav-link" id="navAiApproval" style="position:relative;"><span class="nav-icon">🤖</span><span class="nav-text">ศูนย์อนุมัติ AI</span><span class="ai-badge-count" id="navAiBadge" style="display:none;">0</span></a>
         <a href="#videos" class="nav-link"><span class="nav-icon">🎬</span><span class="nav-text">วิดีโอเรียน</span></a>
         <a href="#mocktest" class="nav-link"><span class="nav-icon">📝</span><span class="nav-text">ข้อสอบ Mock Test</span></a>
         <a href="#progress" class="nav-link"><span class="nav-icon">📊</span><span class="nav-text">ความก้าวหน้า</span></a>
@@ -183,29 +182,6 @@
           </div>
         </div>
         <div class="weekly-grid" id="weeklyGrid"></div>
-      </div>
-    </section>
-
-    <!-- ===== AI VIDEO APPROVAL SECTION ===== -->
-    <section class="section" id="ai-approval">
-      <div class="section-header">
-        <div class="section-tag" style="background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(236,72,153,0.2)); color: #c084fc; border: 1px solid rgba(168,85,247,0.4);">
-          🤖 AI Video Agent (Human-in-the-Loop)
-        </div>
-        <h2 class="section-title">ศูนย์อนุมัติวิดีโอจาก AI Agent</h2>
-        <p class="section-desc">
-          วิดีโอที่ Agent คัดเลือกมาให้ประจำวัน (7:00 น.) · ตรวจสอบและกดอนุมัติด้วยตนเองก่อนเพิ่มเข้าตารางเรียนจริง
-        </p>
-        <div class="ai-header-actions" style="margin-top: 12px; display: flex; gap: 10px; flex-wrap: wrap;">
-          <button id="simulateAiAgentBtn" class="btn-simulate-ai" type="button">
-            ✨ จำลอง Agent เสนอวิดีโอ (7:00 น.)
-          </button>
-        </div>
-      </div>
-
-      <!-- Container for pending approval items -->
-      <div class="ai-approval-container" id="aiApprovalContainer">
-        <!-- filled dynamically by JS -->
       </div>
     </section>
 
