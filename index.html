@@ -1,13 +1,17 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EGAT Prep | แผนเตรียมสอบ กฟผ.</title>
-  <meta name="description" content="คู่มือและแผนเตรียมสอบ กฟผ. ครบถ้วนทุกวิชา Aptitude Test คลังโจทย์ 300+ ข้อ พร้อมระบบสุ่มข้อสอบและติดตามความก้าวหน้า" />
+  <meta name="description"
+    content="คู่มือและแผนเตรียมสอบ กฟผ. ครบถ้วนทุกวิชา Aptitude Test คลังโจทย์ 300+ ข้อ พร้อมระบบสุ่มข้อสอบและติดตามความก้าวหน้า" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 
   <!-- Favicon / Web Icon -->
@@ -26,8 +30,8 @@
   <script>
     window.MathJax = {
       tex: {
-        inlineMath: [['\\(', '\\)'], ['$','$']],
-        displayMath: [['\\[', '\\]'], ['$$','$$']]
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['\\[', '\\]'], ['$$', '$$']]
       },
       options: {
         skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
@@ -36,6 +40,7 @@
   </script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 </head>
+
 <body>
   <!-- Background animated particles -->
   <div class="bg-particles" id="bgParticles"></div>
@@ -47,17 +52,10 @@
       <h2 class="sync-modal-title">ตั้งค่า Sync Code</h2>
       <p class="sync-modal-desc">
         Sync Code คือรหัสส่วนตัวของคุณ ใช้เพื่อ sync ความก้าวหน้าระหว่างอุปกรณ์
-        <br/>ตั้งรหัสอะไรก็ได้ที่จำได้ง่าย (ภาษาอังกฤษ/ตัวเลข)
+        <br />ตั้งรหัสอะไรก็ได้ที่จำได้ง่าย (ภาษาอังกฤษ/ตัวเลข)
       </p>
-      <input
-        type="text"
-        id="syncCodeInput"
-        class="sync-code-input"
-        placeholder="เช่น MYNAME2025"
-        maxlength="30"
-        autocomplete="off"
-        spellcheck="false"
-      />
+      <input type="text" id="syncCodeInput" class="sync-code-input" placeholder="เช่น MYNAME2025" maxlength="30"
+        autocomplete="off" spellcheck="false" />
       <p class="sync-modal-warn">⚠️ ต้องตรงกันทุกอุปกรณ์ที่ต้องการ sync</p>
       <button id="syncCodeConfirmBtn" class="btn-sync-confirm">เริ่มใช้งาน →</button>
       <p class="sync-modal-skip"><a href="#" id="syncSkipBtn">ข้าม (ใช้เฉพาะเครื่องนี้)</a></p>
@@ -78,7 +76,7 @@
         <span class="badge-dot"></span>
         <span>การไฟฟ้าฝ่ายผลิตแห่งประเทศไทย (กฟผ.)</span>
       </div>
-      <h1 class="hero-title">แผนเตรียมสอบ<br/><span class="gradient-text" id="heroTitleDays">กฟผ.</span></h1>
+      <h1 class="hero-title">แผนเตรียมสอบ<br /><span class="gradient-text" id="heroTitleDays">กฟผ.</span></h1>
       <p class="hero-subtitle">วางแผนอย่างเป็นระบบ · ติดตามความก้าวหน้า · สอบผ่านอย่างมั่นใจ</p>
 
       <!-- Countdown -->
@@ -141,11 +139,14 @@
     <div class="nav-inner">
       <span class="nav-logo">📚 EGAT Planner</span>
       <div class="nav-links">
-        <a href="#subjects" class="nav-link active"><span class="nav-icon">📚</span><span class="nav-text">วิชาที่สอบ</span></a>
+        <a href="#subjects" class="nav-link active"><span class="nav-icon">📚</span><span
+            class="nav-text">วิชาที่สอบ</span></a>
         <a href="#planner" class="nav-link"><span class="nav-icon">📅</span><span class="nav-text">ตารางเรียน</span></a>
         <a href="#videos" class="nav-link"><span class="nav-icon">🎬</span><span class="nav-text">วิดีโอเรียน</span></a>
-        <a href="#mocktest" class="nav-link"><span class="nav-icon">📝</span><span class="nav-text">ข้อสอบ Mock Test</span></a>
-        <a href="#progress" class="nav-link"><span class="nav-icon">📊</span><span class="nav-text">ความก้าวหน้า</span></a>
+        <a href="#mocktest" class="nav-link"><span class="nav-icon">📝</span><span class="nav-text">ข้อสอบ Mock
+            Test</span></a>
+        <a href="#progress" class="nav-link"><span class="nav-icon">📊</span><span
+            class="nav-text">ความก้าวหน้า</span></a>
         <a href="#tips" class="nav-link"><span class="nav-icon">💡</span><span class="nav-text">เคล็ดลับ</span></a>
       </div>
     </div>
@@ -158,7 +159,8 @@
       <div class="section-header">
         <div class="section-tag">วิชาที่ต้องสอบ</div>
         <h2 class="section-title">Aptitude Test กฟผ. ระดับปริญญาตรี</h2>
-        <p class="section-desc">โครงสร้างข้อสอบจากแนวสอบจริง ปี&nbsp;65,&nbsp;68,&nbsp;69 · คะแนนรวม&nbsp;100&nbsp;คะแนน · เวลา&nbsp;2.30&nbsp;ชั่วโมง</p>
+        <p class="section-desc">โครงสร้างข้อสอบจากแนวสอบจริง ปี&nbsp;65,&nbsp;68,&nbsp;69 · คะแนนรวม&nbsp;100&nbsp;คะแนน
+          · เวลา&nbsp;2.30&nbsp;ชั่วโมง</p>
       </div>
       <div class="subject-grid" id="subjectGrid"></div>
     </section>
@@ -190,7 +192,8 @@
       <div class="section-header">
         <div class="section-tag">คลังวิดีโอเรียน</div>
         <h2 class="section-title">วิดีโอติวสอบ Aptitude Test</h2>
-        <p class="section-desc">รวบรวมคลิปติวสอบ กฟผ. จากช่อง YouTube ติวเตอร์ชั้นนำ · คลิกเพื่อรับชมและบันทึกการเรียน</p>
+        <p class="section-desc">รวบรวมคลิปติวสอบ กฟผ. จากช่อง YouTube ติวเตอร์ชั้นนำ · คลิกเพื่อรับชมและบันทึกการเรียน
+        </p>
       </div>
 
       <!-- Controls -->
@@ -217,7 +220,8 @@
       <div class="section-header">
         <div class="section-tag">คลังข้อสอบ & จำลองสอบ</div>
         <h2 class="section-title">Mock Test ฝึกทำข้อสอบแยกตามรายวิชา</h2>
-        <p class="section-desc">คลังโจทย์แนวสอบจริง 250+ ข้อ (วิชาละ 50 ข้อ) พร้อมระบบสุ่มข้อสอบ (Randomized Questions) สลับช้อยส์ A/B/C/D ตรวจเฉลยคำอธิบายละเอียด และบันทึกคะแนนอัตโนมัติ</p>
+        <p class="section-desc">คลังโจทย์แนวสอบจริง 250+ ข้อ (วิชาละ 50 ข้อ) พร้อมระบบสุ่มข้อสอบ (Randomized Questions)
+          สลับช้อยส์ A/B/C/D ตรวจเฉลยคำอธิบายละเอียด และบันทึกคะแนนอัตโนมัติ</p>
       </div>
 
       <!-- Controls & Filter -->
@@ -386,7 +390,8 @@
               <span>วิดีโอที่ยังต้องดูเพื่อเสร็จหัวข้อ</span>
               <span class="rvs-badge-summary" id="rvsHeaderSummaryBadge" style="display:none;"></span>
             </div>
-            <span class="rvs-hint">หัวข้อที่กำลังเรียน <span class="rvs-dot in-prog"></span> → เมื่อดูครบจะเปลี่ยนเป็น <span class="rvs-dot done"></span></span>
+            <span class="rvs-hint">หัวข้อที่กำลังเรียน <span class="rvs-dot in-prog"></span> → เมื่อดูครบจะเปลี่ยนเป็น
+              <span class="rvs-dot done"></span></span>
           </div>
           <button class="rvs-toggle-btn" id="rvsToggleBtn" type="button" title="ย่อ / ขยาย เนื้อหา">
             <span id="rvsToggleText">ย่อเนื้อหา</span>
@@ -454,7 +459,8 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>⚡ EGAT Prep 60D · คู่มือและแผนเตรียมสอบ กฟผ. · อ้างอิงแนวสอบจริงปี 65, 68, 69 · <a href="https://www.egat.co.th" target="_blank" rel="noopener">www.egat.co.th</a></p>
+    <p>⚡ EGAT Prep 60D · คู่มือและแผนเตรียมสอบ กฟผ. · อ้างอิงแนวสอบจริงปี 65, 68, 69 · <a href="https://www.egat.co.th"
+        target="_blank" rel="noopener">www.egat.co.th</a></p>
     <p class="footer-note">⚠️ โครงสร้างข้อสอบอาจเปลี่ยนแปลงได้ตามนโยบายรับสมัครแต่ละปี</p>
   </footer>
 
@@ -475,7 +481,9 @@
         </div>
       </div>
       <div class="video-player-wrapper">
-        <iframe id="videoModalIframe" src="" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <iframe id="videoModalIframe" src="" title="YouTube video player" frameborder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen></iframe>
       </div>
       <div class="video-modal-footer">
         <a href="#" id="videoModalFooterLink" target="_blank" rel="noopener noreferrer" class="btn-external-yt-link">
@@ -499,7 +507,8 @@
           <a href="#" id="pdfModalDownload" download class="btn-pdf-action btn-download" title="ดาวน์โหลดไฟล์ PDF">
             📥 ดาวน์โหลด PDF
           </a>
-          <a href="#" id="pdfModalExternal" target="_blank" rel="noopener noreferrer" class="btn-pdf-action btn-external" title="เปิดหน้าต่างใหม่">
+          <a href="#" id="pdfModalExternal" target="_blank" rel="noopener noreferrer"
+            class="btn-pdf-action btn-external" title="เปิดหน้าต่างใหม่">
             ↗️ เปิดหน้าใหม่
           </a>
           <button class="pm-close-btn" id="pdfModalCloseBtn" title="ปิดหน้าต่าง">✕</button>
@@ -509,9 +518,11 @@
         <iframe id="pdfViewerIframe" src="" title="PDF Exam Viewer" frameborder="0"></iframe>
       </div>
       <div class="pdf-modal-footer">
-        <span class="pm-mobile-hint">📱 สำหรับ iPad / มือถือ: หากเลื่อนในป๊อปอัพไม่สะดวก กดเปิดเต็มหน้าเพื่ออ่านแบบลื่นไหล 100%</span>
+        <span class="pm-mobile-hint">📱 สำหรับ iPad / มือถือ: หากเลื่อนในป๊อปอัพไม่สะดวก
+          กดเปิดเต็มหน้าเพื่ออ่านแบบลื่นไหล 100%</span>
         <div class="pm-footer-actions">
-          <a href="#" id="pdfModalFooterExternal" target="_blank" rel="noopener noreferrer" class="btn-pdf-footer-action">
+          <a href="#" id="pdfModalFooterExternal" target="_blank" rel="noopener noreferrer"
+            class="btn-pdf-footer-action">
             📖 เปิดอ่านเต็มหน้า (iPad/Mobile) ↗
           </a>
           <a href="#" id="pdfModalFooterDownload" download class="btn-pdf-footer-action btn-dl">
@@ -527,4 +538,5 @@
 
   <script src="app.js"></script>
 </body>
+
 </html>

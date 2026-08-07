@@ -2194,6 +2194,18 @@ const LESSON_VIDEOS = [
     youtubeId: 'DZO44oMUzQw',
     desc: 'ตะลุยโจทย์การเรียงลำดับประโยคภาษาไทย ฝึกทำข้อสอบจริง ก.พ. เทคนิคทำเร็ว',
     relatedTopics: ['verbal_middle', 'verbal_reading']
+  },
+  {
+    id: 'v_bird_1',
+    title: 'Ep.12 Trick นาฬิกา (สูตรลัดขั้นเทพ)',
+    channel: 'พี่เบิร์ด คณิตศาสตร์',
+    category: 'math',
+    categoryLabel: '🔢 คณิตศาสตร์',
+    accentColor: '#3b82f6',
+    duration: '20:00',
+    youtubeId: '3dT-3ERYkeo',
+    desc: 'สูตรลัดและเทคนิคการคำนวณหามุมระหว่างเข็มนาฬิกา และโจทย์เวลาสำหรับการสอบ ก.พ. / กฟผ.',
+    relatedTopics: ['math_clock']
   }
 ];
 
